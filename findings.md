@@ -24,6 +24,7 @@ Model: llama3.2:3b, temperature 0.2, top-3 retrieval
 |---|---|---|---|---|---|
 | B1 | POST to an unknown route | Express HTML error page | JSON 404 | 2026-10-17, 8abb025 | Fixed in 4276763 |
 | B2 | /ask while Ollama fails | Express HTML error page | JSON 503 | 2026-10-17, 8abb025 | Fixed in 4276763 |
+| B3 | UI: Ask while Ollama fails | Error repeats itself: "LLM service is unavailable. The language model is unavailable. …" | One clear message with a hint | 2026-10-17, uncommitted (before d7308e1) | Fixed in d7308e1 |
 
 ## Excluded
 
