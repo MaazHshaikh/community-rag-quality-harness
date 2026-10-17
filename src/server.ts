@@ -14,6 +14,9 @@ app.get("/health", (_req, res) => {
   res.json({ status: "ok" });
 });
 
+// Serves public/index.html at "/". The page holds no token; the user types it in.
+app.use(express.static("public"));
+
 // Auth runs before body parsing, so unauthenticated requests get 401 even with a malformed body.
 app.use(["/search", "/ask"], requireBearerToken, express.json());
 
