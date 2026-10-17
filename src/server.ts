@@ -1,4 +1,5 @@
 import express, { type ErrorRequestHandler } from "express";
+import { ask } from "./answer.js";
 import { loadChunks } from "./chunking.js";
 import { buildIndex, indexSize, search } from "./vectorStore.js";
 
@@ -18,6 +19,15 @@ app.post("/search", async (req, res) => {
     return;
   }
   res.json({ results: await search(query) });
+});
+
+app.post("/ask", async (req, res) => {
+  const question = typeof req.body?.question === "string" ? req.body.question.trim() : "";
+  if (!question) {
+    res.status(400).json({ error: "Field 'question' is required and must be a non-empty string" });
+    return;
+  }
+  res.json(await ask(question));
 });
 
 // Malformed JSON bodies get a JSON error instead of Express's default HTML page.

@@ -1,8 +1,4 @@
-function requireEnv(name: string): string {
-  const value = process.env[name];
-  if (!value) throw new Error(`Missing env var ${name}. Copy .env.example to .env.`);
-  return value;
-}
+import { requireEnv } from "./env.js";
 
 const ollamaUrl = requireEnv("OLLAMA_URL");
 const embedModel = requireEnv("EMBED_MODEL");
