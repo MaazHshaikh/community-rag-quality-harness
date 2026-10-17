@@ -1,0 +1,46 @@
+import type { Chunk } from "./chunking.js";
+import { embed } from "./ollama.js";
+
+interface IndexedChunk extends Chunk {
+  vector: number[];
+}
+
+export interface SearchResult {
+  source: string;
+  text: string;
+  score: number;
+}
+
+let index: IndexedChunk[] = [];
+
+export async function buildIndex(chunks: Chunk[]): Promise<void> {
+  const vectors = await embed(
+    chunks.map((c) => c.text),
+    "search_document",
+  );
+  index = chunks.map((chunk, i) => ({ ...chunk, vector: vectors[i] }));
+}
+
+export function indexSize(): number {
+  return index.length;
+}
+
+function cosineSimilarity(a: number[], b: number[]): number {
+  let dot = 0;
+  let normA = 0;
+  let normB = 0;
+  for (let i = 0; i < a.length; i++) {
+    dot += a[i] * b[i];
+    normA += a[i] * a[i];
+    normB += b[i] * b[i];
+  }
+  return dot / (Math.sqrt(normA) * Math.sqrt(normB));
+}
+
+export async function search(query: string, topK = 3): Promise<SearchResult[]> {
+  const [queryVector] = await embed([query], "search_query");
+  return index
+    .map((c) => ({ source: c.source, text: c.text, score: cosineSimilarity(queryVector, c.vector) }))
+    .sort((a, b) => b.score - a.score)
+    .slice(0, topK);
+}
