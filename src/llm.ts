@@ -1,4 +1,5 @@
 import { requireEnv, requireNumberEnv } from "./env.js";
+import { postToOllama } from "./ollama.js";
 
 export interface LlmProvider {
   generate(prompt: string): Promise<string>;
@@ -11,24 +12,14 @@ interface GenerationOptions {
 }
 
 function ollamaProvider(options: GenerationOptions): LlmProvider {
-  const ollamaUrl = requireEnv("OLLAMA_URL");
-
   return {
     async generate(prompt) {
-      const response = await fetch(`${ollamaUrl}/api/chat`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: options.model,
-          messages: [{ role: "user", content: prompt }],
-          stream: false,
-          options: { temperature: options.temperature, num_predict: options.maxOutputTokens },
-        }),
+      const data = await postToOllama<{ message: { content: string } }>("/api/chat", {
+        model: options.model,
+        messages: [{ role: "user", content: prompt }],
+        stream: false,
+        options: { temperature: options.temperature, num_predict: options.maxOutputTokens },
       });
-      if (!response.ok) {
-        throw new Error(`Ollama chat failed (${response.status}): ${await response.text()}`);
-      }
-      const data = (await response.json()) as { message: { content: string } };
       return data.message.content.trim();
     },
   };
