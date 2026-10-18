@@ -2,12 +2,14 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { expect, test } from "@playwright/test";
 import { z } from "zod";
-import { factLabel, findFact, normalize } from "../../eval/scoring.js";
+import { findFact, normalize } from "../../eval/scoring.js";
 
 const Phrase = z.string().trim().min(1);
 
 // A fact is one phrase, or a list of acceptable variants where any one counts as a match
-// (e.g. ["once per week", "once a week", "weekly"]).
+// (e.g. ["once per week", "once a week", "weekly"]). The first variant is canonical: it must
+// be the docs' own wording. Later variants are answer phrasings and may be looser ("7 days"),
+// so the checks against doc text below use only the canonical variant.
 const Fact = z.union([Phrase, z.array(Phrase).min(1)]);
 
 const GoldenEntry = z
@@ -27,14 +29,14 @@ const GoldenEntry = z
 type Fact = z.infer<typeof Fact>;
 
 const variants = (fact: Fact) => (Array.isArray(fact) ? fact : [fact]).map(normalize);
-const label = factLabel;
 
 const parsed = z.array(GoldenEntry).safeParse(JSON.parse(readFileSync("eval/golden.json", "utf8")));
 // An invalid file still loads as [] so the schema test can report a readable error.
 const golden = parsed.success ? parsed.data : [];
 const docText = (file: string) => readFileSync(path.join("docs", file), "utf8");
+const canonical = (fact: Fact) => (Array.isArray(fact) ? fact[0] : fact);
 // Same matcher as the scorer (eval/scoring.ts), so a fact that passes here is scoreable there.
-const inText = (text: string, fact: Fact) => findFact(text, fact) !== null;
+const canonicalInText = (text: string, fact: Fact) => findFact(text, canonical(fact)) !== null;
 
 test.describe("eval/golden.json", () => {
   test("matches the entry schema", () => {
@@ -80,13 +82,12 @@ test.describe("eval/golden.json", () => {
   });
 
   // Guards the dataset itself: an expected fact the docs don't contain would be an unfair test.
-  // For a variant list, at least one variant must appear; the others cover answer phrasings.
-  test("every expected fact appears in one of its expected sources", () => {
+  test("every fact's canonical variant appears in one of its expected sources", () => {
     for (const e of golden) {
       const sources = e.expected_sources.map(docText);
       for (const fact of e.expected_facts) {
-        const found = sources.some((text) => inText(text, fact));
-        expect(found, `${e.id}: "${label(fact)}" not found in ${e.expected_sources.join(", ")}`).toBe(true);
+        const found = sources.some((text) => canonicalInText(text, fact));
+        expect(found, `${e.id}: "${canonical(fact)}" not found in ${e.expected_sources.join(", ")}`).toBe(true);
       }
     }
   });
@@ -96,7 +97,7 @@ test.describe("eval/golden.json", () => {
     for (const e of golden.filter((e) => e.category === "multi_doc")) {
       for (const source of e.expected_sources) {
         const text = docText(source);
-        const coversAll = e.expected_facts.every((fact) => inText(text, fact));
+        const coversAll = e.expected_facts.every((fact) => canonicalInText(text, fact));
         expect(coversAll, `${e.id}: ${source} alone contains every expected fact`).toBe(false);
       }
     }

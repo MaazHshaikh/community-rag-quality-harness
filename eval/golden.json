@@ -51,7 +51,7 @@
     "id": "single-07",
     "question": "How many settlement currencies does ZoisPay support?",
     "category": "single_fact",
-    "expected_facts": ["6 settlement currencies"],
+    "expected_facts": [["6 settlement currencies", "6 currencies"]],
     "expected_sources": ["fact-pricing-and-fees.md"],
     "forbidden_facts": ["38 settlement currencies"]
   },
@@ -75,7 +75,7 @@
     "id": "single-10",
     "question": "What is the daily payout cutoff time?",
     "category": "single_fact",
-    "expected_facts": ["14:00 UTC"],
+    "expected_facts": [["14:00 UTC", "2 PM UTC", "2:00 PM UTC"]],
     "expected_sources": ["fact-settlements-and-payouts.md"],
     "forbidden_facts": ["12:00", "16:00"]
   },
@@ -187,7 +187,7 @@
     "id": "multi-04",
     "question": "How long do card payments take to settle, and how long does a merchant have to submit evidence for a card chargeback?",
     "category": "multi_doc",
-    "expected_facts": [["2 business days", "T+2"], "7 calendar days"],
+    "expected_facts": [["2 business days", "T+2"], ["7 calendar days", "7 days"]],
     "expected_sources": ["fact-settlements-and-payouts.md", "fact-refunds-and-disputes.md"],
     "forbidden_facts": ["10 calendar days", "T+1"]
   },
@@ -229,13 +229,13 @@
     "category": "conflict",
     "expected_facts": ["Hiroshi", "same day", "Grace"],
     "expected_sources": ["thread-retrying-failed-payments.md"],
-    "forbidden_facts": ["I don't know based on the community docs"]
+    "forbidden_facts": ["I don't know based on the community docs", "same idempotency key on every retry"]
   },
   {
     "id": "conflict-05",
     "question": "Is direct carrier billing worth the 12% fee?",
     "category": "conflict",
-    "expected_facts": ["Omar", "Rebecca", "30 days"],
+    "expected_facts": ["Omar", "Rebecca", ["30 days", "T+30"]],
     "expected_sources": ["thread-carrier-billing-worth-it.md"],
     "forbidden_facts": ["I don't know based on the community docs"]
   }

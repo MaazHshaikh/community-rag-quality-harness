@@ -2,6 +2,8 @@
 
 Model: llama3.2:3b, temperature 0.2, top-3 retrieval
 
+> **Corpus change (2026-10-18):** F1–F4, R1–R2, and the Excluded entry were found on the old FounderHub corpus, which was replaced by the ZoisPay corpus in `ee5836c`. Their questions refer to docs that no longer exist, so they can't be re-checked against the current app; they stay here as history. The API bugs (B1–B5) are corpus-independent and still apply.
+
 ## AI Quality Findings
 
 | # | Question | Answer | Expected | Type | Found | Status |
