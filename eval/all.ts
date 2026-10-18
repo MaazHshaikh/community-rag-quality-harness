@@ -6,6 +6,7 @@ import { type ChildProcess, execSync, spawn } from "node:child_process";
 import { createWriteStream, existsSync, readdirSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
+import { isDirty } from "./appClient.js";
 import { RUNS_DIR } from "./runDir.js";
 
 const PORT = 3100;
@@ -98,8 +99,9 @@ function runScript(script: string, args: string[] = []): Promise<void> {
 const listRuns = () => (existsSync(RUNS_DIR) ? new Set(readdirSync(RUNS_DIR)) : new Set<string>());
 
 async function main() {
-  const status = execSync("git status --porcelain", { encoding: "utf8" }).trim();
-  if (status) {
+  // Eval outputs from an earlier pass don't count, so eval:all can run repeatedly at one commit.
+  if (isDirty()) {
+    const status = execSync("git status --porcelain", { encoding: "utf8" }).trim();
     console.error("eval:all needs a clean git tree so every run is reproducible from its commit. Commit or stash first:\n" + status);
     process.exit(1);
   }
