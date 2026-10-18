@@ -33,6 +33,7 @@ export default defineConfig({
     env: { PORT: String(PORT) },
     url: `http://localhost:${PORT}/health`,
     reuseExistingServer: false,
-    timeout: 30_000,
+    // Startup has exceeded 30 s while Ollama was busy (e.g. right after a judge run).
+    timeout: 60_000,
   },
 });
