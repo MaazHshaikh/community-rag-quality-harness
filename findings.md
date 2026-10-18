@@ -59,3 +59,31 @@ Agreement: 12/18 exact, 14/18 within 1 point, mean absolute difference 0.61. Jud
 | J2 | Applies the fact-credited-to-forum rule inconsistently, and to the wrong dimension | single-03 lost correctness for it; single-18 (same pattern, credited to Elena) got groundedness 5 |
 | J3 | Reasons can be wrong even when scores look close | conflict-03: claimed "72%, not 61%" (the answer had it right) and missed the actual reversal of Lukas's view |
 | J4 | Unsupported invented number not penalised in groundedness | single-07: "2 settlement currencies" appears nowhere in the docs, groundedness 4 |
+
+### v2: same model and settings, judge prompt `775fae122dfc`
+
+Prompt changes: "the community docs" is generic phrasing, never a misattribution (J1); attribution problems affect groundedness only, never correctness (J2); worked example of a reversed opinion scoring groundedness 1 (J3). Re-run on the same 30 answers (51 minutes, no retries, no failures).
+
+| ID | You | v1 | v2 |
+|---|---|---|---|
+| single-13 | 5 / 5 / 5 | 5 / 5 / 5 | 5 / 5 / 5 |
+| single-07 | 1 / 1 / 1 | 1 / 4 / 1 | 1 / 4 / 1 |
+| single-03 | 5 / 4 / 3 | 3 / 4 / 5 | **1 / 3** / 3 |
+| conflict-03 | 1 / 3 / 2 | 3 / 3 / 3 | 3 / 3 / 3 |
+| conflict-04 | 2 / 4 / 3 | 3 / 4 / 3 | 3 / **3** / 3 |
+| single-19 | 5 / 5 / 5 | 5 / 5 / 5 | 5 / 5 / 5 |
+| single-02 (rubric: correct answer) | — | 1 / 4 / 5 | **5 / 5 / 5** |
+| single-18 (fact credited to Elena) | — | 5 / 5 / 5 | 5 / 5 / 5 |
+
+Agreement on the 6 hand-scored answers: v1 12/18 exact, 14/18 within 1, mean absolute difference 0.61; v2 11/18 exact, 15/18 within 1, mean absolute difference 0.72.
+
+| Issue | v2 result |
+|---|---|
+| J1 | **Fixed.** single-02 went from correctness 1 to 5, multi-04 from 3 to 5; no reason mentions "community docs" any more |
+| J2 | **Not fixed, and worse on single-03:** correctness 1 with the reason "12% is not the correct fee", which contradicts the fact sheet and the judge's own completeness reason ("provides the correct fee") |
+| J3 | **Not fixed.** conflict-03 still misses the reversal of Lukas's view and repeats the wrong "61% to 72%, not the other way around" reason, despite the worked example |
+| J4 | Not targeted by v2; single-07 still gets groundedness 4 for an invented number |
+
+Note on single-18 and single-03: Elena and Zara did state those facts in their posts, so crediting them is literally true. The rubric treats it as a minor issue (groundedness at most 4); the judge doesn't apply that consistently in either version.
+
+Conclusion: v2 removes the systematic "community docs" false alarms but does not improve agreement with the hand scores, and qwen2.5:7b still makes factual errors in its own reasons. Treat judge scores as a noisy signal next to the deterministic scores, not as ground truth.

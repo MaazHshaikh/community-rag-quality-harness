@@ -1,5 +1,5 @@
 {
-  "judged_at": "2026-10-18T13:08:13.168Z",
+  "judged_at": "2026-10-18T14:18:40.366Z",
   "run_dir": "eval/runs/2026-10-18T10-14-35-044Z",
   "judge_model": "qwen2.5:7b",
   "options": {
@@ -9,34 +9,34 @@
     "num_predict": 400
   },
   "judge_prompt_file": "eval/prompts/judge.txt",
-  "judge_prompt_sha256": "cdaf8039458a3e0c15a4a9b97c43570926cfa91bb16c00b05d41493f0eb4c15b",
+  "judge_prompt_sha256": "775fae122dfc2f42530ca3b7a2e43ab65237205d907d2bc85eab995a2ddf57cb",
   "golden_sha256": "508968d8cccaa0f6470057ca9b5fc1631b441868d9e6dbdbec23636c4aedd087",
-  "duration_ms": 2865935,
+  "duration_ms": 3034220,
   "summary": {
     "overall": {
       "judged": 30,
-      "correctness": 4.07,
+      "correctness": 4.23,
       "groundedness": 4.63,
-      "completeness": 4.27
+      "completeness": 4.37
     },
     "by_category": {
       "single_fact": {
         "judged": 20,
-        "correctness": 4.2,
-        "groundedness": 4.75,
+        "correctness": 4.4,
+        "groundedness": 4.8,
         "completeness": 4.5
       },
       "multi_doc": {
         "judged": 5,
-        "correctness": 4.2,
-        "groundedness": 4.6,
+        "correctness": 4.6,
+        "groundedness": 5,
         "completeness": 4.6
       },
       "conflict": {
         "judged": 5,
-        "correctness": 3.4,
-        "groundedness": 4.2,
-        "completeness": 3
+        "correctness": 3.2,
+        "groundedness": 3.6,
+        "completeness": 3.6
       }
     }
   },
@@ -60,55 +60,55 @@
       },
       "error": null,
       "attempts": 1,
-      "prompt_tokens": 1193,
+      "prompt_tokens": 1338,
       "context_truncated": false,
-      "latency_ms": 64089
+      "latency_ms": 129367
     },
     {
       "id": "single-02",
       "category": "single_fact",
       "verdict": {
         "correctness": {
-          "score": 1,
-          "reason": "The answer states a fact that is corrected by the official fact sheet."
+          "score": 5,
+          "reason": "The answer correctly states the 1.5% surcharge for international cards."
         },
         "groundedness": {
-          "score": 4,
-          "reason": "The attribution to 'community docs' is incorrect, as the fact is from the official fact sheet."
+          "score": 5,
+          "reason": "The answer is directly supported by the fact sheet and correctly attributed."
         },
         "completeness": {
           "score": 5,
-          "reason": "The answer covers the expected fact."
+          "reason": "The answer fully covers the requested information without omitting any relevant details."
         }
       },
       "error": null,
       "attempts": 1,
-      "prompt_tokens": 1728,
+      "prompt_tokens": 1873,
       "context_truncated": false,
-      "latency_ms": 75386
+      "latency_ms": 124705
     },
     {
       "id": "single-03",
       "category": "single_fact",
       "verdict": {
         "correctness": {
-          "score": 3,
-          "reason": "The answer correctly states the fee but incorrectly attributes it to a forum post instead of the official fact sheet."
+          "score": 1,
+          "reason": "The answer states the fee as 12%, but this is not the correct fee according to the fact sheet."
         },
         "groundedness": {
-          "score": 4,
-          "reason": "The attribution is incorrect, but the fact itself is correct."
+          "score": 3,
+          "reason": "The attribution to Zara Sheikh is incorrect; the fee is stated in the fact sheet, not in the discussion thread."
         },
         "completeness": {
-          "score": 5,
-          "reason": "The answer covers the expected fact."
+          "score": 3,
+          "reason": "The answer provides the correct fee but omits the fact that the fee is a flat 12% and not a percentage of the transaction amount."
         }
       },
       "error": null,
       "attempts": 1,
-      "prompt_tokens": 1728,
+      "prompt_tokens": 1873,
       "context_truncated": false,
-      "latency_ms": 79045
+      "latency_ms": 143962
     },
     {
       "id": "single-04",
@@ -116,22 +116,22 @@
       "verdict": {
         "correctness": {
           "score": 5,
-          "reason": "All stated facts are correct according to the fact sheet."
+          "reason": "The answer correctly states the countries where direct carrier billing is available according to the fact sheet."
         },
         "groundedness": {
           "score": 5,
-          "reason": "Every claim is supported by the fact sheet and attributed correctly."
+          "reason": "The answer is directly supported by the fact sheet and there are no unsupported claims or misattributions."
         },
         "completeness": {
           "score": 5,
-          "reason": "The answer covers all expected facts without missing any."
+          "reason": "The answer fully covers the expected facts without omitting any."
         }
       },
       "error": null,
       "attempts": 1,
-      "prompt_tokens": 1711,
+      "prompt_tokens": 1856,
       "context_truncated": false,
-      "latency_ms": 81678
+      "latency_ms": 137771
     },
     {
       "id": "single-05",
@@ -139,22 +139,22 @@
       "verdict": {
         "correctness": {
           "score": 1,
-          "reason": "The answer states the wrong fee for bank transfers, contradicting the fact sheet."
+          "reason": "The answer states the wrong fee for bank transfers, which is $5, not $0.25."
         },
         "groundedness": {
           "score": 4,
-          "reason": "The answer incorrectly attributes the information to community docs instead of the official fact sheet."
+          "reason": "The attribution to the community docs is incorrect, as the fact sheet is the authoritative source."
         },
         "completeness": {
           "score": 1,
-          "reason": "The answer does not cover the correct fee for bank transfers as stated in the fact sheet."
+          "reason": "The answer does not cover the correct fee for bank transfers, which is $5."
         }
       },
       "error": null,
       "attempts": 1,
-      "prompt_tokens": 1204,
+      "prompt_tokens": 1349,
       "context_truncated": false,
-      "latency_ms": 57550
+      "latency_ms": 86839
     },
     {
       "id": "single-06",
@@ -162,11 +162,11 @@
       "verdict": {
         "correctness": {
           "score": 5,
-          "reason": "The stated fact is correct according to the document."
+          "reason": "The stated markup of 1.75% is correct according to the document."
         },
         "groundedness": {
           "score": 5,
-          "reason": "The claim is directly supported by the document and no attribution issues are present."
+          "reason": "The claim is directly supported by the document and no attribution issues exist."
         },
         "completeness": {
           "score": 5,
@@ -175,9 +175,9 @@
       },
       "error": null,
       "attempts": 1,
-      "prompt_tokens": 1191,
+      "prompt_tokens": 1336,
       "context_truncated": false,
-      "latency_ms": 54147
+      "latency_ms": 84943
     },
     {
       "id": "single-07",
@@ -185,22 +185,22 @@
       "verdict": {
         "correctness": {
           "score": 1,
-          "reason": "The answer states 2 settlement currencies, but the documents state 6."
+          "reason": "The answer states 2 settlement currencies, but the documents say 6."
         },
         "groundedness": {
           "score": 4,
-          "reason": "The answer attributes the claim to 'community docs', which is not a valid source according to the instructions."
+          "reason": "The answer is not supported by the documents, which state 6 settlement currencies."
         },
         "completeness": {
           "score": 1,
-          "reason": "The answer does not cover the expected facts at all."
+          "reason": "The answer does not cover the expected facts about the number of settlement currencies."
         }
       },
       "error": null,
       "attempts": 1,
-      "prompt_tokens": 1757,
+      "prompt_tokens": 1902,
       "context_truncated": false,
-      "latency_ms": 88591
+      "latency_ms": 110444
     },
     {
       "id": "single-08",
@@ -212,7 +212,7 @@
         },
         "groundedness": {
           "score": 5,
-          "reason": "The answer is fully supported by the official fact sheet and there are no unsupported claims or misattributions."
+          "reason": "The answer is fully supported by the official fact sheet and there are no attribution issues."
         },
         "completeness": {
           "score": 5,
@@ -221,9 +221,9 @@
       },
       "error": null,
       "attempts": 1,
-      "prompt_tokens": 2275,
+      "prompt_tokens": 2420,
       "context_truncated": false,
-      "latency_ms": 116354
+      "latency_ms": 99104
     },
     {
       "id": "single-09",
@@ -231,22 +231,22 @@
       "verdict": {
         "correctness": {
           "score": 5,
-          "reason": "The answer correctly states that direct carrier billing payments settle after 30 calendar days (T+30), which matches the information in the fact sheet."
+          "reason": "The answer correctly states that direct carrier billing payments settle after 30 calendar days (T+30), which is accurate according to the fact sheet."
         },
         "groundedness": {
           "score": 5,
-          "reason": "The answer is directly supported by the fact sheet and is not attributed to a forum post."
+          "reason": "The answer is directly supported by the fact sheet and there are no attribution issues."
         },
         "completeness": {
           "score": 5,
-          "reason": "The answer fully covers the expected fact about the settlement timing for direct carrier billing."
+          "reason": "The answer fully covers the expected fact about the settlement time for direct carrier billing payments."
         }
       },
       "error": null,
       "attempts": 1,
-      "prompt_tokens": 2286,
+      "prompt_tokens": 2431,
       "context_truncated": false,
-      "latency_ms": 122072
+      "latency_ms": 113379
     },
     {
       "id": "single-10",
@@ -255,6 +255,236 @@
         "correctness": {
           "score": 5,
           "reason": "The answer correctly states the daily payout cutoff time as 14:00 UTC, which is consistent with the fact sheet."
+        },
+        "groundedness": {
+          "score": 5,
+          "reason": "The answer is directly supported by the fact sheet and there are no attribution issues."
+        },
+        "completeness": {
+          "score": 5,
+          "reason": "The answer fully covers the requested information without omitting any relevant details."
+        }
+      },
+      "error": null,
+      "attempts": 1,
+      "prompt_tokens": 1864,
+      "context_truncated": false,
+      "latency_ms": 87772
+    },
+    {
+      "id": "single-11",
+      "category": "single_fact",
+      "verdict": {
+        "correctness": {
+          "score": 5,
+          "reason": "The answer correctly states the minimum amount for a scheduled payout as $25."
+        },
+        "groundedness": {
+          "score": 5,
+          "reason": "The answer is directly supported by the fact sheet and there are no attribution issues."
+        },
+        "completeness": {
+          "score": 5,
+          "reason": "The answer fully covers the expected fact without omitting any relevant details."
+        }
+      },
+      "error": null,
+      "attempts": 1,
+      "prompt_tokens": 1849,
+      "context_truncated": false,
+      "latency_ms": 87755
+    },
+    {
+      "id": "single-12",
+      "category": "single_fact",
+      "verdict": {
+        "correctness": {
+          "score": 5,
+          "reason": "The answer correctly states that instant payouts become available after 60 days of live payments."
+        },
+        "groundedness": {
+          "score": 5,
+          "reason": "The answer is directly supported by the fact sheet and is not attributed to a forum post."
+        },
+        "completeness": {
+          "score": 5,
+          "reason": "The answer fully covers the expected fact without omitting any relevant details."
+        }
+      },
+      "error": null,
+      "attempts": 1,
+      "prompt_tokens": 1860,
+      "context_truncated": false,
+      "latency_ms": 89995
+    },
+    {
+      "id": "single-13",
+      "category": "single_fact",
+      "verdict": {
+        "correctness": {
+          "score": 5,
+          "reason": "The answer correctly states the rolling reserve for new merchants as 10% held for 90 days during the first 6 months after going live, which matches the information in the fact sheet."
+        },
+        "groundedness": {
+          "score": 5,
+          "reason": "The answer is fully supported by the fact sheet and there are no unsupported claims or misattributions."
+        },
+        "completeness": {
+          "score": 5,
+          "reason": "The answer covers all the expected facts and does not refuse to answer despite the documents containing the answer."
+        }
+      },
+      "error": null,
+      "attempts": 1,
+      "prompt_tokens": 1869,
+      "context_truncated": false,
+      "latency_ms": 96178
+    },
+    {
+      "id": "single-14",
+      "category": "single_fact",
+      "verdict": {
+        "correctness": {
+          "score": 5,
+          "reason": "The answer states the correct API rate limit for live accounts as 100 requests per second per account, which matches the information in the fact sheet."
+        },
+        "groundedness": {
+          "score": 5,
+          "reason": "The answer is directly supported by the fact sheet and there are no unsupported claims or misattributions."
+        },
+        "completeness": {
+          "score": 5,
+          "reason": "The answer fully covers the expected fact about the API rate limit for live accounts."
+        }
+      },
+      "error": null,
+      "attempts": 1,
+      "prompt_tokens": 1912,
+      "context_truncated": false,
+      "latency_ms": 89650
+    },
+    {
+      "id": "single-15",
+      "category": "single_fact",
+      "verdict": {
+        "correctness": {
+          "score": 5,
+          "reason": "The answer states that ZoisPay stores an idempotency key for 24 hours, which is correct according to the fact sheet."
+        },
+        "groundedness": {
+          "score": 5,
+          "reason": "The answer is directly supported by the fact sheet and there are no unsupported claims or misattributions."
+        },
+        "completeness": {
+          "score": 5,
+          "reason": "The answer fully covers the expected fact about the duration ZoisPay stores an idempotency key."
+        }
+      },
+      "error": null,
+      "attempts": 1,
+      "prompt_tokens": 1911,
+      "context_truncated": false,
+      "latency_ms": 90192
+    },
+    {
+      "id": "single-16",
+      "category": "single_fact",
+      "verdict": {
+        "correctness": {
+          "score": 5,
+          "reason": "The answer correctly states that reusing the same idempotency key would result in the original decline."
+        },
+        "groundedness": {
+          "score": 5,
+          "reason": "The claim is directly attributed to Grace Mwangi from the forum thread."
+        },
+        "completeness": {
+          "score": 5,
+          "reason": "The answer covers the key point about idempotency keys and provides the correct information."
+        }
+      },
+      "error": null,
+      "attempts": 1,
+      "prompt_tokens": 1973,
+      "context_truncated": false,
+      "latency_ms": 91741
+    },
+    {
+      "id": "single-17",
+      "category": "single_fact",
+      "verdict": {
+        "correctness": {
+          "score": 5,
+          "reason": "The answer matches the facts in the 'Webhooks' section of the fact sheet."
+        },
+        "groundedness": {
+          "score": 5,
+          "reason": "The answer is directly quoted from the fact sheet and is not misattributed."
+        },
+        "completeness": {
+          "score": 5,
+          "reason": "The answer covers both the number of retries and the time period as requested."
+        }
+      },
+      "error": null,
+      "attempts": 1,
+      "prompt_tokens": 1945,
+      "context_truncated": false,
+      "latency_ms": 88879
+    },
+    {
+      "id": "single-18",
+      "category": "single_fact",
+      "verdict": {
+        "correctness": {
+          "score": 5,
+          "reason": "The answer correctly states that the webhook endpoint must return a 2xx status code within 10 seconds, as per Elena Marsh's statement in the document."
+        },
+        "groundedness": {
+          "score": 5,
+          "reason": "The answer correctly attributes the claim to Elena Marsh and cites the relevant document."
+        },
+        "completeness": {
+          "score": 5,
+          "reason": "The answer fully covers the expected fact about the response time for webhook endpoints."
+        }
+      },
+      "error": null,
+      "attempts": 1,
+      "prompt_tokens": 2445,
+      "context_truncated": false,
+      "latency_ms": 120210
+    },
+    {
+      "id": "single-19",
+      "category": "single_fact",
+      "verdict": {
+        "correctness": {
+          "score": 5,
+          "reason": "The answer states the correct refund window of 30 days for mobile wallet payments."
+        },
+        "groundedness": {
+          "score": 5,
+          "reason": "The claim is directly supported by the official fact sheet and attributed correctly."
+        },
+        "completeness": {
+          "score": 5,
+          "reason": "The answer fully covers the expected fact about the refund window for mobile wallet payments."
+        }
+      },
+      "error": null,
+      "attempts": 1,
+      "prompt_tokens": 1795,
+      "context_truncated": false,
+      "latency_ms": 79902
+    },
+    {
+      "id": "single-20",
+      "category": "single_fact",
+      "verdict": {
+        "correctness": {
+          "score": 5,
+          "reason": "The answer correctly states the fee for a card chargeback as $15, which is the exact value from the fact sheet."
         },
         "groundedness": {
           "score": 5,
@@ -267,239 +497,9 @@
       },
       "error": null,
       "attempts": 1,
-      "prompt_tokens": 1719,
-      "context_truncated": false,
-      "latency_ms": 85453
-    },
-    {
-      "id": "single-11",
-      "category": "single_fact",
-      "verdict": {
-        "correctness": {
-          "score": 5,
-          "reason": "The answer correctly states the minimum amount for a scheduled payout as $25."
-        },
-        "groundedness": {
-          "score": 5,
-          "reason": "The answer is fully supported by the fact sheet and there are no unsupported claims or misattributions."
-        },
-        "completeness": {
-          "score": 5,
-          "reason": "The answer directly addresses the question and covers the expected fact without omitting any relevant details."
-        }
-      },
-      "error": null,
-      "attempts": 1,
-      "prompt_tokens": 1704,
-      "context_truncated": false,
-      "latency_ms": 83101
-    },
-    {
-      "id": "single-12",
-      "category": "single_fact",
-      "verdict": {
-        "correctness": {
-          "score": 5,
-          "reason": "The answer correctly states the 60-day period for instant payouts, which is consistent with the fact sheet."
-        },
-        "groundedness": {
-          "score": 5,
-          "reason": "The answer is directly supported by the fact sheet and there are no unsupported claims or misattributions."
-        },
-        "completeness": {
-          "score": 5,
-          "reason": "The answer fully covers the expected fact without omitting any relevant details."
-        }
-      },
-      "error": null,
-      "attempts": 1,
-      "prompt_tokens": 1715,
-      "context_truncated": false,
-      "latency_ms": 83578
-    },
-    {
-      "id": "single-13",
-      "category": "single_fact",
-      "verdict": {
-        "correctness": {
-          "score": 5,
-          "reason": "The facts about the rolling reserve are correct according to the fact sheet."
-        },
-        "groundedness": {
-          "score": 5,
-          "reason": "The claim is directly supported by the fact sheet and attributed correctly."
-        },
-        "completeness": {
-          "score": 5,
-          "reason": "The answer covers all the expected facts."
-        }
-      },
-      "error": null,
-      "attempts": 1,
-      "prompt_tokens": 1724,
-      "context_truncated": false,
-      "latency_ms": 82212
-    },
-    {
-      "id": "single-14",
-      "category": "single_fact",
-      "verdict": {
-        "correctness": {
-          "score": 5,
-          "reason": "The stated fact is correct according to the fact sheet."
-        },
-        "groundedness": {
-          "score": 5,
-          "reason": "The claim is directly supported by the fact sheet and there are no unsupported details or misattributions."
-        },
-        "completeness": {
-          "score": 5,
-          "reason": "The answer fully covers the expected fact without omitting any relevant details."
-        }
-      },
-      "error": null,
-      "attempts": 1,
-      "prompt_tokens": 1767,
-      "context_truncated": false,
-      "latency_ms": 85497
-    },
-    {
-      "id": "single-15",
-      "category": "single_fact",
-      "verdict": {
-        "correctness": {
-          "score": 5,
-          "reason": "The answer correctly states that ZoisPay stores an idempotency key for 24 hours, which matches the fact in the document."
-        },
-        "groundedness": {
-          "score": 5,
-          "reason": "The answer is directly supported by the fact sheet and there are no unsupported claims or misattributions."
-        },
-        "completeness": {
-          "score": 5,
-          "reason": "The answer fully covers the expected fact without omitting any relevant details."
-        }
-      },
-      "error": null,
-      "attempts": 1,
-      "prompt_tokens": 1766,
-      "context_truncated": false,
-      "latency_ms": 87700
-    },
-    {
-      "id": "single-16",
-      "category": "single_fact",
-      "verdict": {
-        "correctness": {
-          "score": 3,
-          "reason": "The answer correctly states that reusing the same idempotency key would result in the original decline, but it incorrectly attributes this to Grace Mwangi instead of the official fact sheet."
-        },
-        "groundedness": {
-          "score": 4,
-          "reason": "The fact is correct but attributed to Grace Mwangi instead of the official fact sheet."
-        },
-        "completeness": {
-          "score": 3,
-          "reason": "The answer covers the main point about idempotency keys but does not mention the need for a new key for a new attempt, which is a key part of the expected facts."
-        }
-      },
-      "error": null,
-      "attempts": 1,
       "prompt_tokens": 1828,
       "context_truncated": false,
-      "latency_ms": 97264
-    },
-    {
-      "id": "single-17",
-      "category": "single_fact",
-      "verdict": {
-        "correctness": {
-          "score": 5,
-          "reason": "The facts about 6 retries and 35 hours are correct according to the fact sheet."
-        },
-        "groundedness": {
-          "score": 5,
-          "reason": "Both facts are directly supported by the fact sheet and attributed correctly."
-        },
-        "completeness": {
-          "score": 5,
-          "reason": "The answer covers both the number of retries and the time frame as expected."
-        }
-      },
-      "error": null,
-      "attempts": 1,
-      "prompt_tokens": 1800,
-      "context_truncated": false,
-      "latency_ms": 87548
-    },
-    {
-      "id": "single-18",
-      "category": "single_fact",
-      "verdict": {
-        "correctness": {
-          "score": 5,
-          "reason": "The answer correctly states the 10-second requirement as per Elena Marsh's claim in the document."
-        },
-        "groundedness": {
-          "score": 5,
-          "reason": "The answer is directly supported by Elena Marsh's statement in the document and is correctly attributed."
-        },
-        "completeness": {
-          "score": 5,
-          "reason": "The answer fully covers the expected fact about the webhook response time."
-        }
-      },
-      "error": null,
-      "attempts": 1,
-      "prompt_tokens": 2300,
-      "context_truncated": false,
-      "latency_ms": 127784
-    },
-    {
-      "id": "single-19",
-      "category": "single_fact",
-      "verdict": {
-        "correctness": {
-          "score": 5,
-          "reason": "The stated fact is correct according to the official fact sheet."
-        },
-        "groundedness": {
-          "score": 5,
-          "reason": "The claim is supported by the official fact sheet and is not misattributed."
-        },
-        "completeness": {
-          "score": 5,
-          "reason": "The answer covers the expected fact without omitting any relevant details."
-        }
-      },
-      "error": null,
-      "attempts": 1,
-      "prompt_tokens": 1650,
-      "context_truncated": false,
-      "latency_ms": 86248
-    },
-    {
-      "id": "single-20",
-      "category": "single_fact",
-      "verdict": {
-        "correctness": {
-          "score": 5,
-          "reason": "The answer correctly states the fee for a card chargeback as $15, which is accurate according to the fact sheet."
-        },
-        "groundedness": {
-          "score": 5,
-          "reason": "The answer is fully supported by the fact sheet and there are no unsupported claims or misattributions."
-        },
-        "completeness": {
-          "score": 5,
-          "reason": "The answer directly addresses the question and covers the expected fact without omitting any relevant details."
-        }
-      },
-      "error": null,
-      "attempts": 1,
-      "prompt_tokens": 1683,
-      "context_truncated": false,
-      "latency_ms": 90609
+      "latency_ms": 84241
     },
     {
       "id": "multi-01",
@@ -511,18 +511,18 @@
         },
         "groundedness": {
           "score": 5,
-          "reason": "Every claim is supported by the documents and attributed correctly."
+          "reason": "All claims are supported by the documents and attributed correctly."
         },
         "completeness": {
           "score": 5,
-          "reason": "The answer covers every expected fact."
+          "reason": "The answer covers both the availability of funds to the merchant and the refund window for mobile wallet payments."
         }
       },
       "error": null,
       "attempts": 1,
-      "prompt_tokens": 2295,
+      "prompt_tokens": 2440,
       "context_truncated": false,
-      "latency_ms": 123160
+      "latency_ms": 114912
     },
     {
       "id": "multi-02",
@@ -543,9 +543,9 @@
       },
       "error": null,
       "attempts": 1,
-      "prompt_tokens": 2281,
+      "prompt_tokens": 2426,
       "context_truncated": false,
-      "latency_ms": 125683
+      "latency_ms": 114149
     },
     {
       "id": "multi-03",
@@ -553,34 +553,34 @@
       "verdict": {
         "correctness": {
           "score": 3,
-          "reason": "The answer incorrectly states that the exact cost is not specified, when the fact sheet clearly states it is 1%."
+          "reason": "The answer does not provide the exact cost of instant payouts, which is a main fact missing."
         },
         "groundedness": {
-          "score": 4,
-          "reason": "The attribution to 'community docs' is not accurate; the information comes from the official fact sheet."
+          "score": 5,
+          "reason": "All claims are supported by the documents and attributed correctly."
         },
         "completeness": {
           "score": 3,
-          "reason": "The answer covers the instant payout cost and the required processing time, but it incorrectly states that the cost is not specified."
+          "reason": "The answer covers the time requirement for using instant payouts but misses the exact cost, which is a key part of the question."
         }
       },
       "error": null,
       "attempts": 1,
-      "prompt_tokens": 2338,
+      "prompt_tokens": 2483,
       "context_truncated": false,
-      "latency_ms": 133621
+      "latency_ms": 120672
     },
     {
       "id": "multi-04",
       "category": "multi_doc",
       "verdict": {
         "correctness": {
-          "score": 3,
-          "reason": "The answer incorrectly states that the community docs provide this information, when in fact the official fact sheet does."
+          "score": 5,
+          "reason": "Both the settlement time and chargeback evidence deadline are correctly stated."
         },
         "groundedness": {
-          "score": 4,
-          "reason": "The attribution to 'community docs' is incorrect; the answer should attribute to the official fact sheet."
+          "score": 5,
+          "reason": "Both facts are directly supported by the fact sheet on settlements and payouts."
         },
         "completeness": {
           "score": 5,
@@ -589,9 +589,9 @@
       },
       "error": null,
       "attempts": 1,
-      "prompt_tokens": 2826,
+      "prompt_tokens": 2971,
       "context_truncated": false,
-      "latency_ms": 161642
+      "latency_ms": 149873
     },
     {
       "id": "multi-05",
@@ -603,7 +603,7 @@
         },
         "groundedness": {
           "score": 5,
-          "reason": "Both facts are directly supported by the documents and attributed correctly."
+          "reason": "Both facts are supported by the documents and attributed correctly."
         },
         "completeness": {
           "score": 5,
@@ -612,9 +612,9 @@
       },
       "error": null,
       "attempts": 1,
-      "prompt_tokens": 2292,
+      "prompt_tokens": 2437,
       "context_truncated": false,
-      "latency_ms": 122584
+      "latency_ms": 122011
     },
     {
       "id": "conflict-01",
@@ -622,45 +622,45 @@
       "verdict": {
         "correctness": {
           "score": 4,
-          "reason": "The attribution to Elena Marsh is incorrect, as the second Elena Marsh is a repetition of the first."
+          "reason": "Tobias Lindgren's opinion is incorrectly attributed to Elena Marsh."
         },
         "groundedness": {
-          "score": 5,
-          "reason": "All claims are supported by the documents and attributed correctly."
+          "score": 4,
+          "reason": "Tobias Lindgren's opinion is incorrectly attributed to Elena Marsh."
         },
         "completeness": {
-          "score": 3,
-          "reason": "The answer does not mention Tobias Lindgren's argument for polling, which is a significant point of disagreement."
+          "score": 5,
+          "reason": "The answer covers both Elena Marsh's recommendation and Tobias Lindgren's counterpoint."
         }
       },
       "error": null,
       "attempts": 1,
-      "prompt_tokens": 1229,
+      "prompt_tokens": 1374,
       "context_truncated": false,
-      "latency_ms": 62607
+      "latency_ms": 59655
     },
     {
       "id": "conflict-02",
       "category": "conflict",
       "verdict": {
         "correctness": {
-          "score": 4,
-          "reason": "Ahmed Raza's decision is not explicitly stated as final in the documents."
+          "score": 3,
+          "reason": "The answer omits Lukas's argument about the impact of redirects and control over error messages and retries."
         },
         "groundedness": {
-          "score": 5,
-          "reason": "All claims are supported by the documents and attributed correctly."
+          "score": 4,
+          "reason": "The attribution to Maya for the hosted checkout recommendation is correct, but the attribution to Ahmed for the decision is not explicitly supported by the documents."
         },
         "completeness": {
           "score": 3,
-          "reason": "The answer does not mention Lukas Weber's argument about checkout completion rates."
+          "reason": "The answer covers the main points but misses Lukas's argument about the impact of redirects and control over error messages and retries."
         }
       },
       "error": null,
       "attempts": 1,
-      "prompt_tokens": 1212,
+      "prompt_tokens": 1357,
       "context_truncated": false,
-      "latency_ms": 73022
+      "latency_ms": 64833
     },
     {
       "id": "conflict-03",
@@ -668,22 +668,22 @@
       "verdict": {
         "correctness": {
           "score": 3,
-          "reason": "The main fact about checkout completion rates is incorrect, as Lukas Weber reported a 72% completion rate, not 61%. Additionally, the statement about Fatima Al-Mansoori's view is not directly supported by the documents."
+          "reason": "The answer includes a mix of correct and incorrect facts. Lukas Weber's claim about the completion rate is incorrect, as the documents state that his completion rate went from 61% to 72%, not the other way around."
         },
         "groundedness": {
           "score": 3,
-          "reason": "The attribution to Fatima Al-Mansoori is correct, but the attribution to Lukas Weber is incorrect. The answer also includes an unsupported claim about the completion rate."
+          "reason": "The answer attributes Fatima Al-Mansoori's and Lukas Weber's views correctly, but incorrectly attributes Maya Oduya's view, as she does not explicitly state an opinion on the impact on checkout completion."
         },
         "completeness": {
           "score": 3,
-          "reason": "The answer covers the main points of view but incorrectly attributes the completion rate to Lukas Weber and includes an unsupported claim."
+          "reason": "The answer covers the main points of view but does not explicitly state the completion rate change as per Lukas Weber's claim, which is a key expected fact."
         }
       },
       "error": null,
       "attempts": 1,
-      "prompt_tokens": 1277,
+      "prompt_tokens": 1422,
       "context_truncated": false,
-      "latency_ms": 98636
+      "latency_ms": 79282
     },
     {
       "id": "conflict-04",
@@ -691,22 +691,22 @@
       "verdict": {
         "correctness": {
           "score": 3,
-          "reason": "The answer incorrectly states that Hiroshi suggests reusing the same idempotency key, which is corrected by Grace."
+          "reason": "The answer incorrectly states that Hiroshi suggests reusing the same idempotency key on every retry, which is incorrect according to the documents."
         },
         "groundedness": {
-          "score": 4,
-          "reason": "The answer correctly attributes Rohan's advice but incorrectly attributes Hiroshi's advice."
+          "score": 3,
+          "reason": "The answer misattributes Hiroshi's suggestion, but correctly reports Rohan's advice about spreading retries out."
         },
         "completeness": {
           "score": 3,
-          "reason": "The answer includes Rohan's advice but omits Grace's detailed explanation of the risks and her recommended schedule."
+          "reason": "The answer covers the main points but incorrectly attributes Hiroshi's advice on idempotency keys."
         }
       },
       "error": null,
       "attempts": 1,
-      "prompt_tokens": 1273,
+      "prompt_tokens": 1418,
       "context_truncated": false,
-      "latency_ms": 85747
+      "latency_ms": 67077
     },
     {
       "id": "conflict-05",
@@ -714,22 +714,22 @@
       "verdict": {
         "correctness": {
           "score": 3,
-          "reason": "The main fact about the 30-day settlement period is incorrect. The documents state it is T+30, not 30 days."
+          "reason": "The main fact that Rebecca Williams switched off carrier billing after one quarter is incorrect; the documents state she switched it off after one quarter due to cash flow issues, not because of the fee alone."
         },
         "groundedness": {
           "score": 4,
-          "reason": "The attribution to Rebecca Williams is correct, but the attribution to Zara Sheikh is incorrect. Zara Sheikh is mentioned as a founder, not a merchant."
+          "reason": "The attribution to Rebecca Williams is correct, but the reason for switching off carrier billing is misstated, as it is not due to the fee but to cash flow issues."
         },
         "completeness": {
-          "score": 3,
-          "reason": "The answer covers the main disagreement but omits the positive view from Omar Farouk and the price point consideration from Kevin Otieno."
+          "score": 4,
+          "reason": "The answer covers the main points of the debate but incorrectly attributes the reason for Rebecca Williams' decision."
         }
       },
       "error": null,
       "attempts": 1,
-      "prompt_tokens": 1800,
+      "prompt_tokens": 1945,
       "context_truncated": false,
-      "latency_ms": 143312
+      "latency_ms": 104715
     }
   ]
 }

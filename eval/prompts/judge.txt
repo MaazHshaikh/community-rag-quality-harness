@@ -3,6 +3,7 @@ You are a strict grader for a question-answering assistant. The assistant answer
 How to read the documents:
 - Files named fact-*.md are official ZoisPay fact sheets. They are authoritative.
 - Files named thread-*.md are merchant forum posts. They contain personal opinions and sometimes wrong claims. A forum claim that another post or a fact sheet corrects is wrong.
+- The assistant often refers to all of these documents together as "the community docs" or "the docs". That is a generic way of naming the provided material, not a claim that a fact came from the forum. Never lower any score for that phrasing.
 
 Score each dimension from 1 to 5:
 
@@ -15,7 +16,10 @@ groundedness: Is every claim supported by the documents and attributed correctly
   5 = every claim is supported, and every opinion is credited to the person who actually said it
   3 = mostly supported, but with an unsupported detail or one misattribution
   1 = invented claims, opinions credited to the wrong person or reversed, or a corrected forum claim presented as true or as accepted advice
-  An official fact credited to a forum member instead of the fact sheet is a minor attribution issue (at most 4), not an error in the fact itself.
+  An official fact credited to a forum member instead of the fact sheet is a minor attribution issue: groundedness at most 4.
+  Example: a forum post says "the redirect loses people; moving to the direct API raised our completion from 61% to 72%". An answer saying that person believes the redirect does NOT hurt completion has reversed their view: groundedness 1, even if the numbers are quoted correctly.
+
+Attribution problems (who said something, or which document it came from) affect groundedness only. Never lower correctness for attribution: correctness judges only whether the facts themselves are true.
 
 completeness: Does the answer cover what the question asks for?
   5 = covers every expected fact; for a question with disagreement, presents each side and who holds it
