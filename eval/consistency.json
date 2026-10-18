@@ -1,0 +1,48 @@
+{
+  "repeat": {
+    "times": 5,
+    "ids": ["single-13", "single-07", "multi-02", "multi-03", "conflict-04"]
+  },
+  "paraphrase": [
+    {
+      "id": "single-19",
+      "wordings": [
+        "How many days do I have to refund a customer who paid with a mobile wallet?",
+        "What's the deadline for refunding a mobile wallet payment?",
+        "Until when can a merchant refund a payment made through a mobile wallet?"
+      ]
+    },
+    {
+      "id": "single-14",
+      "wordings": [
+        "How many API requests per second can a live ZoisPay account make?",
+        "What's the request limit on the production API?",
+        "In live mode, how fast can I call the ZoisPay API before I get rate limited?"
+      ]
+    },
+    {
+      "id": "single-10",
+      "wordings": [
+        "By what time do I need to request a payout for it to go out the same day?",
+        "What time is the cutoff for daily payouts?",
+        "What is the latest time I can request a payout and still have it sent that business day?"
+      ]
+    },
+    {
+      "id": "multi-01",
+      "wordings": [
+        "When can I access the money from a mobile wallet sale, and how long do I have to refund it?",
+        "How long until funds from a wallet payment are available, and what is the wallet refund window?",
+        "For payments made with a mobile wallet, what are the settlement time and the refund deadline?"
+      ]
+    },
+    {
+      "id": "conflict-01",
+      "wordings": [
+        "Is it better to rely on webhooks or to poll the API for payment status?",
+        "What do merchants recommend for tracking payment outcomes: webhooks or polling?",
+        "Should my integration listen for webhooks or check payment status by polling?"
+      ]
+    }
+  ]
+}
