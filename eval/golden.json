@@ -1,0 +1,242 @@
+[
+  {
+    "id": "single-01",
+    "question": "How much does Scale cost?",
+    "category": "single_fact",
+    "expected_facts": ["$99"],
+    "expected_sources": ["fact-membership-pricing.md"],
+    "forbidden_facts": ["no extra fee", "included in membership", "$29"]
+  },
+  {
+    "id": "single-02",
+    "question": "How much does the Scale tier cost per month?",
+    "category": "single_fact",
+    "expected_facts": ["$99"],
+    "expected_sources": ["fact-membership-pricing.md"],
+    "forbidden_facts": ["no extra fee", "$29", "$49"]
+  },
+  {
+    "id": "single-03",
+    "question": "How much does the Builder tier cost per year?",
+    "category": "single_fact",
+    "expected_facts": ["$290"],
+    "expected_sources": ["fact-membership-pricing.md"],
+    "forbidden_facts": ["$348", "$990"]
+  },
+  {
+    "id": "single-04",
+    "question": "How many seats does the Scale tier include?",
+    "category": "single_fact",
+    "expected_facts": ["3 seats"],
+    "expected_sources": ["fact-membership-pricing.md"],
+    "forbidden_facts": ["1 seat", "5 seats"]
+  },
+  {
+    "id": "single-05",
+    "question": "How long do new paid members have to request a refund?",
+    "category": "single_fact",
+    "expected_facts": ["14 days"],
+    "expected_sources": ["fact-membership-pricing.md"],
+    "forbidden_facts": ["30 days", "7 days"]
+  },
+  {
+    "id": "single-06",
+    "question": "How long is the grace period after a failed payment?",
+    "category": "single_fact",
+    "expected_facts": ["7 day"],
+    "expected_sources": ["fact-membership-pricing.md"],
+    "forbidden_facts": ["14 day", "30 day"]
+  },
+  {
+    "id": "single-07",
+    "question": "What discount do students get?",
+    "category": "single_fact",
+    "expected_facts": ["50%", "Builder"],
+    "expected_sources": ["fact-membership-pricing.md"],
+    "forbidden_facts": ["25%", "20%"]
+  },
+  {
+    "id": "single-08",
+    "question": "When and where is the FounderHub Summit 2027?",
+    "category": "single_fact",
+    "expected_facts": ["March 12", "Lisbon"],
+    "expected_sources": ["fact-events-calendar.md"],
+    "forbidden_facts": ["March 4", "Porto"]
+  },
+  {
+    "id": "single-09",
+    "question": "Until when are early-bird Summit tickets available?",
+    "category": "single_fact",
+    "expected_facts": ["January 15"],
+    "expected_sources": ["fact-events-calendar.md"],
+    "forbidden_facts": ["February 12", "January 7"]
+  },
+  {
+    "id": "single-10",
+    "question": "How many attendees can the Summit hold?",
+    "category": "single_fact",
+    "expected_facts": ["300"],
+    "expected_sources": ["fact-events-calendar.md"],
+    "forbidden_facts": ["500", "1,000"]
+  },
+  {
+    "id": "single-11",
+    "question": "Who hosts the Fundraising Workshop?",
+    "category": "single_fact",
+    "expected_facts": ["Marcus Feld"],
+    "expected_sources": ["fact-events-calendar.md"],
+    "forbidden_facts": ["Elena Duarte", "Priya Raman"]
+  },
+  {
+    "id": "single-12",
+    "question": "What day of the week is Pitch Practice?",
+    "category": "single_fact",
+    "expected_facts": ["Tuesday"],
+    "expected_sources": ["fact-events-calendar.md"],
+    "forbidden_facts": ["Wednesday", "Thursday"]
+  },
+  {
+    "id": "single-13",
+    "question": "How many founders can join one Pitch Practice group?",
+    "category": "single_fact",
+    "expected_facts": ["8 founders"],
+    "expected_sources": ["fact-events-calendar.md"],
+    "forbidden_facts": ["5 founders", "40 founders"]
+  },
+  {
+    "id": "single-14",
+    "question": "How quickly does the moderation team respond to a report?",
+    "category": "single_fact",
+    "expected_facts": ["72 hours"],
+    "expected_sources": ["fact-code-of-conduct.md"],
+    "forbidden_facts": ["48 hours", "24 hours"]
+  },
+  {
+    "id": "single-15",
+    "question": "What happens after a second code of conduct violation?",
+    "category": "single_fact",
+    "expected_facts": [["30 day suspension", "suspended for 30 days", "suspension of 30 days", "30 days suspension"]],
+    "expected_sources": ["fact-code-of-conduct.md"],
+    "forbidden_facts": ["60 day", "90 day"]
+  },
+  {
+    "id": "single-16",
+    "question": "Who leads the FounderHub moderation team?",
+    "category": "single_fact",
+    "expected_facts": ["Tomasz Wieczorek"],
+    "expected_sources": ["fact-code-of-conduct.md"],
+    "forbidden_facts": ["Priya Raman", "Marcus Feld"]
+  },
+  {
+    "id": "single-17",
+    "question": "Where and how often can members promote their own product?",
+    "category": "single_fact",
+    "expected_facts": ["show and tell", ["once per week", "once a week", "one time per week", "weekly"]],
+    "expected_sources": ["fact-code-of-conduct.md"],
+    "forbidden_facts": ["#general", "once per month"]
+  },
+  {
+    "id": "single-18",
+    "question": "How long is a mentorship cohort?",
+    "category": "single_fact",
+    "expected_facts": ["12 weeks"],
+    "expected_sources": ["fact-programs.md"],
+    "forbidden_facts": ["8 weeks", "6 weeks"]
+  },
+  {
+    "id": "single-19",
+    "question": "What is the application deadline for the Winter 2027 mentorship cohort?",
+    "category": "single_fact",
+    "expected_facts": ["November 30"],
+    "expected_sources": ["fact-programs.md"],
+    "forbidden_facts": ["December 14", "January 11"]
+  },
+  {
+    "id": "single-20",
+    "question": "How long is an Office Hours slot?",
+    "category": "single_fact",
+    "expected_facts": ["20 minutes"],
+    "expected_sources": ["fact-programs.md"],
+    "forbidden_facts": ["45 minutes", "30 minutes"]
+  },
+  {
+    "id": "multi-01",
+    "question": "What day of the week are fundraising office hours, and on what date is the Fundraising Workshop?",
+    "category": "multi_doc",
+    "expected_facts": ["Wednesday", "November 19"],
+    "expected_sources": ["fact-programs.md", "fact-events-calendar.md"],
+    "forbidden_facts": ["November 18", "Tuesday"]
+  },
+  {
+    "id": "multi-02",
+    "question": "Can an Explorer member apply to the mentorship program, how long does a cohort last, and what is the monthly price of the cheapest tier that can apply?",
+    "category": "multi_doc",
+    "expected_facts": [["cannot", "can't", "can not", "not eligible", "not able to"], "Builder", "$29", "12 weeks"],
+    "expected_sources": ["fact-programs.md", "fact-membership-pricing.md"],
+    "forbidden_facts": ["Explorer members can apply", "$99 per month"]
+  },
+  {
+    "id": "multi-03",
+    "question": "How much was Ravi offered by an angel investor, and who will he meet at fundraising office hours, on what day of the week?",
+    "category": "multi_doc",
+    "expected_facts": ["$150K", "Marcus Feld", "Wednesday"],
+    "expected_sources": ["thread-pre-seed-fundraising.md", "fact-programs.md"],
+    "forbidden_facts": ["Elena Duarte", "Tuesday"]
+  },
+  {
+    "id": "multi-04",
+    "question": "What is the monthly price of the Builder tier, and what does a Builder member pay for a regular Summit ticket?",
+    "category": "multi_doc",
+    "expected_facts": ["$29", "$149"],
+    "expected_sources": ["fact-membership-pricing.md", "fact-events-calendar.md"],
+    "forbidden_facts": ["$99 per month", "$349"]
+  },
+  {
+    "id": "multi-05",
+    "question": "What monthly price does Samir plan to launch Inkfold at, and what is the monthly price of FounderHub's Builder tier?",
+    "category": "multi_doc",
+    "expected_facts": ["$49", "$29"],
+    "expected_sources": ["thread-pricing.md", "fact-membership-pricing.md"],
+    "forbidden_facts": ["$79", "$99"]
+  },
+  {
+    "id": "conflict-01",
+    "question": "Should I raise pre-seed money before I have revenue?",
+    "category": "conflict",
+    "expected_facts": ["Claire", "Jonah", "$10K"],
+    "expected_sources": ["thread-pre-seed-fundraising.md"],
+    "forbidden_facts": ["I don't know based on the community docs"]
+  },
+  {
+    "id": "conflict-02",
+    "question": "Should my first hire be a generalist or a specialist?",
+    "category": "conflict",
+    "expected_facts": ["Felix", "generalist", "Yuki", "engineer"],
+    "expected_sources": ["thread-first-hires.md"],
+    "forbidden_facts": ["I don't know based on the community docs"]
+  },
+  {
+    "id": "conflict-03",
+    "question": "Should a non-technical founder with limited runway hire a senior engineer first?",
+    "category": "conflict",
+    "expected_facts": ["Felix", "$150K", "Yuki"],
+    "expected_sources": ["thread-first-hires.md"],
+    "forbidden_facts": ["I don't know based on the community docs"]
+  },
+  {
+    "id": "conflict-04",
+    "question": "Is a big launch day better than a quiet launch?",
+    "category": "conflict",
+    "expected_facts": ["Ingrid", "big launch", "Mateo"],
+    "expected_sources": ["thread-product-launches.md"],
+    "forbidden_facts": ["I don't know based on the community docs"]
+  },
+  {
+    "id": "conflict-05",
+    "question": "Should I offer a free tier or charge from day one?",
+    "category": "conflict",
+    "expected_facts": ["Beatriz", "Kofi", "free tier"],
+    "expected_sources": ["thread-pricing.md"],
+    "forbidden_facts": ["I don't know based on the community docs"]
+  }
+]

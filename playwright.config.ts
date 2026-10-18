@@ -17,6 +17,10 @@ export default defineConfig({
       testDir: "tests/ui",
       use: { ...devices["Desktop Chrome"] },
     },
+    {
+      name: "data",
+      testDir: "tests/data",
+    },
   ],
   // Starts the app in stub mode before tests and stops it after. Port 3100 never clashes
   // with `npm run dev` on 3000. Reuse is off so tests never hit a server in Ollama mode.
