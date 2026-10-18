@@ -1,0 +1,349 @@
+{
+  "metadata": {
+    "started_at": "2026-10-18T09:07:32.752Z",
+    "base_url": "http://localhost:3100",
+    "commit": "448df95",
+    "dirty": false,
+    "llm_provider": "ollama",
+    "chat_model": "llama3.2:3b",
+    "temperature": 0.2,
+    "max_output_tokens": 300,
+    "embed_provider": "ollama",
+    "embed_model": "nomic-embed-text",
+    "prompt_file": "prompts/answer.txt",
+    "prompt_sha256": "7c64e92219261d0a457f1345f046e97340e350d9f5bacd498d2757ed22496c64",
+    "question_count": 30,
+    "finished_at": "2026-10-18T09:12:30.303Z",
+    "duration_ms": 297551,
+    "config_changed_during_run": false
+  },
+  "results": [
+    {
+      "id": "single-01",
+      "status": 200,
+      "latency_ms": 4310,
+      "answer": "The answer is not explicitly stated in the provided context. I don't know based on the community docs.",
+      "sources": [
+        "thread-pricing.md",
+        "fact-programs.md",
+        "thread-first-hires.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-02",
+      "status": 200,
+      "latency_ms": 7198,
+      "answer": "The Scale tier costs $99 per month.",
+      "sources": [
+        "thread-pricing.md",
+        "fact-membership-pricing.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-03",
+      "status": 200,
+      "latency_ms": 11549,
+      "answer": "The Builder tier costs $290 per year.",
+      "sources": [
+        "fact-membership-pricing.md",
+        "fact-events-calendar.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-04",
+      "status": 200,
+      "latency_ms": 2706,
+      "answer": "The Scale tier includes 3 seats for cofounders to join under one account.",
+      "sources": [
+        "fact-membership-pricing.md",
+        "fact-events-calendar.md",
+        "fact-programs.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-05",
+      "status": 200,
+      "latency_ms": 7409,
+      "answer": "New paid members have 14 days to request a full refund after their first payment.",
+      "sources": [
+        "fact-membership-pricing.md",
+        "fact-code-of-conduct.md",
+        "fact-events-calendar.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-06",
+      "status": 200,
+      "latency_ms": 7268,
+      "answer": "The grace period after a failed payment is 7 days.",
+      "sources": [
+        "fact-membership-pricing.md",
+        "fact-code-of-conduct.md",
+        "thread-first-hires.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-07",
+      "status": 200,
+      "latency_ms": 10180,
+      "answer": "Students get a 50% discount off the Builder tier, specifically for founders enrolled in a degree program, with proof of enrollment required and needing to be renewed every 12 months.",
+      "sources": [
+        "fact-membership-pricing.md",
+        "thread-pricing.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-08",
+      "status": 200,
+      "latency_ms": 11822,
+      "answer": "The FounderHub Summit 2027 will take place on March 12–13, 2027, in person in Lisbon, Portugal.",
+      "sources": [
+        "fact-events-calendar.md",
+        "fact-programs.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-09",
+      "status": 200,
+      "latency_ms": 7371,
+      "answer": "Early-bird Summit tickets are available until January 15, 2027.",
+      "sources": [
+        "fact-events-calendar.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-10",
+      "status": 200,
+      "latency_ms": 6039,
+      "answer": "The FounderHub Summit 2027 can hold 300 attendees.",
+      "sources": [
+        "fact-events-calendar.md",
+        "thread-product-launches.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-11",
+      "status": 200,
+      "latency_ms": 7074,
+      "answer": "The Fundraising Workshop: Pre-Seed Basics is hosted by Marcus Feld, FounderHub Programs Lead.",
+      "sources": [
+        "fact-events-calendar.md",
+        "fact-programs.md",
+        "thread-pre-seed-fundraising.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-12",
+      "status": 200,
+      "latency_ms": 11260,
+      "answer": "Pitch Practice takes place every Tuesday, 6:00–7:00 PM ET.",
+      "sources": [
+        "fact-events-calendar.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-13",
+      "status": 200,
+      "latency_ms": 11336,
+      "answer": "According to the community docs, each Pitch Practice group is capped at 8 founders.",
+      "sources": [
+        "fact-events-calendar.md",
+        "fact-programs.md",
+        "thread-product-launches.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-14",
+      "status": 200,
+      "latency_ms": 2374,
+      "answer": "The moderation team responds to every report within **72 hours**.",
+      "sources": [
+        "fact-code-of-conduct.md",
+        "fact-membership-pricing.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-15",
+      "status": 200,
+      "latency_ms": 5250,
+      "answer": "After a second code of conduct violation, a member is suspended for 30 days. During this time, they can read but cannot post, message, or attend events.",
+      "sources": [
+        "fact-code-of-conduct.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-16",
+      "status": 200,
+      "latency_ms": 2945,
+      "answer": "The moderation team is led by Tomasz Wieczorek, Head of Community.",
+      "sources": [
+        "fact-code-of-conduct.md",
+        "fact-membership-pricing.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-17",
+      "status": 200,
+      "latency_ms": 3951,
+      "answer": "Members can promote their own product in the #show-and-tell channel, and no more than once per week.",
+      "sources": [
+        "fact-code-of-conduct.md",
+        "thread-product-launches.md",
+        "thread-first-100-customers.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-18",
+      "status": 200,
+      "latency_ms": 6527,
+      "answer": "The length of a mentorship cohort is not specified in the provided context.",
+      "sources": [
+        "fact-programs.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-19",
+      "status": 200,
+      "latency_ms": 16532,
+      "answer": "The application deadline for the Winter 2027 mentorship cohort is November 30, 2026.",
+      "sources": [
+        "fact-programs.md",
+        "fact-events-calendar.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-20",
+      "status": 200,
+      "latency_ms": 12242,
+      "answer": "According to the context, an Office Hours slot is 20 minutes long.",
+      "sources": [
+        "fact-programs.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "multi-01",
+      "status": 200,
+      "latency_ms": 10456,
+      "answer": "Fundraising Office Hours are on Fridays, but the specific date of the Fundraising Workshop is not mentioned in the provided context.",
+      "sources": [
+        "fact-events-calendar.md",
+        "fact-programs.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "multi-02",
+      "status": 200,
+      "latency_ms": 27856,
+      "answer": "Here are the answers to your questions based on the provided context:\n\n1. Can an Explorer member apply to the mentorship program?\n   - This is not explicitly stated in the context. However, it is mentioned that Explorer members cannot apply, but it does not explicitly state that they cannot apply to the mentorship program. \n\n2. How long does a cohort last?\n   - A cohort lasts 12 weeks.\n\n3. What is the monthly price of the cheapest tier that can apply?\n   - The cheapest tier that can apply is not explicitly stated in the context.",
+      "sources": [
+        "fact-programs.md",
+        "fact-membership-pricing.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "multi-03",
+      "status": 200,
+      "latency_ms": 3258,
+      "answer": "Ravi was offered $150K by an angel investor. He will meet Marcus Feld at fundraising office hours.",
+      "sources": [
+        "fact-programs.md",
+        "thread-pre-seed-fundraising.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "multi-04",
+      "status": 200,
+      "latency_ms": 12449,
+      "answer": "The monthly price of the Builder tier is $29. A Builder member pays $149 for a regular Summit ticket.",
+      "sources": [
+        "fact-events-calendar.md",
+        "fact-membership-pricing.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "multi-05",
+      "status": 200,
+      "latency_ms": 12707,
+      "answer": "Samir plans to launch Inkfold at $49 per month per team. The monthly price of FounderHub's Builder tier is $29.",
+      "sources": [
+        "thread-pricing.md",
+        "fact-membership-pricing.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "conflict-01",
+      "status": 200,
+      "latency_ms": 12455,
+      "answer": "There are different views on this topic.\n\n**Ravi Menon** and **Claire Dubois** think that raising pre-seed money is acceptable, with **Claire Dubois** even suggesting raising as early as possible.\n\n**Jonah Whitfield**, on the other hand, advises against raising pre-seed money until reaching at least $10K in monthly recurring revenue, citing the importance of having revenue to attract investors and avoid paying for \"selling a story\".",
+      "sources": [
+        "thread-pre-seed-fundraising.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "conflict-02",
+      "status": 200,
+      "latency_ms": 16955,
+      "answer": "There are two views on this topic.\n\nOne view is that a generalist should be hired first, as stated by Felix Brandt, who found that a generalist can adapt to changing needs and can handle a variety of tasks. Felix's generalist has been with the company for three years and now runs operations.\n\nThe other view is that a specialist should be hired first, as stated by Yuki Tanaka, who believes that hiring a specialist in the area where the founder is weakest can lead to faster progress and better results. Yuki hired a generalist first and later hired a senior engineer, who was able to rebuild and improve the product.",
+      "sources": [
+        "thread-first-hires.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "conflict-03",
+      "status": 200,
+      "latency_ms": 16149,
+      "answer": "The community is divided on this issue. Some members, like Nadia Haddad, believe that a generalist who can do a bit of everything would be a good first hire, as it would allow the founder to learn and grow alongside the company. \n\nOn the other hand, Yuki Tanaka suggests hiring the strongest specialist in the area the founder is weakest at, which in this case would be a senior engineer. Felix Brandt raises a point that hiring a senior engineer would use up most of the founder's limited runway, and then who would sell the product?",
+      "sources": [
+        "thread-first-hires.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "conflict-04",
+      "status": 200,
+      "latency_ms": 12926,
+      "answer": "There is no clear consensus on whether a big launch day is better than a quiet launch. Some founders, like Priscilla Ann Moore, suggest that a big launch should only happen when the product is ready and has a certain level of organic usage (at least 10 weekly active users). Others, like Ingrid Solberg, argue that a big launch can bring press and investors, while Mateo Rossi notes that a quiet launch can help filter out non-paying users.",
+      "sources": [
+        "thread-product-launches.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "conflict-05",
+      "status": 200,
+      "latency_ms": 16645,
+      "answer": "The community is divided on this issue. Some members, like Samir Qureshi, suggest launching with a free tier to get adoption, but with a 14-day trial and no permanent free tier, and then revisiting after three months. Others, like Beatriz Lopes, advise charging from day one and not offering a free tier, as paying customers provide the only real signal.",
+      "sources": [
+        "thread-pricing.md"
+      ],
+      "error": null
+    }
+  ]
+}
