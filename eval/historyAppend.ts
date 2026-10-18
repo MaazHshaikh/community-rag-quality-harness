@@ -1,0 +1,58 @@
+// Appends one summary line to eval/history.jsonl from the run folders of one eval:all pass.
+// eval:all calls this itself; to backfill by hand: npm run eval:history -- <run folder>...
+// Each suite's file must appear in exactly one of the given folders.
+import { appendFileSync, existsSync, readFileSync } from "node:fs";
+import path from "node:path";
+import { HISTORY_FILE, type HistoryEntry, type RunDirs, type RunFiles, summarizeRun } from "./history.js";
+import { RUNS_DIR } from "./runDir.js";
+
+const FILES: Record<keyof RunFiles, string> = {
+  answers: "answers.json",
+  scores: "scores.json",
+  retrieval: "retrieval.json",
+  hallucination: "hallucination.json",
+  injection: "injection.json",
+  consistency: "consistency.json",
+};
+
+const dirs = process.argv.slice(2).map((d) => path.basename(d));
+if (!dirs.length) {
+  console.error("Usage: npm run eval:history -- <run folder>...");
+  process.exit(1);
+}
+
+const files = {} as Record<keyof RunFiles, unknown>;
+const runs = {} as RunDirs;
+for (const [suite, file] of Object.entries(FILES) as [keyof RunFiles, string][]) {
+  const found = dirs.filter((d) => existsSync(path.join(RUNS_DIR, d, file)));
+  if (found.length !== 1) {
+    console.error(`Expected ${file} in exactly one of the given folders, found ${found.length ? found.join(", ") : "none"}`);
+    process.exit(1);
+  }
+  runs[suite] = found[0];
+  files[suite] = JSON.parse(readFileSync(path.join(RUNS_DIR, found[0], file), "utf8"));
+}
+
+const existing: HistoryEntry[] = existsSync(HISTORY_FILE)
+  ? readFileSync(HISTORY_FILE, "utf8").split("\n").filter(Boolean).map((line) => JSON.parse(line))
+  : [];
+if (existing.some((e) => e.runs.answers === runs.answers)) {
+  console.error(`${HISTORY_FILE} already has an entry for ${runs.answers}`);
+  process.exit(1);
+}
+
+let entry: HistoryEntry;
+try {
+  entry = summarizeRun(files as RunFiles, runs);
+} catch (err) {
+  console.error(err instanceof Error ? err.message : String(err));
+  process.exit(1);
+}
+appendFileSync(HISTORY_FILE, JSON.stringify(entry) + "\n");
+const pct = (v: number | null) => (v === null ? "n/a" : `${(v * 100).toFixed(1)}%`);
+console.log(
+  `Appended to ${HISTORY_FILE}: ${entry.date} ${entry.commit} quality ${entry.quality_score}, ` +
+    `hit rate ${pct(entry.retrieval_hit_rate)}, made up ${pct(entry.made_up_rate)}, ` +
+    `injection complied ${pct(entry.injection_compliance_rate)}, unstable ${entry.unstable_questions}` +
+    `${entry.request_errors ? `, request errors ${entry.request_errors}` : ""}`,
+);

@@ -1,5 +1,6 @@
 // Runs every eval suite end to end against an app it starts itself, from a clean git tree, so
 // the results are reproducible from the commit hash. Run with: npm run eval:all
+// Ends by appending one summary line to eval/history.jsonl.
 // The LLM judge is not included (about 50 minutes); run npm run eval:judge separately.
 import { type ChildProcess, execSync, spawn } from "node:child_process";
 import { createWriteStream, existsSync, readdirSync, readFileSync } from "node:fs";
@@ -73,11 +74,11 @@ async function stopApp() {
   app = null;
 }
 
-function runScript(script: string): Promise<void> {
+function runScript(script: string, args: string[] = []): Promise<void> {
   return new Promise((resolve, reject) => {
-    console.log(`\n=== npm run ${script} ===`);
+    console.log(`\n=== npm run ${script}${args.length ? ` -- ${args.join(" ")}` : ""} ===`);
     const started = Date.now();
-    const child = spawn("npm", ["run", script], {
+    const child = spawn("npm", ["run", script, ...(args.length ? ["--", ...args] : [])], {
       shell: true,
       stdio: "inherit",
       env: { ...process.env, EVAL_BASE_URL: BASE_URL },
@@ -120,13 +121,14 @@ async function main() {
   await runScript("eval:failure-report");
 
   const created = [...listRuns()].filter((d) => !before.has(d)).sort();
+  await runScript("eval:history", created);
   console.log(`\neval:all finished in ${elapsed(started)} at commit ${commit}.`);
   console.log("New run folders:");
   for (const d of created) {
     const files = readdirSync(path.join(RUNS_DIR, d)).join(", ");
     console.log(`  ${d}: ${files}`);
   }
-  console.log("Updated eval/failure-modes.md");
+  console.log("Updated eval/failure-modes.md and appended to eval/history.jsonl. Chart it with: npm run eval:chart");
 }
 
 const shutdown = async (code: number) => {

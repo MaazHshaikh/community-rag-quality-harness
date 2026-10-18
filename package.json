@@ -21,7 +21,9 @@
     "eval:injection": "tsx --env-file=.env eval/injectionRun.ts",
     "eval:consistency": "tsx --env-file=.env eval/consistencyRun.ts",
     "eval:failure-report": "tsx eval/failureReport.ts",
-    "eval:all": "tsx eval/all.ts"
+    "eval:all": "tsx eval/all.ts",
+    "eval:history": "tsx eval/historyAppend.ts",
+    "eval:chart": "tsx eval/chart.ts"
   },
   "dependencies": {
     "express": "^5.3.0"

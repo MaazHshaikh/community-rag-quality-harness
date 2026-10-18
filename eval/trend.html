@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eval Quality Trend</title>
+<style>
+  :root { --bg: #fbfbfa; --fg: #1d1d1b; --dim: #6b6b66; --grid: #e4e4e0; --card: #ffffff;
+          --s1: #2f6fdb; --s2: #8a8a84; --s3: #d9822b; --s4: #c23b3b; --marker: #7a4fd0; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #161615; --fg: #ececea; --dim: #9a9a94; --grid: #2e2e2b; --card: #1e1e1c;
+            --s1: #6b9cf0; --s2: #a8a8a2; --s3: #f0a050; --s4: #ee6a6a; --marker: #a98bf0; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 24px 16px; background: var(--bg); color: var(--fg);
+         font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 960px; margin: 0 auto; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  h2 { font-size: 16px; margin: 0 0 6px; }
+  p.lead { color: var(--dim); margin: 0 0 20px; }
+  section { background: var(--card); border: 1px solid var(--grid); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
+  svg { width: 100%; height: auto; display: block; }
+  .grid { stroke: var(--grid); }
+  .tick { fill: var(--dim); font-size: 11px; }
+  .tick.dim { opacity: 0.7; }
+  .line { fill: none; stroke-width: 2; }
+  .dot { stroke: var(--card); stroke-width: 1.5; }
+  .line.s1 { stroke: var(--s1); } .dot.s1, .swatch.s1 { fill: var(--s1); background: var(--s1); }
+  .line.s2 { stroke: var(--s2); } .dot.s2, .swatch.s2 { fill: var(--s2); background: var(--s2); }
+  .line.s3 { stroke: var(--s3); } .dot.s3, .swatch.s3 { fill: var(--s3); background: var(--s3); }
+  .line.s4 { stroke: var(--s4); } .dot.s4, .swatch.s4 { fill: var(--s4); background: var(--s4); }
+  .marker line { stroke: var(--marker); stroke-width: 1.5; stroke-dasharray: 4 3; }
+  .marker text { fill: var(--marker); font-size: 11px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13px; color: var(--dim); margin-bottom: 6px; }
+  .key { display: inline-flex; align-items: center; gap: 6px; }
+  .swatch { width: 12px; height: 3px; border-radius: 2px; display: inline-block; }
+  .table-wrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  th, td { padding: 5px 8px; border-bottom: 1px solid var(--grid); text-align: left; white-space: nowrap; }
+  th { color: var(--dim); font-weight: 600; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  code { font-size: 12px; }
+</style>
+</head>
+<body>
+<main>
+<h1>Eval quality trend</h1>
+<p class="lead">1 full <code>npm run eval:all</code> runs from <code>eval/history.jsonl</code>. Hover a point for its value.
+Dashed lines mark a prompt or chat model change.</p>
+<section><h2>Quality score (75% fact recall + 25% source recall)</h2><div class="legend"><span class="key"><span class="swatch s1"></span>Quality score</span></div><svg viewBox="0 0 900 260" role="img" aria-label="Quality score (75% fact recall + 25% source recall)"><line class="grid" x1="56" x2="856" y1="216" y2="216"/><text class="tick" x="50" y="220" text-anchor="end">0</text><line class="grid" x1="56" x2="856" y1="169" y2="169"/><text class="tick" x="50" y="173" text-anchor="end">25</text><line class="grid" x1="56" x2="856" y1="122" y2="122"/><text class="tick" x="50" y="126" text-anchor="end">50</text><line class="grid" x1="56" x2="856" y1="75" y2="75"/><text class="tick" x="50" y="79" text-anchor="end">75</text><line class="grid" x1="56" x2="856" y1="28" y2="28"/><text class="tick" x="50" y="32" text-anchor="end">100</text><text class="tick" x="456" y="232" text-anchor="middle">10-18 15:28</text><text class="tick dim" x="456" y="246" text-anchor="middle">c69e0fb</text><circle class="dot s1" cx="456" cy="48.68000000000001" r="4"><title>Quality score: 89
+2026-10-18T15:28:57.831Z at c69e0fb</title></circle></svg></section>
+<section><h2>Failure rates (lower is better)</h2><div class="legend"><span class="key"><span class="swatch s2"></span>Retrieval miss rate</span><span class="key"><span class="swatch s3"></span>Made-up answer rate</span><span class="key"><span class="swatch s4"></span>Injection compliance rate</span></div><svg viewBox="0 0 900 260" role="img" aria-label="Failure rates (lower is better)"><line class="grid" x1="56" x2="856" y1="216" y2="216"/><text class="tick" x="50" y="220" text-anchor="end">0%</text><line class="grid" x1="56" x2="856" y1="169" y2="169"/><text class="tick" x="50" y="173" text-anchor="end">25%</text><line class="grid" x1="56" x2="856" y1="122" y2="122"/><text class="tick" x="50" y="126" text-anchor="end">50%</text><line class="grid" x1="56" x2="856" y1="75" y2="75"/><text class="tick" x="50" y="79" text-anchor="end">75%</text><line class="grid" x1="56" x2="856" y1="28" y2="28"/><text class="tick" x="50" y="32" text-anchor="end">100%</text><text class="tick" x="456" y="232" text-anchor="middle">10-18 15:28</text><text class="tick dim" x="456" y="246" text-anchor="middle">c69e0fb</text><circle class="dot s2" cx="456" cy="209.796" r="4"><title>Retrieval miss rate: 3.3%
+2026-10-18T15:28:57.831Z at c69e0fb</title></circle><circle class="dot s3" cx="456" cy="122" r="4"><title>Made-up answer rate: 50.0%
+2026-10-18T15:28:57.831Z at c69e0fb</title></circle><circle class="dot s4" cx="456" cy="153.396" r="4"><title>Injection compliance rate: 33.3%
+2026-10-18T15:28:57.831Z at c69e0fb</title></circle></svg></section>
+<section><h2>Prompt and model changes</h2><p>No prompt or model changes yet: every run used the same prompt and chat model, so the spread between runs is run-to-run noise.</p></section>
+<section><h2>All runs</h2><div class="table-wrap"><table>
+<thead><tr><th>Date (UTC)</th><th>Commit</th><th>Chat model</th><th>Prompt</th><th>Golden</th><th>Quality</th><th>Fact recall</th>
+<th>Source recall</th><th>Retrieval hit</th><th>Made up</th><th>Injection complied</th><th>Unstable</th><th>Request errors</th></tr></thead>
+<tbody>
+<tr><td>2026-10-18 15:28:57</td><td><code>c69e0fb</code></td><td>llama3.2:3b</td><td><code>2df73b108e32</code></td><td><code>17217ca2d167</code></td><td class="num">89.0</td><td class="num">87.5%</td><td class="num">93.3%</td><td class="num">96.7%</td><td class="num">50.0%</td><td class="num">33.3%</td><td class="num">0</td><td class="num">0</td></tr>
+</tbody></table></div></section>
+</main>
+</body>
+</html>
