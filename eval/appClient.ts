@@ -1,0 +1,66 @@
+// Shared helpers for eval scripts that talk to a running app (npm run dev, Ollama mode).
+import { execSync } from "node:child_process";
+
+export const BASE_URL = process.env.EVAL_BASE_URL ?? `http://localhost:${process.env.PORT ?? 3000}`;
+
+export function requireEnv(name: string): string {
+  const value = process.env[name];
+  if (!value) throw new Error(`Missing env var ${name} in .env`);
+  return value;
+}
+
+export function git(command: string): string {
+  return execSync(`git ${command}`, { encoding: "utf8" }).trim();
+}
+
+export interface Meta {
+  llm_provider: string;
+  chat_model: string | null;
+  temperature: number | null;
+  max_output_tokens: number | null;
+  embed_provider: string;
+  embed_model: string | null;
+  prompt_file: string;
+  prompt_sha256: string;
+}
+
+// The app reports its own configuration, so a run records what actually answered.
+export async function fetchMeta(token: string): Promise<Meta> {
+  const response = await fetch(`${BASE_URL}/meta`, { headers: { Authorization: `Bearer ${token}` } });
+  if (response.status === 401) {
+    console.error("401 Unauthorized: the app's API_TOKEN differs from .env. Is it running with npm run dev?");
+    process.exit(1);
+  }
+  if (!response.ok) throw new Error(`GET /meta failed with HTTP ${response.status}`);
+  return (await response.json()) as Meta;
+}
+
+// Fail fast if the app is down, uses a different token, or is in stub mode. Returns its config.
+export async function connectToOllamaApp(token: string): Promise<Meta> {
+  const health = await fetch(`${BASE_URL}/health`).catch(() => null);
+  if (!health?.ok) {
+    console.error(`App not reachable at ${BASE_URL}. Start it with: npm run dev`);
+    process.exit(1);
+  }
+  const meta = await fetchMeta(token);
+  if (meta.llm_provider === "stub" || meta.embed_provider === "stub") {
+    console.error("The app is in stub mode; stub results can't be evaluated. Start it with: npm run dev");
+    process.exit(1);
+  }
+  return meta;
+}
+
+const RESTART_WAIT_MS = 60_000;
+
+export async function waitForHealth(): Promise<boolean> {
+  const deadline = Date.now() + RESTART_WAIT_MS;
+  while (Date.now() < deadline) {
+    const health = await fetch(`${BASE_URL}/health`).catch(() => null);
+    if (health?.ok) return true;
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+  }
+  return false;
+}
+
+// Folder name for a new run: the ISO start time with characters Windows paths can't hold replaced.
+export const runIdFor = (startedAt: Date) => startedAt.toISOString().replace(/[:.]/g, "-");

@@ -14,7 +14,8 @@
     "eval:score": "tsx eval/score.ts",
     "eval:judge": "tsx --env-file=.env eval/judge.ts",
     "eval:report": "tsx eval/report.ts",
-    "eval": "npm run eval:score && npm run eval:report"
+    "eval": "npm run eval:score && npm run eval:report",
+    "eval:retrieval": "tsx --env-file=.env eval/retrieval.ts"
   },
   "dependencies": {
     "express": "^5.3.0"

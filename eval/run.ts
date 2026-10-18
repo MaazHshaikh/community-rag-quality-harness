@@ -1,8 +1,8 @@
 // Sends every golden question to a running app (npm run dev, Ollama mode) and saves the raw
 // answers for later scoring. Run with: npm run eval:run
-import { execSync } from "node:child_process";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import { BASE_URL, connectToOllamaApp, fetchMeta, git, type Meta, requireEnv, runIdFor, waitForHealth } from "./appClient.js";
 
 interface GoldenEntry {
   id: string;
@@ -18,40 +18,7 @@ interface AnswerRecord {
   error: string | null;
 }
 
-const BASE_URL = process.env.EVAL_BASE_URL ?? `http://localhost:${process.env.PORT ?? 3000}`;
 const REQUEST_TIMEOUT_MS = 120_000;
-
-function requireEnv(name: string): string {
-  const value = process.env[name];
-  if (!value) throw new Error(`Missing env var ${name} in .env`);
-  return value;
-}
-
-function git(command: string): string {
-  return execSync(`git ${command}`, { encoding: "utf8" }).trim();
-}
-
-interface Meta {
-  llm_provider: string;
-  chat_model: string | null;
-  temperature: number | null;
-  max_output_tokens: number | null;
-  embed_provider: string;
-  embed_model: string | null;
-  prompt_file: string;
-  prompt_sha256: string;
-}
-
-// The app reports its own configuration, so the run records what actually answered.
-async function fetchMeta(token: string): Promise<Meta> {
-  const response = await fetch(`${BASE_URL}/meta`, { headers: { Authorization: `Bearer ${token}` } });
-  if (response.status === 401) {
-    console.error("401 Unauthorized: the app's API_TOKEN differs from .env. Is it running with npm run dev?");
-    process.exit(1);
-  }
-  if (!response.ok) throw new Error(`GET /meta failed with HTTP ${response.status}`);
-  return (await response.json()) as Meta;
-}
 
 async function ask(question: string, token: string): Promise<Omit<AnswerRecord, "id">> {
   const started = performance.now();
@@ -89,18 +56,6 @@ async function ask(question: string, token: string): Promise<Omit<AnswerRecord, 
   }
 }
 
-const RESTART_WAIT_MS = 60_000;
-
-async function waitForHealth(): Promise<boolean> {
-  const deadline = Date.now() + RESTART_WAIT_MS;
-  while (Date.now() < deadline) {
-    const health = await fetch(`${BASE_URL}/health`).catch(() => null);
-    if (health?.ok) return true;
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-  }
-  return false;
-}
-
 function percentile(sorted: number[], p: number): number {
   return sorted[Math.min(sorted.length - 1, Math.ceil((p / 100) * sorted.length) - 1)];
 }
@@ -109,17 +64,7 @@ async function main() {
   const token = requireEnv("API_TOKEN");
   const golden = JSON.parse(readFileSync("eval/golden.json", "utf8")) as GoldenEntry[];
 
-  // Fail fast if the app is down, uses a different token, or is in stub mode.
-  const health = await fetch(`${BASE_URL}/health`).catch(() => null);
-  if (!health?.ok) {
-    console.error(`App not reachable at ${BASE_URL}. Start it with: npm run dev`);
-    process.exit(1);
-  }
-  const meta = await fetchMeta(token);
-  if (meta.llm_provider === "stub" || meta.embed_provider === "stub") {
-    console.error("The app is in stub mode; stub answers can't be evaluated. Start it with: npm run dev");
-    process.exit(1);
-  }
+  const meta = await connectToOllamaApp(token);
 
   const startedAt = new Date();
   const metadata = {
@@ -168,7 +113,7 @@ async function main() {
   const configChanged: boolean | null = changed ? true : metaAtEnd ? false : null;
 
   const finishedAt = new Date();
-  const runId = startedAt.toISOString().replace(/[:.]/g, "-");
+  const runId = runIdFor(startedAt);
   const runDir = path.join("eval", "runs", runId);
   mkdirSync(runDir, { recursive: true });
   const outFile = path.join(runDir, "answers.json");
