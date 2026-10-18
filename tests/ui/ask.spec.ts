@@ -8,7 +8,7 @@ test.beforeEach(async ({ page }) => {
 
 test.describe("happy path", () => {
   test("shows the answer and 1-3 source items", async ({ page }) => {
-    await askQuestion(page, "When is the Summit?");
+    await askQuestion(page, "How long do card payments take to settle?");
 
     await expect(page.getByTestId("answer")).toBeVisible();
     await expect(page.getByTestId("answer")).not.toBeEmpty();
@@ -26,7 +26,7 @@ test.describe("loading state", () => {
   // Stub mode answers in milliseconds, so the request is held to make the state observable.
   test("shows Thinking… and disables the button until the answer arrives", async ({ page }) => {
     const release = await holdAskRequests(page);
-    await askQuestion(page, "When is the Summit?");
+    await askQuestion(page, "How long do card payments take to settle?");
 
     await expect(page.getByTestId("loading")).toBeVisible();
     await expect(page.getByTestId("loading")).toHaveText("Thinking…");
@@ -41,7 +41,7 @@ test.describe("loading state", () => {
 
 test.describe("error messages", () => {
   test("401: wrong token asks the user to check the token", async ({ page }) => {
-    await askQuestion(page, "When is the Summit?", "wrong-token");
+    await askQuestion(page, "How long do card payments take to settle?", "wrong-token");
     await expect(page.getByTestId("error")).toBeVisible();
     await expect(page.getByTestId("error")).toContainText("Check that your API token is correct");
     await expect(page.getByTestId("result")).toBeHidden();
@@ -76,7 +76,7 @@ test.describe("error messages", () => {
   });
 
   test("503: LLM outage asks the user to start Ollama", async ({ page }) => {
-    await askQuestion(page, `When is the Summit? ${SIMULATE_LLM_DOWN}`);
+    await askQuestion(page, `How long do card payments take to settle? ${SIMULATE_LLM_DOWN}`);
     await expect(page.getByTestId("error")).toBeVisible();
     await expect(page.getByTestId("error")).toContainText("Make sure Ollama is running");
   });
@@ -84,7 +84,7 @@ test.describe("error messages", () => {
   // Stub mode can't make the server disappear mid-test, so the network call is aborted.
   test("server unreachable shows a connection message", async ({ page }) => {
     await page.route("**/ask", (route) => route.abort("connectionrefused"));
-    await askQuestion(page, "When is the Summit?");
+    await askQuestion(page, "How long do card payments take to settle?");
     await expect(page.getByTestId("error")).toBeVisible();
     await expect(page.getByTestId("error")).toContainText("Could not reach the server");
     await expect(page.getByTestId("loading")).toBeHidden();
@@ -103,7 +103,7 @@ test.describe("request handling", () => {
     const release = await holdAskRequests(page);
 
     await page.getByTestId("token-input").fill(API_TOKEN);
-    await page.getByTestId("question-input").fill("When is the Summit?");
+    await page.getByTestId("question-input").fill("How long do card payments take to settle?");
     await page.getByTestId("ask-button").dblclick();
 
     release();
@@ -127,7 +127,7 @@ test.describe("output safety", () => {
       route.fulfill({ json: { answer: hostileAnswer, sources: [hostileSource] } }),
     );
 
-    await askQuestion(page, "When is the Summit?");
+    await askQuestion(page, "How long do card payments take to settle?");
 
     await expect(page.getByTestId("answer")).toHaveText(hostileAnswer);
     await expect(page.getByTestId("source-item")).toHaveText(hostileSource);

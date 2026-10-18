@@ -18,7 +18,7 @@ test.describe("unknown routes", () => {
 test.describe("LLM outage", () => {
   test("/ask returns a JSON 503 when the LLM is down", async ({ request }) => {
     const response = await request.post("/ask", {
-      data: { question: `When is the Summit? ${SIMULATE_LLM_DOWN}` },
+      data: { question: `How long do card payments take to settle? ${SIMULATE_LLM_DOWN}` },
       headers: authHeaders,
     });
     await expectError(response, 503);
@@ -26,7 +26,7 @@ test.describe("LLM outage", () => {
 
   test("/search does not call the LLM, so the trigger has no effect", async ({ request }) => {
     const response = await request.post("/search", {
-      data: { query: `When is the Summit? ${SIMULATE_LLM_DOWN}` },
+      data: { query: `How long do card payments take to settle? ${SIMULATE_LLM_DOWN}` },
       headers: authHeaders,
     });
     await expectJson(response, 200, SearchSchema);

@@ -5,7 +5,7 @@ import { AskSchema, authHeaders, expectJson, SearchSchema } from "./support.js";
 test.describe("response contracts", () => {
   test("/ask returns an answer and 1-3 unique .md sources", async ({ request }) => {
     const response = await request.post("/ask", {
-      data: { question: "How much does the Scale tier cost?" },
+      data: { question: "What is the fee for a domestic card payment?" },
       headers: authHeaders,
     });
     const body = await expectJson(response, 200, AskSchema);
@@ -14,7 +14,7 @@ test.describe("response contracts", () => {
 
   test("/search returns 3 results sorted by score, highest first", async ({ request }) => {
     const response = await request.post("/search", {
-      data: { query: "How much does the Scale tier cost?" },
+      data: { query: "What is the fee for a domestic card payment?" },
       headers: authHeaders,
     });
     const body = await expectJson(response, 200, SearchSchema);
@@ -23,7 +23,7 @@ test.describe("response contracts", () => {
   });
 
   test("/ask sources are a subset of /search sources for the same text", async ({ request }) => {
-    const text = "Who runs fundraising office hours?";
+    const text = "How long does ZoisPay store an idempotency key?";
     const ask = await expectJson(
       await request.post("/ask", { data: { question: text }, headers: authHeaders }),
       200,

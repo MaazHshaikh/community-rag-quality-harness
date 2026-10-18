@@ -1,242 +1,242 @@
 [
   {
     "id": "single-01",
-    "question": "How much does Scale cost?",
+    "question": "What is the fee for a domestic card payment?",
     "category": "single_fact",
-    "expected_facts": ["$99"],
-    "expected_sources": ["fact-membership-pricing.md"],
-    "forbidden_facts": ["no extra fee", "included in membership", "$29"]
+    "expected_facts": ["2.9%", "$0.30"],
+    "expected_sources": ["fact-pricing-and-fees.md"],
+    "forbidden_facts": ["4.4%", "2.2%"]
   },
   {
     "id": "single-02",
-    "question": "How much does the Scale tier cost per month?",
+    "question": "How much extra does ZoisPay charge for international cards compared with domestic cards?",
     "category": "single_fact",
-    "expected_facts": ["$99"],
-    "expected_sources": ["fact-membership-pricing.md"],
-    "forbidden_facts": ["no extra fee", "$29", "$49"]
+    "expected_facts": ["1.5%"],
+    "expected_sources": ["fact-pricing-and-fees.md"],
+    "forbidden_facts": ["1.75%"]
   },
   {
     "id": "single-03",
-    "question": "How much does the Builder tier cost per year?",
+    "question": "What is the fee for a direct carrier billing payment?",
     "category": "single_fact",
-    "expected_facts": ["$290"],
-    "expected_sources": ["fact-membership-pricing.md"],
-    "forbidden_facts": ["$348", "$990"]
+    "expected_facts": ["12%"],
+    "expected_sources": ["fact-pricing-and-fees.md"],
+    "forbidden_facts": ["10%", "15%"]
   },
   {
     "id": "single-04",
-    "question": "How many seats does the Scale tier include?",
+    "question": "In which countries is direct carrier billing available?",
     "category": "single_fact",
-    "expected_facts": ["3 seats"],
-    "expected_sources": ["fact-membership-pricing.md"],
-    "forbidden_facts": ["1 seat", "5 seats"]
+    "expected_facts": ["Pakistan", "Kenya", ["UAE", "United Arab Emirates"]],
+    "expected_sources": ["fact-pricing-and-fees.md"],
+    "forbidden_facts": ["United States", "Germany"]
   },
   {
     "id": "single-05",
-    "question": "How long do new paid members have to request a refund?",
+    "question": "What is the most ZoisPay will charge in fees for a single bank transfer payment?",
     "category": "single_fact",
-    "expected_facts": ["14 days"],
-    "expected_sources": ["fact-membership-pricing.md"],
-    "forbidden_facts": ["30 days", "7 days"]
+    "expected_facts": ["$5"],
+    "expected_sources": ["fact-pricing-and-fees.md"],
+    "forbidden_facts": ["$15", "$0.30"]
   },
   {
     "id": "single-06",
-    "question": "How long is the grace period after a failed payment?",
+    "question": "What markup does ZoisPay add when it converts currencies?",
     "category": "single_fact",
-    "expected_facts": ["7 day"],
-    "expected_sources": ["fact-membership-pricing.md"],
-    "forbidden_facts": ["14 day", "30 day"]
+    "expected_facts": ["1.75%"],
+    "expected_sources": ["fact-pricing-and-fees.md"],
+    "forbidden_facts": ["1.5%", "2.9%"]
   },
   {
     "id": "single-07",
-    "question": "What discount do students get?",
+    "question": "How many settlement currencies does ZoisPay support?",
     "category": "single_fact",
-    "expected_facts": ["50%", "Builder"],
-    "expected_sources": ["fact-membership-pricing.md"],
-    "forbidden_facts": ["25%", "20%"]
+    "expected_facts": ["6 settlement currencies"],
+    "expected_sources": ["fact-pricing-and-fees.md"],
+    "forbidden_facts": ["38 settlement currencies"]
   },
   {
     "id": "single-08",
-    "question": "When and where is the FounderHub Summit 2027?",
+    "question": "How long do card payments take to settle?",
     "category": "single_fact",
-    "expected_facts": ["March 12", "Lisbon"],
-    "expected_sources": ["fact-events-calendar.md"],
-    "forbidden_facts": ["March 4", "Porto"]
+    "expected_facts": [["2 business days", "T+2"]],
+    "expected_sources": ["fact-settlements-and-payouts.md"],
+    "forbidden_facts": ["T+30", "5 business days"]
   },
   {
     "id": "single-09",
-    "question": "Until when are early-bird Summit tickets available?",
+    "question": "How long do direct carrier billing payments take to settle?",
     "category": "single_fact",
-    "expected_facts": ["January 15"],
-    "expected_sources": ["fact-events-calendar.md"],
-    "forbidden_facts": ["February 12", "January 7"]
+    "expected_facts": [["30 calendar days", "30 days", "T+30"]],
+    "expected_sources": ["fact-settlements-and-payouts.md"],
+    "forbidden_facts": ["T+2", "7 days"]
   },
   {
     "id": "single-10",
-    "question": "How many attendees can the Summit hold?",
+    "question": "What is the daily payout cutoff time?",
     "category": "single_fact",
-    "expected_facts": ["300"],
-    "expected_sources": ["fact-events-calendar.md"],
-    "forbidden_facts": ["500", "1,000"]
+    "expected_facts": ["14:00 UTC"],
+    "expected_sources": ["fact-settlements-and-payouts.md"],
+    "forbidden_facts": ["12:00", "16:00"]
   },
   {
     "id": "single-11",
-    "question": "Who hosts the Fundraising Workshop?",
+    "question": "What is the minimum amount for a scheduled payout?",
     "category": "single_fact",
-    "expected_facts": ["Marcus Feld"],
-    "expected_sources": ["fact-events-calendar.md"],
-    "forbidden_facts": ["Elena Duarte", "Priya Raman"]
+    "expected_facts": ["$25"],
+    "expected_sources": ["fact-settlements-and-payouts.md"],
+    "forbidden_facts": ["$10", "$50"]
   },
   {
     "id": "single-12",
-    "question": "What day of the week is Pitch Practice?",
+    "question": "How long must a merchant process live payments before instant payouts become available?",
     "category": "single_fact",
-    "expected_facts": ["Tuesday"],
-    "expected_sources": ["fact-events-calendar.md"],
-    "forbidden_facts": ["Wednesday", "Thursday"]
+    "expected_facts": ["60 days"],
+    "expected_sources": ["fact-settlements-and-payouts.md"],
+    "forbidden_facts": ["90 days", "30 days"]
   },
   {
     "id": "single-13",
-    "question": "How many founders can join one Pitch Practice group?",
+    "question": "What rolling reserve applies to new merchants?",
     "category": "single_fact",
-    "expected_facts": ["8 founders"],
-    "expected_sources": ["fact-events-calendar.md"],
-    "forbidden_facts": ["5 founders", "40 founders"]
+    "expected_facts": ["10%", "90 days", "6 months"],
+    "expected_sources": ["fact-settlements-and-payouts.md"],
+    "forbidden_facts": ["20%", "180 days"]
   },
   {
     "id": "single-14",
-    "question": "How quickly does the moderation team respond to a report?",
+    "question": "What is the API rate limit for live accounts?",
     "category": "single_fact",
-    "expected_facts": ["72 hours"],
-    "expected_sources": ["fact-code-of-conduct.md"],
-    "forbidden_facts": ["48 hours", "24 hours"]
+    "expected_facts": [["100 requests per second", "100 requests/second", "100 requests a second", "100 per second"]],
+    "expected_sources": ["fact-api-and-integration.md"],
+    "forbidden_facts": ["50 requests per second", "1,000 requests per second"]
   },
   {
     "id": "single-15",
-    "question": "What happens after a second code of conduct violation?",
+    "question": "How long does ZoisPay store an idempotency key?",
     "category": "single_fact",
-    "expected_facts": [["30 day suspension", "suspended for 30 days", "suspension of 30 days", "30 days suspension"]],
-    "expected_sources": ["fact-code-of-conduct.md"],
-    "forbidden_facts": ["60 day", "90 day"]
+    "expected_facts": ["24 hours"],
+    "expected_sources": ["fact-api-and-integration.md"],
+    "forbidden_facts": ["48 hours", "7 days"]
   },
   {
     "id": "single-16",
-    "question": "Who leads the FounderHub moderation team?",
+    "question": "Should I reuse the same idempotency key when retrying a declined payment?",
     "category": "single_fact",
-    "expected_facts": ["Tomasz Wieczorek"],
-    "expected_sources": ["fact-code-of-conduct.md"],
-    "forbidden_facts": ["Priya Raman", "Marcus Feld"]
+    "expected_facts": [["new key", "new idempotency key", "different key", "different idempotency key"], ["original decline", "original response"]],
+    "expected_sources": ["fact-api-and-integration.md"],
+    "forbidden_facts": ["same idempotency key on every retry", "reuse the same key on every retry"]
   },
   {
     "id": "single-17",
-    "question": "Where and how often can members promote their own product?",
+    "question": "How many times does ZoisPay retry a failed webhook delivery, and over how long?",
     "category": "single_fact",
-    "expected_facts": ["show and tell", ["once per week", "once a week", "one time per week", "weekly"]],
-    "expected_sources": ["fact-code-of-conduct.md"],
-    "forbidden_facts": ["#general", "once per month"]
+    "expected_facts": [["6 retries", "6 times"], "35 hours"],
+    "expected_sources": ["fact-api-and-integration.md"],
+    "forbidden_facts": ["3 retries", "5 retries"]
   },
   {
     "id": "single-18",
-    "question": "How long is a mentorship cohort?",
+    "question": "How quickly must a webhook endpoint respond?",
     "category": "single_fact",
-    "expected_facts": ["12 weeks"],
-    "expected_sources": ["fact-programs.md"],
-    "forbidden_facts": ["8 weeks", "6 weeks"]
+    "expected_facts": ["10 seconds"],
+    "expected_sources": ["fact-api-and-integration.md"],
+    "forbidden_facts": ["30 seconds", "5 seconds"]
   },
   {
     "id": "single-19",
-    "question": "What is the application deadline for the Winter 2027 mentorship cohort?",
+    "question": "How long is the refund window for mobile wallet payments?",
     "category": "single_fact",
-    "expected_facts": ["November 30"],
-    "expected_sources": ["fact-programs.md"],
-    "forbidden_facts": ["December 14", "January 11"]
+    "expected_facts": ["30 days"],
+    "expected_sources": ["fact-refunds-and-disputes.md"],
+    "forbidden_facts": ["60 days"]
   },
   {
     "id": "single-20",
-    "question": "How long is an Office Hours slot?",
+    "question": "What is the fee for a card chargeback?",
     "category": "single_fact",
-    "expected_facts": ["20 minutes"],
-    "expected_sources": ["fact-programs.md"],
-    "forbidden_facts": ["45 minutes", "30 minutes"]
+    "expected_facts": ["$15"],
+    "expected_sources": ["fact-refunds-and-disputes.md"],
+    "forbidden_facts": ["$25", "$5 per chargeback"]
   },
   {
     "id": "multi-01",
-    "question": "What day of the week are fundraising office hours, and on what date is the Fundraising Workshop?",
+    "question": "For a mobile wallet payment, how soon are the funds available to the merchant, and how long can the merchant refund it?",
     "category": "multi_doc",
-    "expected_facts": ["Wednesday", "November 19"],
-    "expected_sources": ["fact-programs.md", "fact-events-calendar.md"],
-    "forbidden_facts": ["November 18", "Tuesday"]
+    "expected_facts": [["1 business day", "T+1"], "30 days"],
+    "expected_sources": ["fact-settlements-and-payouts.md", "fact-refunds-and-disputes.md"],
+    "forbidden_facts": ["60 days", "T+2"]
   },
   {
     "id": "multi-02",
-    "question": "Can an Explorer member apply to the mentorship program, how long does a cohort last, and what is the monthly price of the cheapest tier that can apply?",
+    "question": "What is the fee for a direct carrier billing payment, and how long is its refund window?",
     "category": "multi_doc",
-    "expected_facts": [["cannot", "can't", "can not", "not eligible", "not able to"], "Builder", "$29", "12 weeks"],
-    "expected_sources": ["fact-programs.md", "fact-membership-pricing.md"],
-    "forbidden_facts": ["Explorer members can apply", "$99 per month"]
+    "expected_facts": ["12%", "7 days"],
+    "expected_sources": ["fact-pricing-and-fees.md", "fact-refunds-and-disputes.md"],
+    "forbidden_facts": ["180 days", "2.2%"]
   },
   {
     "id": "multi-03",
-    "question": "How much was Ravi offered by an angel investor, and who will he meet at fundraising office hours, on what day of the week?",
+    "question": "What does an instant payout cost, and how long must a new merchant process live payments before using one?",
     "category": "multi_doc",
-    "expected_facts": ["$150K", "Marcus Feld", "Wednesday"],
-    "expected_sources": ["thread-pre-seed-fundraising.md", "fact-programs.md"],
-    "forbidden_facts": ["Elena Duarte", "Tuesday"]
+    "expected_facts": ["1%", "60 days"],
+    "expected_sources": ["fact-pricing-and-fees.md", "fact-settlements-and-payouts.md"],
+    "forbidden_facts": ["0.8%", "90 days"]
   },
   {
     "id": "multi-04",
-    "question": "What is the monthly price of the Builder tier, and what does a Builder member pay for a regular Summit ticket?",
+    "question": "How long do card payments take to settle, and how long does a merchant have to submit evidence for a card chargeback?",
     "category": "multi_doc",
-    "expected_facts": ["$29", "$149"],
-    "expected_sources": ["fact-membership-pricing.md", "fact-events-calendar.md"],
-    "forbidden_facts": ["$99 per month", "$349"]
+    "expected_facts": [["2 business days", "T+2"], "7 calendar days"],
+    "expected_sources": ["fact-settlements-and-payouts.md", "fact-refunds-and-disputes.md"],
+    "forbidden_facts": ["10 calendar days", "T+1"]
   },
   {
     "id": "multi-05",
-    "question": "What monthly price does Samir plan to launch Inkfold at, and what is the monthly price of FounderHub's Builder tier?",
+    "question": "What reserve applies to a new merchant, and what monthly dispute rate moves a merchant to the higher 15% reserve?",
     "category": "multi_doc",
-    "expected_facts": ["$49", "$29"],
-    "expected_sources": ["thread-pricing.md", "fact-membership-pricing.md"],
-    "forbidden_facts": ["$79", "$99"]
+    "expected_facts": ["10%", "0.9%"],
+    "expected_sources": ["fact-settlements-and-payouts.md", "fact-refunds-and-disputes.md"],
+    "forbidden_facts": ["0.5%", "2%"]
   },
   {
     "id": "conflict-01",
-    "question": "Should I raise pre-seed money before I have revenue?",
+    "question": "Should I use webhooks or polling to confirm whether a payment succeeded?",
     "category": "conflict",
-    "expected_facts": ["Claire", "Jonah", "$10K"],
-    "expected_sources": ["thread-pre-seed-fundraising.md"],
+    "expected_facts": ["Elena", "webhooks", "Tobias", "polling"],
+    "expected_sources": ["thread-webhooks-vs-polling.md"],
     "forbidden_facts": ["I don't know based on the community docs"]
   },
   {
     "id": "conflict-02",
-    "question": "Should my first hire be a generalist or a specialist?",
+    "question": "Should a small team use hosted checkout or build on the direct API?",
     "category": "conflict",
-    "expected_facts": ["Felix", "generalist", "Yuki", "engineer"],
-    "expected_sources": ["thread-first-hires.md"],
+    "expected_facts": ["Maya", "hosted checkout", "Lukas", "direct API"],
+    "expected_sources": ["thread-hosted-checkout-vs-direct-api.md"],
     "forbidden_facts": ["I don't know based on the community docs"]
   },
   {
     "id": "conflict-03",
-    "question": "Should a non-technical founder with limited runway hire a senior engineer first?",
+    "question": "Does redirecting customers to hosted checkout hurt checkout completion?",
     "category": "conflict",
-    "expected_facts": ["Felix", "$150K", "Yuki"],
-    "expected_sources": ["thread-first-hires.md"],
+    "expected_facts": ["Lukas", "72%", "Maya"],
+    "expected_sources": ["thread-hosted-checkout-vs-direct-api.md"],
     "forbidden_facts": ["I don't know based on the community docs"]
   },
   {
     "id": "conflict-04",
-    "question": "Is a big launch day better than a quiet launch?",
+    "question": "Should failed subscription payments be retried on the same day or spread over several days?",
     "category": "conflict",
-    "expected_facts": ["Ingrid", "big launch", "Mateo"],
-    "expected_sources": ["thread-product-launches.md"],
+    "expected_facts": ["Hiroshi", "same day", "Grace"],
+    "expected_sources": ["thread-retrying-failed-payments.md"],
     "forbidden_facts": ["I don't know based on the community docs"]
   },
   {
     "id": "conflict-05",
-    "question": "Should I offer a free tier or charge from day one?",
+    "question": "Is direct carrier billing worth the 12% fee?",
     "category": "conflict",
-    "expected_facts": ["Beatriz", "Kofi", "free tier"],
-    "expected_sources": ["thread-pricing.md"],
+    "expected_facts": ["Omar", "Rebecca", "30 days"],
+    "expected_sources": ["thread-carrier-billing-worth-it.md"],
     "forbidden_facts": ["I don't know based on the community docs"]
   }
 ]

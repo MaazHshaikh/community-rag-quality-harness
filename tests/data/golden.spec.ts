@@ -111,9 +111,17 @@ test.describe("eval/golden.json", () => {
     }
   });
 
-  test("includes both F1 wordings from findings.md", () => {
-    const questions = golden.map((e) => e.question);
-    expect(questions).toContain("How much does Scale cost?");
-    expect(questions).toContain("How much does the Scale tier cost per month?");
+  // Wrong claims made inside forum threads must be flagged when an answer repeats them.
+  test("includes the trap questions for wrong claims in the threads", () => {
+    const flags = (fact: string, forbidden: RegExp) =>
+      golden.some(
+        (e) =>
+          e.expected_facts.some((f) => variants(f).includes(normalize(fact))) &&
+          e.forbidden_facts.some((phrase) => forbidden.test(phrase)),
+      );
+    // Bilal (thread-wallet-refunds.md): wallet refunds allowed for 60 days. The docs say 30.
+    expect(flags("30 days", /^60 days$/)).toBe(true);
+    // Hiroshi (thread-retrying-failed-payments.md): reuse the same idempotency key on retries.
+    expect(flags("new key", /same (idempotency )?key on every retry/)).toBe(true);
   });
 });

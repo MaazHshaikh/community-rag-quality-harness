@@ -2,8 +2,8 @@ import { expect, test } from "@playwright/test";
 import { API_TOKEN, AskSchema, authHeaders, expectError, expectJson, SearchSchema } from "./support.js";
 
 const endpoints = [
-  { path: "/ask", body: { question: "When is the Summit?" } },
-  { path: "/search", body: { query: "When is the Summit?" } },
+  { path: "/ask", body: { question: "How long do card payments take to settle?" } },
+  { path: "/search", body: { query: "How long do card payments take to settle?" } },
 ];
 
 for (const { path, body } of endpoints) {
