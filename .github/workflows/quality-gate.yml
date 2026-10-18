@@ -1,7 +1,9 @@
 # Answers every golden question with the real models (Ollama on the runner's CPU), scores the run,
 # and fails if the quality score is more than the allowed tolerance below eval/baseline.json.
 # Runs on every pull request so it can be a required check: when the pull request changes nothing
-# under src/, prompts/, docs/, or eval/golden.json, it passes in seconds without starting Ollama.
+# under src/, prompts/, docs/, or eval/ (other than eval outputs: runs/, history.jsonl, trend.html,
+# failure-modes.md), nor package.json, package-lock.json, or this file, it passes in seconds
+# without starting Ollama.
 # Also runs manually (Actions > Quality gate > Run workflow), always in full.
 # The run folder is uploaded as an artifact; nothing is committed back.
 name: Quality gate
@@ -53,14 +55,18 @@ jobs:
             exit 0
           fi
           # Three dots: only what this pull request changed since it branched from the base.
-          changed=$(git diff --name-only "$BASE_SHA...$HEAD_SHA" -- src prompts docs eval/golden.json)
+          # Paths that can change answers, scoring, or the gate itself. Eval outputs are left out.
+          changed=$(git diff --name-only "$BASE_SHA...$HEAD_SHA" -- \
+            src prompts docs eval \
+            ':(exclude)eval/runs' ':(exclude)eval/history.jsonl' ':(exclude)eval/trend.html' ':(exclude)eval/failure-modes.md' \
+            package.json package-lock.json .github/workflows/quality-gate.yml)
           if [ -n "$changed" ]; then
             echo "run=true" >> "$GITHUB_OUTPUT"
             echo "Files that can affect answers:"
             echo "$changed"
           else
             echo "run=false" >> "$GITHUB_OUTPUT"
-            message="No changes under src/, prompts/, docs/, or eval/golden.json, so answers can't have changed. Skipped the eval."
+            message="No changes to src/, prompts/, docs/, eval/ (outside the eval outputs), package files, or this workflow, so answers and scoring can't have changed. Skipped the eval."
             echo "$message"
             printf '## Quality gate: ⏭️ Passed without running\n\n%s\n' "$message" >> "$GITHUB_STEP_SUMMARY"
           fi
