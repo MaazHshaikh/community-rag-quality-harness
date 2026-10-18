@@ -1,0 +1,131 @@
+# Answers every golden question with the real models (Ollama on the runner's CPU), scores the run,
+# and fails if the quality score is more than the allowed tolerance below eval/baseline.json.
+# Runs on pull requests that can change answers, and manually (Actions > Quality gate > Run workflow).
+# The run folder is uploaded as an artifact; nothing is committed back.
+name: Quality gate
+
+on:
+  pull_request:
+    paths:
+      - "src/**"
+      - "prompts/**"
+      - "docs/**"
+      - "eval/golden.json"
+  workflow_dispatch:
+    inputs:
+      enforce:
+        description: "Fail the job if the score is below the baseline (untick while calibrating)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-gate-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  OLLAMA_VERSION: "0.40.6" # same as local development
+  OLLAMA_MODELS: /home/runner/.ollama/models
+  CHAT_MODEL: llama3.2:3b
+  EMBED_MODEL: nomic-embed-text
+  PORT: "3100"
+  EVAL_BASE_URL: http://localhost:3100
+
+jobs:
+  gate:
+    name: Quality gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Install Ollama
+        run: |
+          curl -fsSL https://ollama.com/install.sh | sh
+          # The installer starts a system service with its own model folder; run our own server
+          # instead, so the models come from the cached folder.
+          sudo systemctl stop ollama || true
+
+      - name: Restore cached models
+        id: models
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ env.OLLAMA_MODELS }}
+          key: ollama-models-${{ runner.os }}-llama3.2-3b-nomic-embed-text
+
+      - name: Start Ollama
+        run: |
+          nohup ollama serve > ollama.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://localhost:11434/api/version && exit 0; sleep 1; done
+          cat ollama.log
+          exit 1
+
+      - name: Pull models
+        run: |
+          ollama pull "$CHAT_MODEL"
+          ollama pull "$EMBED_MODEL"
+
+      # Saved straight away (not at job end) so a failing gate still caches the models.
+      - name: Cache models
+        if: steps.models.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ env.OLLAMA_MODELS }}
+          key: ${{ steps.models.outputs.cache-primary-key }}
+
+      - name: Write .env with a throwaway token
+        run: |
+          token=$(openssl rand -hex 32)
+          echo "::add-mask::$token"
+          sed "s/^API_TOKEN=.*/API_TOKEN=$token/" .env.example > .env
+
+      - name: Start the app
+        run: |
+          nohup node --env-file=.env --import tsx src/server.ts > app.log 2>&1 &
+          for i in $(seq 1 180); do curl -sf "$EVAL_BASE_URL/health" && exit 0; sleep 1; done
+          cat app.log
+          exit 1
+
+      - name: Answer the golden questions
+        run: |
+          # Listed outside the checkout so the file doesn't mark the run as dirty.
+          ls eval/runs > "$RUNNER_TEMP/runs-before.txt"
+          npm run eval:run
+
+      - name: Find the new run folder
+        if: always()
+        run: |
+          [ -f "$RUNNER_TEMP/runs-before.txt" ] || exit 0 # the run never started
+          dir=$(comm -13 <(sort "$RUNNER_TEMP/runs-before.txt" 2>/dev/null) <(ls eval/runs | sort) | tail -1)
+          if [ -n "$dir" ]; then echo "RUN_DIR=eval/runs/$dir" >> "$GITHUB_ENV"; fi
+
+      - name: Score and report
+        run: |
+          npm run eval:score -- "$RUN_DIR"
+          npm run eval:report -- "$RUN_DIR"
+
+      - name: Compare with the baseline
+        env:
+          GATE_ENFORCE: ${{ github.event_name == 'workflow_dispatch' && !inputs.enforce && 'false' || 'true' }}
+        run: npm run eval:gate -- "$RUN_DIR"
+
+      - name: Upload the run folder and logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quality-gate-run
+          path: |
+            ${{ env.RUN_DIR }}
+            app.log
+            ollama.log
+          if-no-files-found: warn
+          retention-days: 30
