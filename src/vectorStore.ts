@@ -1,5 +1,5 @@
 import type { Chunk } from "./chunking.js";
-import { embed } from "./ollama.js";
+import { embed } from "./embeddings.js";
 
 interface IndexedChunk extends Chunk {
   vector: number[];
@@ -34,6 +34,8 @@ function cosineSimilarity(a: number[], b: number[]): number {
     normA += a[i] * a[i];
     normB += b[i] * b[i];
   }
+  // An all-zero vector (e.g. a stub embedding of "???") has no direction; treat it as unrelated.
+  if (normA === 0 || normB === 0) return 0;
   return dot / (Math.sqrt(normA) * Math.sqrt(normB));
 }
 

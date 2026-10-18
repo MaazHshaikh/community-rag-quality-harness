@@ -7,3 +7,8 @@ export class HttpError extends Error {
     super(message);
   }
 }
+
+// Shared by real and stub providers so a simulated outage looks identical to a real one.
+export function llmUnavailable(): HttpError {
+  return new HttpError(503, "LLM service is unavailable");
+}

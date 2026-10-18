@@ -17,7 +17,7 @@ function buildPrompt(question: string, context: string): string {
 export async function ask(question: string): Promise<AskResult> {
   const chunks = await search(question);
   const context = chunks.map((c) => `[source: ${c.source}]\n${c.text}`).join("\n\n---\n\n");
-  const answer = await llm.generate(buildPrompt(question, context));
+  const answer = await llm.generate({ prompt: buildPrompt(question, context), question });
   const sources = [...new Set(chunks.map((c) => c.source))];
   return { answer, sources };
 }
