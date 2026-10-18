@@ -1,4 +1,4 @@
-import { defineConfig } from "@playwright/test";
+import { defineConfig, devices } from "@playwright/test";
 
 const PORT = 3100;
 
@@ -11,6 +11,11 @@ export default defineConfig({
     {
       name: "api",
       testDir: "tests/api",
+    },
+    {
+      name: "ui",
+      testDir: "tests/ui",
+      use: { ...devices["Desktop Chrome"] },
     },
   ],
   // Starts the app in stub mode before tests and stops it after. Port 3100 never clashes

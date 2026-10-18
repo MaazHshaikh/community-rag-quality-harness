@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "tsx watch --env-file=.env src/server.ts",
     "dev:stub": "tsx watch --env-file=.env.stub src/server.ts",
+    "test": "playwright test",
     "test:api": "playwright test --project=api",
+    "test:ui": "playwright test --project=ui",
     "test:report": "playwright show-report"
   },
   "dependencies": {
