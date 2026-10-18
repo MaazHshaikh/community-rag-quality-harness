@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "tsx watch --include \"prompts/**\" --env-file=.env src/server.ts",
     "dev:stub": "tsx watch --include \"prompts/**\" --env-file=.env.stub src/server.ts",
+    "dev:injection": "tsx watch --include \"prompts/**\" --env-file=.env --env-file=.env.injection src/server.ts",
     "test": "playwright test",
     "test:api": "playwright test --project=api",
     "test:ui": "playwright test --project=ui",
@@ -16,7 +17,8 @@
     "eval:report": "tsx eval/report.ts",
     "eval": "npm run eval:score && npm run eval:report",
     "eval:retrieval": "tsx --env-file=.env eval/retrieval.ts",
-    "eval:hallucination": "tsx --env-file=.env eval/hallucinationRun.ts"
+    "eval:hallucination": "tsx --env-file=.env eval/hallucinationRun.ts",
+    "eval:injection": "tsx --env-file=.env eval/injectionRun.ts"
   },
   "dependencies": {
     "express": "^5.3.0"

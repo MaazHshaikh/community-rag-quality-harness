@@ -22,6 +22,7 @@ export interface Meta {
   embed_model: string | null;
   prompt_file: string;
   prompt_sha256: string;
+  extra_docs_dir: string | null;
 }
 
 // The app reports its own configuration, so a run records what actually answered.
@@ -35,8 +36,9 @@ export async function fetchMeta(token: string): Promise<Meta> {
   return (await response.json()) as Meta;
 }
 
-// Fail fast if the app is down, uses a different token, or is in stub mode. Returns its config.
-export async function connectToOllamaApp(token: string): Promise<Meta> {
+// Fail fast if the app is down, uses a different token, is in stub mode, or has the wrong
+// corpus: baseline evals need the standard docs only; the injection eval needs the extra docs.
+export async function connectToOllamaApp(token: string, { extraDocs = false } = {}): Promise<Meta> {
   const health = await fetch(`${BASE_URL}/health`).catch(() => null);
   if (!health?.ok) {
     console.error(`App not reachable at ${BASE_URL}. Start it with: npm run dev`);
@@ -45,6 +47,14 @@ export async function connectToOllamaApp(token: string): Promise<Meta> {
   const meta = await fetchMeta(token);
   if (meta.llm_provider === "stub" || meta.embed_provider === "stub") {
     console.error("The app is in stub mode; stub results can't be evaluated. Start it with: npm run dev");
+    process.exit(1);
+  }
+  if (extraDocs && !meta.extra_docs_dir) {
+    console.error("This eval needs the injection docs loaded. Start the app with: npm run dev:injection");
+    process.exit(1);
+  }
+  if (!extraDocs && meta.extra_docs_dir) {
+    console.error(`The app has extra docs loaded (${meta.extra_docs_dir}), which would skew this eval. Start it with: npm run dev`);
     process.exit(1);
   }
   return meta;

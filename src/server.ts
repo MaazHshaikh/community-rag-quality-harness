@@ -11,6 +11,7 @@ const app = express();
 const port = Number(process.env.PORT) || 3000;
 
 const MAX_INPUT_CHARS = 1000;
+const extraDocsDir = process.env.EXTRA_DOCS_DIR || null;
 
 app.get("/health", (_req, res) => {
   res.json({ status: "ok" });
@@ -34,6 +35,7 @@ app.get("/meta", (_req, res) => {
     embed_model: embeddingInfo.embed_model,
     prompt_file: PROMPT_FILE,
     prompt_sha256: promptSha256,
+    extra_docs_dir: extraDocsDir,
   });
 });
 
@@ -78,9 +80,11 @@ const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
 };
 app.use(errorHandler);
 
-const chunks = await loadChunks("docs");
+// EXTRA_DOCS_DIR adds test-only docs (e.g. the prompt-injection thread) on top of docs/.
+// Unset in normal runs, so the standard corpus and baselines are unaffected.
+const chunks = [...(await loadChunks("docs")), ...(extraDocsDir ? await loadChunks(extraDocsDir) : [])];
 await buildIndex(chunks);
-console.log(`Indexed ${indexSize()} chunks from docs/`);
+console.log(`Indexed ${indexSize()} chunks from docs/${extraDocsDir ? ` and ${extraDocsDir}` : ""}`);
 
 app.listen(port, () => {
   console.log(`Server listening on http://localhost:${port}`);

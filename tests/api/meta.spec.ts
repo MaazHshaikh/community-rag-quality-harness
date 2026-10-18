@@ -14,6 +14,7 @@ const MetaSchema = z
     embed_model: z.string().min(1).nullable(),
     prompt_file: z.string().min(1),
     prompt_sha256: z.string().regex(/^[0-9a-f]{64}$/),
+    extra_docs_dir: z.string().min(1).nullable(),
   })
   .strict();
 
@@ -43,6 +44,7 @@ test.describe("GET /meta", () => {
       max_output_tokens: null,
       embed_provider: "stub",
       embed_model: null,
+      extra_docs_dir: null,
     });
   });
 
