@@ -2,6 +2,8 @@
 
 **Quality score: 87.1 / 100** (75% fact recall + 25% source recall)
 
+> **Warning:** judge.json was produced with a different golden file than scores.json.
+
 ## Run
 
 | Field | Value |
@@ -10,7 +12,7 @@
 | Chat model | llama3.2:3b, temperature 0.2 |
 | Embedding model | nomic-embed-text |
 | Answer prompt | 2df73b108e32 |
-| Golden dataset | 508968d8ccca |
+| Golden dataset | 17217ca2d167 |
 | Judge prompt | 775fae122dfc (qwen2.5:7b) |
 | Started | 2026-10-18T10:14:35.044Z |
 | Questions | 30 |

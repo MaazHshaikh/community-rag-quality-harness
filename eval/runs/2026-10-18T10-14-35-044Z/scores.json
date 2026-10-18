@@ -1,7 +1,7 @@
 {
-  "scored_at": "2026-10-18T11:51:04.855Z",
+  "scored_at": "2026-10-18T15:21:21.184Z",
   "run_dir": "eval/runs/2026-10-18T10-14-35-044Z",
-  "golden_sha256": "508968d8cccaa0f6470057ca9b5fc1631b441868d9e6dbdbec23636c4aedd087",
+  "golden_sha256": "17217ca2d167bccd4ba3d22c780aebd4a5dc54ccf2df6c8b3c6d717e93e5412a",
   "run_metadata": {
     "started_at": "2026-10-18T10:14:35.044Z",
     "base_url": "http://localhost:3100",
@@ -319,7 +319,7 @@
       "fact_recall": 1,
       "facts": [
         {
-          "fact": "100 requests per second | 100 requests/second | 100 requests a second | 100 per second",
+          "fact": "100 requests per second | 100 requests/second | 100 requests a second | 100 per second | 100 API requests per second",
           "matched": "100 requests per second"
         }
       ],

@@ -107,7 +107,7 @@
     "id": "single-14",
     "question": "What is the API rate limit for live accounts?",
     "category": "single_fact",
-    "expected_facts": [["100 requests per second", "100 requests/second", "100 requests a second", "100 per second"]],
+    "expected_facts": [["100 requests per second", "100 requests/second", "100 requests a second", "100 per second", "100 API requests per second"]],
     "expected_sources": ["fact-api-and-integration.md"],
     "forbidden_facts": ["50 requests per second", "1,000 requests per second"]
   },
