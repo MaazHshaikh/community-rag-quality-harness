@@ -1,0 +1,12 @@
+{
+  "description": "Hand scores used to calibrate the LLM judge. Scored blind (judge scores hidden) on 2026-10-18.",
+  "run_dir": "eval/runs/2026-10-18T10-14-35-044Z",
+  "scores": {
+    "single-13": { "correctness": 5, "groundedness": 5, "completeness": 5 },
+    "single-07": { "correctness": 1, "groundedness": 1, "completeness": 1 },
+    "single-03": { "correctness": 5, "groundedness": 4, "completeness": 3 },
+    "conflict-03": { "correctness": 1, "groundedness": 3, "completeness": 2 },
+    "conflict-04": { "correctness": 2, "groundedness": 4, "completeness": 3 },
+    "single-19": { "correctness": 5, "groundedness": 5, "completeness": 5 }
+  }
+}

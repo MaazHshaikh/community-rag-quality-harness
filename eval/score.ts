@@ -1,26 +1,14 @@
 // Scores a saved run against eval/golden.json without calling any AI.
 // Usage: npm run eval:score [-- eval/runs/<timestamp>]   (defaults to the latest run)
 import { createHash } from "node:crypto";
-import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import { resolveRunDir } from "./runDir.js";
 import { type AnswerRecord, type Category, type GoldenEntry, scoreAnswer, summarize } from "./scoring.js";
 
-const RUNS_DIR = path.join("eval", "runs");
 const CATEGORIES: Category[] = ["single_fact", "multi_doc", "conflict"];
 
-function latestRunDir(): string {
-  const runs = existsSync(RUNS_DIR)
-    ? readdirSync(RUNS_DIR).filter((name) => existsSync(path.join(RUNS_DIR, name, "answers.json"))).sort()
-    : [];
-  if (runs.length === 0) {
-    console.error(`No runs found in ${RUNS_DIR}. Create one with: npm run eval:run`);
-    process.exit(1);
-  }
-  // Folder names are ISO timestamps, so the last one in sorted order is the newest.
-  return path.join(RUNS_DIR, runs[runs.length - 1]);
-}
-
-const runDir = process.argv[2] ?? latestRunDir();
+const runDir = resolveRunDir(process.argv[2]);
 const answersFile = path.join(runDir, "answers.json");
 if (!existsSync(answersFile)) {
   console.error(`No answers.json in ${runDir}`);

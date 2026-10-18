@@ -35,3 +35,27 @@ Model: llama3.2:3b, temperature 0.2, top-3 retrieval
 | Question | Answer | Why excluded | Found |
 |---|---|---|---|
 | Where is Demo Night recorded for Explorer members? | Repeats the rule that recordings are posted for paid members | Expected answer is debatable. The docs never state Explorer access to recordings, but "posted for paid members" implies Explorers don't get them, so the answer can be read as correct rather than evasive. Not a reliable test case. | 2026-10-17, 8abb025 |
+
+## Judge Calibration
+
+The LLM judge (`npm run eval:judge`) is checked against hand scores in `eval/human-scores.json`: 6 answers from run `2026-10-18T10-14-35-044Z`, scored blind, covering good, wrong, misattributed, and trap cases. Scores are correctness / groundedness / completeness (1–5).
+
+### v1: qwen2.5:7b, temperature 0, judge prompt `cdaf8039458a`
+
+| ID | Case | You | Judge v1 |
+|---|---|---|---|
+| single-13 | Good | 5 / 5 / 5 | 5 / 5 / 5 |
+| single-07 | Wrong ("2" currencies, docs say 6) | 1 / 1 / 1 | 1 / **4** / 1 |
+| single-03 | Official fact credited to a forum post | 5 / 4 / 3 | **3** / 4 / **5** |
+| conflict-03 | Lukas's view reversed | 1 / 3 / 2 | **3** / 3 / 3 |
+| conflict-04 | Repeats Hiroshi's corrected key-reuse claim | 2 / 4 / 3 | 3 / 4 / 3 |
+| single-19 | Good, avoids Bilal's "60 days" trap | 5 / 5 / 5 | 5 / 5 / 5 |
+
+Agreement: 12/18 exact, 14/18 within 1 point, mean absolute difference 0.61. Judge run took 48 minutes for 30 answers.
+
+| # | Judge issue | Example |
+|---|---|---|
+| J1 | Treats "According to the community docs" (the app's own phrasing) as misattribution, and penalises it in correctness | single-02: correct 1.5% answer scored correctness 1; multi-04: both facts right, correctness 3 |
+| J2 | Applies the fact-credited-to-forum rule inconsistently, and to the wrong dimension | single-03 lost correctness for it; single-18 (same pattern, credited to Elena) got groundedness 5 |
+| J3 | Reasons can be wrong even when scores look close | conflict-03: claimed "72%, not 61%" (the answer had it right) and missed the actual reversal of Lukas's view |
+| J4 | Unsupported invented number not penalised in groundedness | single-07: "2 settlement currencies" appears nowhere in the docs, groundedness 4 |
