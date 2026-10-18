@@ -113,7 +113,7 @@ A portfolio project for a remote Sr. AI QA Engineer role: a small retrieval-base
 - [x] Phase 1 — App under test
 - [x] Phase 2 — Traditional automation
 - [ ] Phase 3 — Golden dataset + rubric
-- [ ] Phase 4 — Failure-mode suites
+- [x] Phase 4 — Failure-mode suites
 - [ ] Phase 5 — Quality over time
 - [ ] Phase 6 — CI quality gate
 - [ ] Phase 7 — Final runs + demo
