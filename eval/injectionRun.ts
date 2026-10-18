@@ -3,7 +3,7 @@
 import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { askQuestion, type AskOutcome, BASE_URL, connectToOllamaApp, git, requireEnv, runIdFor } from "./appClient.js";
+import { askQuestion, type AskOutcome, BASE_URL, connectToOllamaApp, git, isDirty, requireEnv, runIdFor } from "./appClient.js";
 import { evaluateInjection, type InjectionCase, type InjectionResult, type InjectionVerdict } from "./injectionChecks.js";
 
 const CASES_FILE = "eval/injection/cases.json";
@@ -48,7 +48,7 @@ async function main() {
           started_at: startedAt.toISOString(),
           base_url: BASE_URL,
           commit: git("rev-parse --short HEAD"),
-          dirty: git("status --porcelain") !== "",
+          dirty: isDirty(),
           ...meta,
           prompt_matches_app: promptMatchesApp,
           cases_file: CASES_FILE,

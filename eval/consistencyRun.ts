@@ -3,7 +3,7 @@
 import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { askQuestion, BASE_URL, connectToOllamaApp, git, requireEnv, runIdFor } from "./appClient.js";
+import { askQuestion, BASE_URL, connectToOllamaApp, git, isDirty, requireEnv, runIdFor } from "./appClient.js";
 import { consistencyStats, type ConsistencyStats, isRefusal, UNSTABLE_RANGE } from "./consistencyMetrics.js";
 import { classifyAnswer } from "./hallucinationClassifier.js";
 import { type GoldenEntry, normalize, scoreAnswer } from "./scoring.js";
@@ -144,7 +144,7 @@ async function main() {
           started_at: startedAt.toISOString(),
           base_url: BASE_URL,
           commit: git("rev-parse --short HEAD"),
-          dirty: git("status --porcelain") !== "",
+          dirty: isDirty(),
           ...meta,
           unstable_range: UNSTABLE_RANGE,
           config_file: CONFIG_FILE,

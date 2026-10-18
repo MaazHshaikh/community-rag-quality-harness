@@ -2,7 +2,7 @@
 // answers for later scoring. Run with: npm run eval:run
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { askQuestion, type AskOutcome, BASE_URL, connectToOllamaApp, fetchMeta, git, type Meta, requireEnv, runIdFor, waitForHealth } from "./appClient.js";
+import { askQuestion, type AskOutcome, BASE_URL, connectToOllamaApp, fetchMeta, git, isDirty, type Meta, requireEnv, runIdFor, waitForHealth } from "./appClient.js";
 
 interface GoldenEntry {
   id: string;
@@ -26,7 +26,7 @@ async function main() {
     started_at: startedAt.toISOString(),
     base_url: BASE_URL,
     commit: git("rev-parse --short HEAD"),
-    dirty: git("status --porcelain") !== "",
+    dirty: isDirty(),
     ...meta,
     question_count: golden.length,
   };

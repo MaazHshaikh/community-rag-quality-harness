@@ -13,6 +13,16 @@ export function git(command: string): string {
   return execSync(`git ${command}`, { encoding: "utf8" }).trim();
 }
 
+// Eval outputs written into the repo. They don't change behaviour, so they don't make a run dirty;
+// otherwise every suite after the first in `npm run eval:all` would be marked dirty.
+export const EVAL_OUTPUTS = ["eval/runs", "eval/failure-modes.md"];
+
+// True when code, config, docs, or prompts have uncommitted changes.
+export function isDirty(): boolean {
+  const excludes = EVAL_OUTPUTS.map((p) => `":(exclude)${p}"`).join(" ");
+  return git(`status --porcelain -- . ${excludes}`) !== "";
+}
+
 export interface Meta {
   llm_provider: string;
   chat_model: string | null;

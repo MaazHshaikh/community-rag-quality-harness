@@ -20,7 +20,8 @@
     "eval:hallucination": "tsx --env-file=.env eval/hallucinationRun.ts",
     "eval:injection": "tsx --env-file=.env eval/injectionRun.ts",
     "eval:consistency": "tsx --env-file=.env eval/consistencyRun.ts",
-    "eval:failure-report": "tsx eval/failureReport.ts"
+    "eval:failure-report": "tsx eval/failureReport.ts",
+    "eval:all": "tsx eval/all.ts"
   },
   "dependencies": {
     "express": "^5.3.0"
