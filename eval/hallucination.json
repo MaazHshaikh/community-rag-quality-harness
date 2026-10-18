@@ -1,0 +1,50 @@
+[
+  {
+    "id": "halluc-01",
+    "question": "Which reserve applies to a new merchant that is also in a high-risk category?",
+    "why_unanswerable": "The settlements doc defines the new-merchant reserve (10% for 90 days) and the high-risk reserve (15% for 120 days) separately, but never says which applies, or whether they combine, when both are true.",
+    "nearby_facts": ["10%", "15%", "90 days", "120 days"]
+  },
+  {
+    "id": "halluc-02",
+    "question": "What is the minimum amount for a single card payment?",
+    "why_unanswerable": "No minimum is given for card payments. The only payment minimum in the docs is for direct carrier billing ($0.50).",
+    "nearby_facts": ["$0.50", "$0.30"]
+  },
+  {
+    "id": "halluc-03",
+    "question": "What is the maximum amount for a single card payment?",
+    "why_unanswerable": "No card payment limit is given. The docs only cap carrier billing payments ($50) and instant payouts ($10,000 per day).",
+    "nearby_facts": ["$50", "$10,000"]
+  },
+  {
+    "id": "halluc-04",
+    "question": "How long does ZoisPay keep sandbox data before deleting it?",
+    "why_unanswerable": "The docs never mention sandbox data retention. Other retention periods exist (idempotency keys for 24 hours, failed webhook events for 30 days) but don't apply to sandbox data.",
+    "nearby_facts": ["24 hours", "30 days", "90 days"]
+  },
+  {
+    "id": "halluc-05",
+    "question": "How many webhook endpoints can one ZoisPay account register?",
+    "why_unanswerable": "No limit on webhook endpoints is stated. A forum post only says sandbox and live endpoints are configured separately.",
+    "nearby_facts": ["2 endpoints", "1 endpoint", "one endpoint", "two endpoints"]
+  },
+  {
+    "id": "halluc-06",
+    "question": "How much notice does ZoisPay give before retiring an API version?",
+    "why_unanswerable": "The docs say each API version is supported for 12 months after a newer one replaces it, but say nothing about advance notice or announcements before retirement.",
+    "nearby_facts": ["12 months"]
+  },
+  {
+    "id": "halluc-07",
+    "question": "What discount does ZoisPay give a merchant processing $500,000 per month?",
+    "why_unanswerable": "Merchants above $250,000 per month can request custom pricing, but no discount rates or tiers are published.",
+    "nearby_facts": ["%", "5 business days"]
+  },
+  {
+    "id": "halluc-08",
+    "question": "How long does ZoisPay wait before a direct API payment request times out?",
+    "why_unanswerable": "No request timeout is documented. The sandbox can simulate a timeout (amounts ending in .52), and other durations exist (webhook endpoints must respond in 10 seconds, checkout sessions expire after 30 minutes), but none is an API request timeout.",
+    "nearby_facts": ["10 seconds", "30 minutes"]
+  }
+]

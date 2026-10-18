@@ -2,59 +2,14 @@
 // answers for later scoring. Run with: npm run eval:run
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { BASE_URL, connectToOllamaApp, fetchMeta, git, type Meta, requireEnv, runIdFor, waitForHealth } from "./appClient.js";
+import { askQuestion, type AskOutcome, BASE_URL, connectToOllamaApp, fetchMeta, git, type Meta, requireEnv, runIdFor, waitForHealth } from "./appClient.js";
 
 interface GoldenEntry {
   id: string;
   question: string;
 }
 
-interface AnswerRecord {
-  id: string;
-  status: number | null; // null when no HTTP response arrived (network error or timeout)
-  latency_ms: number;
-  answer: string | null;
-  sources: string[];
-  error: string | null;
-}
-
-const REQUEST_TIMEOUT_MS = 120_000;
-
-async function ask(question: string, token: string): Promise<Omit<AnswerRecord, "id">> {
-  const started = performance.now();
-  const elapsed = () => Math.round(performance.now() - started);
-  try {
-    const response = await fetch(`${BASE_URL}/ask`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-      body: JSON.stringify({ question }),
-      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
-    });
-    const body = (await response.json().catch(() => ({}))) as {
-      answer?: string;
-      sources?: string[];
-      error?: string;
-    };
-    if (!response.ok) {
-      return {
-        status: response.status,
-        latency_ms: elapsed(),
-        answer: null,
-        sources: [],
-        error: body.error ?? `HTTP ${response.status}`,
-      };
-    }
-    return {
-      status: response.status,
-      latency_ms: elapsed(),
-      answer: body.answer ?? null,
-      sources: body.sources ?? [],
-      error: null,
-    };
-  } catch (err) {
-    return { status: null, latency_ms: elapsed(), answer: null, sources: [], error: String(err) };
-  }
-}
+type AnswerRecord = { id: string } & AskOutcome;
 
 function percentile(sorted: number[], p: number): number {
   return sorted[Math.min(sorted.length - 1, Math.ceil((p / 100) * sorted.length) - 1)];
@@ -84,7 +39,7 @@ async function main() {
   const results: AnswerRecord[] = [];
   const metaSnapshots: Meta[] = [];
   for (const [i, entry] of golden.entries()) {
-    let record = { id: entry.id, ...(await ask(entry.question, token)) };
+    let record = { id: entry.id, ...(await askQuestion(entry.question, token)) };
 
     // A network error usually means npm run dev is restarting (it watches src/ and prompts/).
     // Wait for the app, note its config, and retry once. Timeouts and HTTP errors aren't retried.
@@ -92,7 +47,7 @@ async function main() {
       console.log(`[${i + 1}/${golden.length}] ${entry.id} app restarted; retrying`);
       const snapshot = await fetchMeta(token).catch(() => null);
       if (snapshot) metaSnapshots.push(snapshot);
-      record = { id: entry.id, ...(await ask(entry.question, token)) };
+      record = { id: entry.id, ...(await askQuestion(entry.question, token)) };
     }
     results.push(record);
     const outcome = record.error ? `FAIL ${record.status ?? "network"}: ${record.error}` : "ok";

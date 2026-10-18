@@ -62,5 +62,35 @@ export async function waitForHealth(): Promise<boolean> {
   return false;
 }
 
+export interface AskOutcome {
+  status: number | null; // null when no HTTP response arrived (network error or timeout)
+  latency_ms: number;
+  answer: string | null;
+  sources: string[];
+  error: string | null;
+}
+
+const ASK_TIMEOUT_MS = 120_000;
+
+export async function askQuestion(question: string, token: string): Promise<AskOutcome> {
+  const started = performance.now();
+  const elapsed = () => Math.round(performance.now() - started);
+  try {
+    const response = await fetch(`${BASE_URL}/ask`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ question }),
+      signal: AbortSignal.timeout(ASK_TIMEOUT_MS),
+    });
+    const body = (await response.json().catch(() => ({}))) as { answer?: string; sources?: string[]; error?: string };
+    if (!response.ok) {
+      return { status: response.status, latency_ms: elapsed(), answer: null, sources: [], error: body.error ?? `HTTP ${response.status}` };
+    }
+    return { status: response.status, latency_ms: elapsed(), answer: body.answer ?? null, sources: body.sources ?? [], error: null };
+  } catch (err) {
+    return { status: null, latency_ms: elapsed(), answer: null, sources: [], error: String(err) };
+  }
+}
+
 // Folder name for a new run: the ISO start time with characters Windows paths can't hold replaced.
 export const runIdFor = (startedAt: Date) => startedAt.toISOString().replace(/[:.]/g, "-");
