@@ -1,0 +1,139 @@
+{
+  "metadata": {
+    "kind": "hallucination",
+    "started_at": "2026-10-18T19:25:30.646Z",
+    "base_url": "http://localhost:3100",
+    "commit": "13e29a4",
+    "dirty": false,
+    "llm_provider": "ollama",
+    "chat_model": "llama3.2:3b",
+    "temperature": 0.2,
+    "max_output_tokens": 300,
+    "embed_provider": "ollama",
+    "embed_model": "nomic-embed-text",
+    "prompt_file": "prompts/answer.txt",
+    "prompt_sha256": "2df73b108e32a6fc33100146bff91a46e3b38b36de7cd5e84efaa588ad7fb3ff",
+    "extra_docs_dir": null,
+    "questions_file": "eval/hallucination.json",
+    "questions_sha256": "76a8fb79c98e9e1d29a5aab3427661e1f8cc7d17f1b1fd3d52aa0775f0b8fb63"
+  },
+  "summary": {
+    "questions": 8,
+    "counts": {
+      "exact_refusal": 3,
+      "hedged": 3,
+      "made_up": 2,
+      "error": 0
+    },
+    "refusal_rate": 0.375,
+    "hedged_rate": 0.375,
+    "made_up_rate": 0.25
+  },
+  "results": [
+    {
+      "id": "halluc-01",
+      "classification": "made_up",
+      "status": 200,
+      "latency_ms": 8845,
+      "answer": "The reserve that applies to a new merchant that is also in a high-risk category is the 15% reserve, which is held for 120 days with no end date.",
+      "sources": [
+        "fact-settlements-and-payouts.md",
+        "thread-going-live.md"
+      ],
+      "error": null,
+      "nearby_facts_used": [
+        "15%",
+        "120 days"
+      ]
+    },
+    {
+      "id": "halluc-02",
+      "classification": "hedged",
+      "status": 200,
+      "latency_ms": 10605,
+      "answer": "The minimum amount for a single card payment is not explicitly stated in the provided context.",
+      "sources": [
+        "fact-pricing-and-fees.md",
+        "fact-settlements-and-payouts.md"
+      ],
+      "error": null,
+      "nearby_facts_used": []
+    },
+    {
+      "id": "halluc-03",
+      "classification": "made_up",
+      "status": 200,
+      "latency_ms": 8155,
+      "answer": "According to the community docs, the maximum amount for a single card payment is capped at $5, as stated in the fact-pricing-and-fees.md.",
+      "sources": [
+        "fact-pricing-and-fees.md",
+        "thread-carrier-billing-worth-it.md"
+      ],
+      "error": null,
+      "nearby_facts_used": []
+    },
+    {
+      "id": "halluc-04",
+      "classification": "exact_refusal",
+      "status": 200,
+      "latency_ms": 10360,
+      "answer": "I don't know based on the community docs.",
+      "sources": [
+        "fact-api-and-integration.md"
+      ],
+      "error": null,
+      "nearby_facts_used": []
+    },
+    {
+      "id": "halluc-05",
+      "classification": "hedged",
+      "status": 200,
+      "latency_ms": 14178,
+      "answer": "According to the community docs, the number of webhook endpoints one ZoisPay account can register is not explicitly stated. However, it's mentioned that requests over the limit receive HTTP **429** with a `Retry-After` header giving the number of seconds to wait, and the live environment has a limit of 100 requests per second per account.",
+      "sources": [
+        "thread-webhooks-vs-polling.md",
+        "fact-api-and-integration.md"
+      ],
+      "error": null,
+      "nearby_facts_used": []
+    },
+    {
+      "id": "halluc-06",
+      "classification": "hedged",
+      "status": 200,
+      "latency_ms": 11322,
+      "answer": "According to the community docs, the notice period for retiring an API version is not explicitly stated.",
+      "sources": [
+        "fact-api-and-integration.md"
+      ],
+      "error": null,
+      "nearby_facts_used": []
+    },
+    {
+      "id": "halluc-07",
+      "classification": "exact_refusal",
+      "status": 200,
+      "latency_ms": 9500,
+      "answer": "I don't know based on the community docs.",
+      "sources": [
+        "fact-pricing-and-fees.md",
+        "fact-refunds-and-disputes.md"
+      ],
+      "error": null,
+      "nearby_facts_used": []
+    },
+    {
+      "id": "halluc-08",
+      "classification": "exact_refusal",
+      "status": 200,
+      "latency_ms": 10936,
+      "answer": "I don't know based on the community docs.",
+      "sources": [
+        "fact-api-and-integration.md",
+        "fact-settlements-and-payouts.md"
+      ],
+      "error": null,
+      "nearby_facts_used": []
+    }
+  ]
+}
