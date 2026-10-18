@@ -2,15 +2,7 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { expect, test } from "@playwright/test";
 import { z } from "zod";
-
-// Lowercase, straighten apostrophes, and treat hyphens/dashes as spaces, so "7-day" matches "7 day".
-function normalize(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/[‘’]/g, "'")
-    .replace(/[-‐-―]/g, " ")
-    .replace(/\s+/g, " ");
-}
+import { factLabel, findFact, normalize } from "../../eval/scoring.js";
 
 const Phrase = z.string().trim().min(1);
 
@@ -35,13 +27,14 @@ const GoldenEntry = z
 type Fact = z.infer<typeof Fact>;
 
 const variants = (fact: Fact) => (Array.isArray(fact) ? fact : [fact]).map(normalize);
-const label = (fact: Fact) => (Array.isArray(fact) ? fact.join(" | ") : fact);
+const label = factLabel;
 
 const parsed = z.array(GoldenEntry).safeParse(JSON.parse(readFileSync("eval/golden.json", "utf8")));
 // An invalid file still loads as [] so the schema test can report a readable error.
 const golden = parsed.success ? parsed.data : [];
-const docText = (file: string) => normalize(readFileSync(path.join("docs", file), "utf8"));
-const inText = (text: string, fact: Fact) => variants(fact).some((v) => text.includes(v));
+const docText = (file: string) => readFileSync(path.join("docs", file), "utf8");
+// Same matcher as the scorer (eval/scoring.ts), so a fact that passes here is scoreable there.
+const inText = (text: string, fact: Fact) => findFact(text, fact) !== null;
 
 test.describe("eval/golden.json", () => {
   test("matches the entry schema", () => {

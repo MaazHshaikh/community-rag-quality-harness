@@ -1,0 +1,691 @@
+{
+  "scored_at": "2026-10-18T09:27:01.341Z",
+  "run_dir": "eval/runs/2026-10-18T09-07-32-752Z",
+  "golden_sha256": "ee7c950d3f35d68787c7c04b549a2e7b72a2022e1a557a92804461a0c14fff28",
+  "run_metadata": {
+    "started_at": "2026-10-18T09:07:32.752Z",
+    "base_url": "http://localhost:3100",
+    "commit": "448df95",
+    "dirty": false,
+    "llm_provider": "ollama",
+    "chat_model": "llama3.2:3b",
+    "temperature": 0.2,
+    "max_output_tokens": 300,
+    "embed_provider": "ollama",
+    "embed_model": "nomic-embed-text",
+    "prompt_file": "prompts/answer.txt",
+    "prompt_sha256": "7c64e92219261d0a457f1345f046e97340e350d9f5bacd498d2757ed22496c64",
+    "question_count": 30,
+    "finished_at": "2026-10-18T09:12:30.303Z",
+    "duration_ms": 297551,
+    "config_changed_during_run": false
+  },
+  "summary": {
+    "overall": {
+      "count": 30,
+      "errors": 0,
+      "fact_recall": 0.85,
+      "source_recall": 0.967,
+      "refusal_rate": 0.033,
+      "forbidden_flagged": 0
+    },
+    "by_category": {
+      "single_fact": {
+        "count": 20,
+        "errors": 0,
+        "fact_recall": 0.9,
+        "source_recall": 0.95,
+        "refusal_rate": 0.05,
+        "forbidden_flagged": 0
+      },
+      "multi_doc": {
+        "count": 5,
+        "errors": 0,
+        "fact_recall": 0.633,
+        "source_recall": 1,
+        "refusal_rate": 0,
+        "forbidden_flagged": 0
+      },
+      "conflict": {
+        "count": 5,
+        "errors": 0,
+        "fact_recall": 0.867,
+        "source_recall": 1,
+        "refusal_rate": 0,
+        "forbidden_flagged": 0
+      }
+    }
+  },
+  "questions": [
+    {
+      "id": "single-01",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 0,
+      "facts": [
+        {
+          "fact": "$99",
+          "matched": null
+        }
+      ],
+      "source_recall": 0,
+      "missing_sources": [
+        "fact-membership-pricing.md"
+      ],
+      "refusal_detected": true,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-02",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "$99",
+          "matched": "$99"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-03",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "$290",
+          "matched": "$290"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-04",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "3 seats",
+          "matched": "3 seats"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-05",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "14 days",
+          "matched": "14 days"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-06",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "7 day",
+          "matched": "7 day"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-07",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "50%",
+          "matched": "50%"
+        },
+        {
+          "fact": "Builder",
+          "matched": "Builder"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-08",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "March 12",
+          "matched": "March 12"
+        },
+        {
+          "fact": "Lisbon",
+          "matched": "Lisbon"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-09",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "January 15",
+          "matched": "January 15"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-10",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "300",
+          "matched": "300"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-11",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "Marcus Feld",
+          "matched": "Marcus Feld"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-12",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "Tuesday",
+          "matched": "Tuesday"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-13",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "8 founders",
+          "matched": "8 founders"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-14",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "72 hours",
+          "matched": "72 hours"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-15",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "30 day suspension | suspended for 30 days | suspension of 30 days | 30 days suspension",
+          "matched": "suspended for 30 days"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-16",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "Tomasz Wieczorek",
+          "matched": "Tomasz Wieczorek"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-17",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "show and tell",
+          "matched": "show and tell"
+        },
+        {
+          "fact": "once per week | once a week | one time per week | weekly",
+          "matched": "once per week"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-18",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 0,
+      "facts": [
+        {
+          "fact": "12 weeks",
+          "matched": null
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-19",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "November 30",
+          "matched": "November 30"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-20",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "20 minutes",
+          "matched": "20 minutes"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "multi-01",
+      "category": "multi_doc",
+      "status": 200,
+      "error": null,
+      "fact_recall": 0,
+      "facts": [
+        {
+          "fact": "Wednesday",
+          "matched": null
+        },
+        {
+          "fact": "November 19",
+          "matched": null
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "multi-02",
+      "category": "multi_doc",
+      "status": 200,
+      "error": null,
+      "fact_recall": 0.5,
+      "facts": [
+        {
+          "fact": "cannot | can't | can not | not eligible | not able to",
+          "matched": "cannot"
+        },
+        {
+          "fact": "Builder",
+          "matched": null
+        },
+        {
+          "fact": "$29",
+          "matched": null
+        },
+        {
+          "fact": "12 weeks",
+          "matched": "12 weeks"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "multi-03",
+      "category": "multi_doc",
+      "status": 200,
+      "error": null,
+      "fact_recall": 0.6666666666666666,
+      "facts": [
+        {
+          "fact": "$150K",
+          "matched": "$150K"
+        },
+        {
+          "fact": "Marcus Feld",
+          "matched": "Marcus Feld"
+        },
+        {
+          "fact": "Wednesday",
+          "matched": null
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "multi-04",
+      "category": "multi_doc",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "$29",
+          "matched": "$29"
+        },
+        {
+          "fact": "$149",
+          "matched": "$149"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "multi-05",
+      "category": "multi_doc",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "$49",
+          "matched": "$49"
+        },
+        {
+          "fact": "$29",
+          "matched": "$29"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "conflict-01",
+      "category": "conflict",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "Claire",
+          "matched": "Claire"
+        },
+        {
+          "fact": "Jonah",
+          "matched": "Jonah"
+        },
+        {
+          "fact": "$10K",
+          "matched": "$10K"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "conflict-02",
+      "category": "conflict",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "Felix",
+          "matched": "Felix"
+        },
+        {
+          "fact": "generalist",
+          "matched": "generalist"
+        },
+        {
+          "fact": "Yuki",
+          "matched": "Yuki"
+        },
+        {
+          "fact": "engineer",
+          "matched": "engineer"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "conflict-03",
+      "category": "conflict",
+      "status": 200,
+      "error": null,
+      "fact_recall": 0.6666666666666666,
+      "facts": [
+        {
+          "fact": "Felix",
+          "matched": "Felix"
+        },
+        {
+          "fact": "$150K",
+          "matched": null
+        },
+        {
+          "fact": "Yuki",
+          "matched": "Yuki"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "conflict-04",
+      "category": "conflict",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "Ingrid",
+          "matched": "Ingrid"
+        },
+        {
+          "fact": "big launch",
+          "matched": "big launch"
+        },
+        {
+          "fact": "Mateo",
+          "matched": "Mateo"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "conflict-05",
+      "category": "conflict",
+      "status": 200,
+      "error": null,
+      "fact_recall": 0.6666666666666666,
+      "facts": [
+        {
+          "fact": "Beatriz",
+          "matched": "Beatriz"
+        },
+        {
+          "fact": "Kofi",
+          "matched": null
+        },
+        {
+          "fact": "free tier",
+          "matched": "free tier"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    }
+  ]
+}

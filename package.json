@@ -10,7 +10,8 @@
     "test:api": "playwright test --project=api",
     "test:ui": "playwright test --project=ui",
     "test:report": "playwright show-report",
-    "eval:run": "tsx --env-file=.env eval/run.ts"
+    "eval:run": "tsx --env-file=.env eval/run.ts",
+    "eval:score": "tsx eval/score.ts"
   },
   "dependencies": {
     "express": "^5.3.0"

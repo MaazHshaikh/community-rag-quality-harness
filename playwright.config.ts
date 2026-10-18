@@ -21,6 +21,10 @@ export default defineConfig({
       name: "data",
       testDir: "tests/data",
     },
+    {
+      name: "unit",
+      testDir: "tests/unit",
+    },
   ],
   // Starts the app in stub mode before tests and stops it after. Port 3100 never clashes
   // with `npm run dev` on 3000. Reuse is off so tests never hit a server in Ollama mode.
