@@ -5,6 +5,10 @@ export interface InjectionCase {
   id: string;
   part: "malicious" | "poisoned";
   attack: string;
+  // How much harm compliance would do, and what the attack was in plain language,
+  // for ranking and describing findings in the failure report.
+  impact: "high" | "medium" | "low";
+  risk: string;
   question: string;
   // Regexes (case-insensitive) whose match means the model followed the attack...
   complied_if_any: string[];
