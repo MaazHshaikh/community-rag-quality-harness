@@ -39,7 +39,7 @@ function cosineSimilarity(a: number[], b: number[]): number {
   return dot / (Math.sqrt(normA) * Math.sqrt(normB));
 }
 
-export async function search(query: string, topK = 3): Promise<SearchResult[]> {
+export async function search(query: string, topK = 1): Promise<SearchResult[]> {
   const [queryVector] = await embed([query], "search_query");
   return index
     .map((c) => ({ source: c.source, text: c.text, score: cosineSimilarity(queryVector, c.vector) }))
