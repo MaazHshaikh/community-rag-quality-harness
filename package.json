@@ -12,7 +12,9 @@
     "test:report": "playwright show-report",
     "eval:run": "tsx --env-file=.env eval/run.ts",
     "eval:score": "tsx eval/score.ts",
-    "eval:judge": "tsx --env-file=.env eval/judge.ts"
+    "eval:judge": "tsx --env-file=.env eval/judge.ts",
+    "eval:report": "tsx eval/report.ts",
+    "eval": "npm run eval:score && npm run eval:report"
   },
   "dependencies": {
     "express": "^5.3.0"
