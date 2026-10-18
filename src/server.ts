@@ -1,8 +1,10 @@
 import express, { type ErrorRequestHandler } from "express";
-import { ask } from "./answer.js";
+import { ask, PROMPT_FILE, promptSha256 } from "./answer.js";
 import { requireBearerToken } from "./auth.js";
 import { loadChunks } from "./chunking.js";
+import { embeddingInfo } from "./embeddings.js";
 import { HttpError } from "./errors.js";
+import { llm } from "./llm.js";
 import { buildIndex, indexSize, search } from "./vectorStore.js";
 
 const app = express();
@@ -18,7 +20,22 @@ app.get("/health", (_req, res) => {
 app.use(express.static("public"));
 
 // Auth runs before body parsing, so unauthenticated requests get 401 even with a malformed body.
-app.use(["/search", "/ask"], requireBearerToken, express.json());
+app.use(["/search", "/ask", "/meta"], requireBearerToken, express.json());
+
+// The configuration this process is actually running with, so eval runs record the truth
+// rather than whatever .env says now.
+app.get("/meta", (_req, res) => {
+  res.json({
+    llm_provider: llm.info.provider,
+    chat_model: llm.info.chat_model,
+    temperature: llm.info.temperature,
+    max_output_tokens: llm.info.max_output_tokens,
+    embed_provider: embeddingInfo.provider,
+    embed_model: embeddingInfo.embed_model,
+    prompt_file: PROMPT_FILE,
+    prompt_sha256: promptSha256,
+  });
+});
 
 app.post("/search", async (req, res) => {
   const query = typeof req.body?.query === "string" ? req.body.query.trim() : "";

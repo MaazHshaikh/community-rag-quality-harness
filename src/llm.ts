@@ -7,7 +7,15 @@ export interface GenerateRequest {
   question: string;
 }
 
+export interface LlmInfo {
+  provider: string;
+  chat_model: string | null;
+  temperature: number | null;
+  max_output_tokens: number | null;
+}
+
 export interface LlmProvider {
+  info: LlmInfo;
   generate(request: GenerateRequest): Promise<string>;
 }
 
@@ -18,6 +26,7 @@ function ollamaProvider(): LlmProvider {
   const maxOutputTokens = requireNumberEnv("LLM_MAX_OUTPUT_TOKENS");
 
   return {
+    info: { provider: "ollama", chat_model: model, temperature, max_output_tokens: maxOutputTokens },
     async generate({ prompt }) {
       const data = await postToOllama<{ message: { content: string } }>(ollamaUrl, "/api/chat", {
         model,
@@ -35,6 +44,7 @@ export const SIMULATE_LLM_DOWN = "[simulate-llm-down]";
 // Deterministic answers for tests. Only this provider honors the outage trigger.
 function stubProvider(): LlmProvider {
   return {
+    info: { provider: "stub", chat_model: null, temperature: null, max_output_tokens: null },
     async generate({ question }) {
       if (question.includes(SIMULATE_LLM_DOWN)) {
         console.error("Stub LLM: simulated outage");

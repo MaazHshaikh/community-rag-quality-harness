@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { llm } from "./llm.js";
 import { search } from "./vectorStore.js";
@@ -7,7 +8,12 @@ export interface AskResult {
   sources: string[];
 }
 
-const template = await readFile("prompts/answer.txt", "utf8");
+export const PROMPT_FILE = "prompts/answer.txt";
+
+const template = await readFile(PROMPT_FILE, "utf8");
+
+// Identifies the exact prompt this process is using, even if the file changes on disk later.
+export const promptSha256 = createHash("sha256").update(template).digest("hex");
 
 function buildPrompt(question: string, context: string): string {
   // Function replacers stop "$" in doc text (e.g. "$49") being read as a replacement pattern.

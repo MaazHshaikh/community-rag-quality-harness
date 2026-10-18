@@ -4,7 +4,13 @@ import { postToOllama } from "./ollama.js";
 // nomic-embed-text expects a task prefix: documents and queries are embedded differently.
 export type EmbedTask = "search_document" | "search_query";
 
+export interface EmbeddingInfo {
+  provider: string;
+  embed_model: string | null;
+}
+
 interface EmbeddingProvider {
+  info: EmbeddingInfo;
   embed(texts: string[], task: EmbedTask): Promise<number[][]>;
 }
 
@@ -13,6 +19,7 @@ function ollamaEmbeddings(): EmbeddingProvider {
   const model = requireEnv("EMBED_MODEL");
 
   return {
+    info: { provider: "ollama", embed_model: model },
     async embed(texts, task) {
       const data = await postToOllama<{ embeddings: number[][] }>(ollamaUrl, "/api/embed", {
         model,
@@ -39,6 +46,7 @@ function hashWord(word: string): number {
 // so retrieval still returns plausible sources, with no model and no network.
 function stubEmbeddings(): EmbeddingProvider {
   return {
+    info: { provider: "stub", embed_model: null },
     async embed(texts) {
       return texts.map((text) => {
         const vector = new Array<number>(STUB_DIMENSIONS).fill(0);
@@ -64,6 +72,8 @@ function createProvider(): EmbeddingProvider {
 }
 
 const embeddings = createProvider();
+
+export const embeddingInfo = embeddings.info;
 
 export function embed(texts: string[], task: EmbedTask): Promise<number[][]> {
   return embeddings.embed(texts, task);
