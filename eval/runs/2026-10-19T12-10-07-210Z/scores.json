@@ -1,0 +1,708 @@
+{
+  "scored_at": "2026-10-19T12:32:26.051Z",
+  "run_dir": "eval/runs/2026-10-19T12-10-07-210Z",
+  "golden_sha256": "17217ca2d167bccd4ba3d22c780aebd4a5dc54ccf2df6c8b3c6d717e93e5412a",
+  "run_metadata": {
+    "started_at": "2026-10-19T12:10:07.210Z",
+    "base_url": "http://localhost:3100",
+    "commit": "090e5ab",
+    "dirty": false,
+    "llm_provider": "anthropic",
+    "chat_model": "claude-haiku-5-5",
+    "temperature": null,
+    "max_output_tokens": 300,
+    "embed_provider": "ollama",
+    "embed_model": "nomic-embed-text",
+    "prompt_file": "prompts/answer.txt",
+    "prompt_sha256": "2df73b108e32a6fc33100146bff91a46e3b38b36de7cd5e84efaa588ad7fb3ff",
+    "extra_docs_dir": null,
+    "question_count": 30,
+    "finished_at": "2026-10-19T12:10:51.927Z",
+    "duration_ms": 44717,
+    "config_changed_during_run": false
+  },
+  "summary": {
+    "overall": {
+      "count": 30,
+      "errors": 0,
+      "fact_recall": 0.875,
+      "source_recall": 0.933,
+      "refusal_rate": 0.1,
+      "forbidden_flagged": 2
+    },
+    "by_category": {
+      "single_fact": {
+        "count": 20,
+        "errors": 0,
+        "fact_recall": 0.9,
+        "source_recall": 0.95,
+        "refusal_rate": 0.1,
+        "forbidden_flagged": 1
+      },
+      "multi_doc": {
+        "count": 5,
+        "errors": 0,
+        "fact_recall": 0.9,
+        "source_recall": 0.8,
+        "refusal_rate": 0,
+        "forbidden_flagged": 0
+      },
+      "conflict": {
+        "count": 5,
+        "errors": 0,
+        "fact_recall": 0.75,
+        "source_recall": 1,
+        "refusal_rate": 0.2,
+        "forbidden_flagged": 1
+      }
+    }
+  },
+  "questions": [
+    {
+      "id": "single-01",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "2.9%",
+          "matched": "2.9%"
+        },
+        {
+          "fact": "$0.30",
+          "matched": "$0.30"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-02",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "1.5%",
+          "matched": "1.5%"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-03",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "12%",
+          "matched": "12%"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-04",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "Pakistan",
+          "matched": "Pakistan"
+        },
+        {
+          "fact": "Kenya",
+          "matched": "Kenya"
+        },
+        {
+          "fact": "UAE | United Arab Emirates",
+          "matched": "UAE"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-05",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 0,
+      "facts": [
+        {
+          "fact": "$5",
+          "matched": null
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": true,
+      "refusal_only": true,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-06",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "1.75%",
+          "matched": "1.75%"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-07",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 0,
+      "facts": [
+        {
+          "fact": "6 settlement currencies | 6 currencies",
+          "matched": null
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": true,
+      "refusal_only": true,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-08",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "2 business days | T+2",
+          "matched": "2 business days"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-09",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "30 calendar days | 30 days | T+30",
+          "matched": "30 calendar days"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-10",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "14:00 UTC | 2 PM UTC | 2:00 PM UTC",
+          "matched": "14:00 UTC"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-11",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "$25",
+          "matched": "$25"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-12",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "60 days",
+          "matched": "60 days"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-13",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "10%",
+          "matched": "10%"
+        },
+        {
+          "fact": "90 days",
+          "matched": "90 days"
+        },
+        {
+          "fact": "6 months",
+          "matched": "6 months"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-14",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "100 requests per second | 100 requests/second | 100 requests a second | 100 per second | 100 API requests per second",
+          "matched": "100 requests per second"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-15",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "24 hours",
+          "matched": "24 hours"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-16",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "new key | new idempotency key | different key | different idempotency key",
+          "matched": "new key"
+        },
+        {
+          "fact": "original decline | original response",
+          "matched": "original decline"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-17",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "6 retries | 6 times",
+          "matched": "6 times"
+        },
+        {
+          "fact": "35 hours",
+          "matched": "35 hours"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-18",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "10 seconds",
+          "matched": "10 seconds"
+        }
+      ],
+      "source_recall": 0,
+      "missing_sources": [
+        "fact-api-and-integration.md"
+      ],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "single-19",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "30 days",
+          "matched": "30 days"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": [
+        "60 days"
+      ]
+    },
+    {
+      "id": "single-20",
+      "category": "single_fact",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "$15",
+          "matched": "$15"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "multi-01",
+      "category": "multi_doc",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "1 business day | T+1",
+          "matched": "1 business day"
+        },
+        {
+          "fact": "30 days",
+          "matched": "30 days"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "multi-02",
+      "category": "multi_doc",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "12%",
+          "matched": "12%"
+        },
+        {
+          "fact": "7 days",
+          "matched": "7 days"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "multi-03",
+      "category": "multi_doc",
+      "status": 200,
+      "error": null,
+      "fact_recall": 0.5,
+      "facts": [
+        {
+          "fact": "1%",
+          "matched": null
+        },
+        {
+          "fact": "60 days",
+          "matched": "60 days"
+        }
+      ],
+      "source_recall": 0.5,
+      "missing_sources": [
+        "fact-pricing-and-fees.md"
+      ],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "multi-04",
+      "category": "multi_doc",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "2 business days | T+2",
+          "matched": "2 business days"
+        },
+        {
+          "fact": "7 calendar days | 7 days",
+          "matched": "7 calendar days"
+        }
+      ],
+      "source_recall": 0.5,
+      "missing_sources": [
+        "fact-settlements-and-payouts.md"
+      ],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "multi-05",
+      "category": "multi_doc",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "10%",
+          "matched": "10%"
+        },
+        {
+          "fact": "0.9%",
+          "matched": "0.9%"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "conflict-01",
+      "category": "conflict",
+      "status": 200,
+      "error": null,
+      "fact_recall": 1,
+      "facts": [
+        {
+          "fact": "Elena",
+          "matched": "Elena"
+        },
+        {
+          "fact": "webhooks",
+          "matched": "webhooks"
+        },
+        {
+          "fact": "Tobias",
+          "matched": "Tobias"
+        },
+        {
+          "fact": "polling",
+          "matched": "polling"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "conflict-02",
+      "category": "conflict",
+      "status": 200,
+      "error": null,
+      "fact_recall": 0.75,
+      "facts": [
+        {
+          "fact": "Maya",
+          "matched": "Maya"
+        },
+        {
+          "fact": "hosted checkout",
+          "matched": "hosted checkout"
+        },
+        {
+          "fact": "Lukas",
+          "matched": null
+        },
+        {
+          "fact": "direct API",
+          "matched": "direct API"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "conflict-03",
+      "category": "conflict",
+      "status": 200,
+      "error": null,
+      "fact_recall": 0.6666666666666666,
+      "facts": [
+        {
+          "fact": "Lukas",
+          "matched": "Lukas"
+        },
+        {
+          "fact": "72%",
+          "matched": "72%"
+        },
+        {
+          "fact": "Maya",
+          "matched": null
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "conflict-04",
+      "category": "conflict",
+      "status": 200,
+      "error": null,
+      "fact_recall": 0.6666666666666666,
+      "facts": [
+        {
+          "fact": "Hiroshi",
+          "matched": "Hiroshi"
+        },
+        {
+          "fact": "same day",
+          "matched": "same day"
+        },
+        {
+          "fact": "Grace",
+          "matched": null
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": false,
+      "refusal_only": false,
+      "forbidden_found": []
+    },
+    {
+      "id": "conflict-05",
+      "category": "conflict",
+      "status": 200,
+      "error": null,
+      "fact_recall": 0.6666666666666666,
+      "facts": [
+        {
+          "fact": "Omar",
+          "matched": null
+        },
+        {
+          "fact": "Rebecca",
+          "matched": "Rebecca"
+        },
+        {
+          "fact": "30 days | T+30",
+          "matched": "30 days"
+        }
+      ],
+      "source_recall": 1,
+      "missing_sources": [],
+      "refusal_detected": true,
+      "refusal_only": false,
+      "forbidden_found": [
+        "I don't know based on the community docs"
+      ]
+    }
+  ]
+}

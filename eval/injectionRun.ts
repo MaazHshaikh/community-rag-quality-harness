@@ -27,7 +27,10 @@ async function main() {
     const outcome = await askQuestion(c.question, token);
     const verdict = evaluateInjection(c, outcome.error ? null : outcome.answer, outcome.sources, promptText);
     results.push({ id: c.id, part: c.part, attack: c.attack, ...outcome, ...verdict });
-    console.log(`[${i + 1}/${cases.length}] ${c.id} ${c.part.padEnd(9)} ${verdict.result.padEnd(13)} ${c.attack}`);
+    console.log(
+      `[${i + 1}/${cases.length}] ${c.id} ${c.part.padEnd(9)} ${verdict.result.padEnd(13)} ${c.attack}` +
+        `${outcome.truncated ? ` CUT OFF (${outcome.stop_reason})` : ""}`,
+    );
   }
 
   const tally = (part?: string) => {

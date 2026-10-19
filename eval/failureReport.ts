@@ -1,9 +1,13 @@
-// Combines the latest retrieval, hallucination, injection, and consistency runs into
-// eval/failure-modes.md. Run with: npm run eval:failure-report
+// Combines the retrieval, hallucination, injection, and consistency runs of one full eval:all pass
+// into eval/failure-modes.md: the latest pass in eval/history.jsonl for one chat model.
+// Run with: npm run eval:failure-report [-- --model <chat model>]
+// The model defaults to the one the CI gate uses (eval/baseline.json), so a run with another model
+// (e.g. eval:all:claude) doesn't silently replace the report the README describes.
 import { createHash } from "node:crypto";
-import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { consistencyStats, type ConsistencyStats, isRefusal } from "./consistencyMetrics.js";
+import { consistencyStats, type ConsistencyStats } from "./consistencyMetrics.js";
+import { scoreAttempt } from "./consistencyScoring.js";
 import {
   consistencyVerdict,
   type Finding,
@@ -13,11 +17,11 @@ import {
   SEVERITY,
   topFindings,
 } from "./failureFindings.js";
-import { classifyAnswer } from "./hallucinationClassifier.js";
 import type { InjectionCase } from "./injectionChecks.js";
 import { excerpt } from "./reporting.js";
+import { HISTORY_FILE, type HistoryEntry, type RunDirs } from "./history.js";
 import { RUNS_DIR } from "./runDir.js";
-import { type GoldenEntry, scoreAnswer } from "./scoring.js";
+import type { GoldenEntry } from "./scoring.js";
 
 const OUT_FILE = path.join("eval", "failure-modes.md");
 
@@ -27,13 +31,29 @@ interface Loaded<T> {
   data: T & { metadata: Metadata };
 }
 
-// Newest run folder (ISO-timestamp names sort chronologically) that contains the given file.
-function latest<T>(file: string): Loaded<T> | null {
-  const dirs = existsSync(RUNS_DIR)
-    ? readdirSync(RUNS_DIR).filter((d) => existsSync(path.join(RUNS_DIR, d, file))).sort()
-    : [];
-  if (!dirs.length) return null;
-  const dir = dirs[dirs.length - 1];
+function chosenModel(argv: string[]): string {
+  if (argv.length === 2 && argv[0] === "--model") return argv[1];
+  if (argv.length) {
+    console.error("Usage: npm run eval:failure-report [-- --model <chat model>]");
+    process.exit(1);
+  }
+  return (JSON.parse(readFileSync("eval/baseline.json", "utf8")) as { chat_model: string }).chat_model;
+}
+const model = chosenModel(process.argv.slice(2));
+const history: HistoryEntry[] = existsSync(HISTORY_FILE)
+  ? readFileSync(HISTORY_FILE, "utf8").split("\n").filter(Boolean).map((line) => JSON.parse(line))
+  : [];
+const pass = history.filter((e) => e.chat_model === model).at(-1);
+if (!pass) {
+  const models = [...new Set(history.map((e) => e.chat_model))].join(", ") || "none";
+  console.error(`No eval:all pass for ${model} in ${HISTORY_FILE} (models there: ${models}).`);
+  process.exit(1);
+}
+
+// One suite's file from the chosen pass.
+function latest<T>(suite: keyof RunDirs, file: string): Loaded<T> | null {
+  const dir = pass!.runs[suite];
+  if (!dir || !existsSync(path.join(RUNS_DIR, dir, file))) return null;
   return { dir, data: JSON.parse(readFileSync(path.join(RUNS_DIR, dir, file), "utf8")) };
 }
 
@@ -68,6 +88,7 @@ const addSource = (suite: string, run: Loaded<unknown> | null) => {
 // Retrieval
 type RetrievalResult = { id: string; hit: boolean; full_recall: boolean; returned: { source: string }[] };
 const retrieval = latest<{ summary: { overall: { count: number; hit_rate: number; full_recall_rate: number } }; results: RetrievalResult[] }>(
+  "retrieval",
   "retrieval.json",
 );
 addSource("Retrieval", retrieval);
@@ -100,6 +121,7 @@ if (retrieval) {
 // Hallucination
 type HalluResult = { id: string; classification: string; answer: string | null };
 const hallucination = latest<{ summary: { questions: number; counts: Record<string, number>; refusal_rate: number; made_up_rate: number }; results: HalluResult[] }>(
+  "hallucination",
   "hallucination.json",
 );
 addSource("Hallucination", hallucination);
@@ -128,7 +150,7 @@ if (hallucination) {
 
 // Injection
 type InjectionResult = { id: string; part: string; result: string; answer: string | null };
-const injection = latest<{ results: InjectionResult[] }>("injection.json");
+const injection = latest<{ results: InjectionResult[] }>("injection", "injection.json");
 addSource("Prompt injection", injection);
 if (injection) {
   const results = injection.data.results;
@@ -165,16 +187,13 @@ if (injection) {
 // Consistency (re-scored against the current golden file, so dataset fixes are reflected)
 type Attempt = { question: string; status: number | null; answer: string | null; sources: string[]; error: string | null };
 type ConsistencyQuestion = { id: string; attempts: Attempt[] };
-const consistency = latest<{ repeat: ConsistencyQuestion[]; paraphrase: ConsistencyQuestion[] }>("consistency.json");
+const consistency = latest<{ repeat: ConsistencyQuestion[]; paraphrase: ConsistencyQuestion[] }>("consistency", "consistency.json");
 addSource("Consistency", consistency);
 if (consistency) {
   const restat = (q: ConsistencyQuestion, part: string) => {
     const entry = goldenById.get(q.id)!;
     const ok = q.attempts.filter((a) => a.error === null);
-    const scored = ok.map((a) => {
-      const recall = scoreAnswer(entry, { id: q.id, ...a }).fact_recall;
-      return { ...a, fact_recall: recall, refused: isRefusal(classifyAnswer(a.answer), recall) };
-    });
+    const scored = ok.map((a) => ({ ...a, ...scoreAttempt(entry, a) }));
     return { id: q.id, part, scored, stats: (scored.length ? consistencyStats(scored) : null) as ConsistencyStats | null };
   };
   const all = [
@@ -210,9 +229,10 @@ if (consistency) {
 
 const top = topFindings(findings, 3);
 const lines = [
-  "# Failure Modes Report",
+  `# Failure Modes Report: ${model}`,
   "",
-  `Generated ${new Date().toISOString()} from the latest run of each suite.`,
+  `Describes **${model}**: its latest full \`eval:all\` pass in \`${HISTORY_FILE}\` (commit ${pass.commit}, started ${pass.date}). ` +
+    `Generated ${new Date().toISOString()}. For another model: \`npm run eval:failure-report -- --model <chat model>\`.`,
   "",
   "## Verdicts",
   "",

@@ -50,7 +50,11 @@ async function main() {
       record = { id: entry.id, ...(await askQuestion(entry.question, token)) };
     }
     results.push(record);
-    const outcome = record.error ? `FAIL ${record.status ?? "network"}: ${record.error}` : "ok";
+    const outcome = record.error
+      ? `FAIL ${record.status ?? "network"}: ${record.error}`
+      : record.truncated
+        ? `CUT OFF at the output limit (${record.stop_reason})`
+        : "ok";
     console.log(`[${i + 1}/${golden.length}] ${entry.id} ${record.latency_ms}ms ${outcome}`);
 
     if (record.status === 401) {
@@ -95,6 +99,8 @@ async function main() {
   console.log("\nSummary");
   console.log(`  succeeded: ${results.length - failed.length}/${results.length}`);
   if (failed.length) console.log(`  failed:    ${failed.map((r) => `${r.id} (${r.status ?? "network"})`).join(", ")}`);
+  const cutOff = results.filter((r) => r.truncated);
+  if (cutOff.length) console.log(`  cut off:   ${cutOff.map((r) => r.id).join(", ")} (hit the output limit; answers are incomplete)`);
   if (latencies.length) {
     console.log(
       `  latency:   median ${percentile(latencies, 50)}ms, p95 ${percentile(latencies, 95)}ms, ` +

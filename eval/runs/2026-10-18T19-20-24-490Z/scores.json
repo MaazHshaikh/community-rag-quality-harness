@@ -1,5 +1,5 @@
 {
-  "scored_at": "2026-10-18T19:25:23.629Z",
+  "scored_at": "2026-10-19T12:32:24.649Z",
   "run_dir": "eval/runs/2026-10-18T19-20-24-490Z",
   "golden_sha256": "17217ca2d167bccd4ba3d22c780aebd4a5dc54ccf2df6c8b3c6d717e93e5412a",
   "run_metadata": {
@@ -25,7 +25,7 @@
     "overall": {
       "count": 30,
       "errors": 0,
-      "fact_recall": 0.864,
+      "fact_recall": 0.875,
       "source_recall": 0.933,
       "refusal_rate": 0.033,
       "forbidden_flagged": 0
@@ -50,7 +50,7 @@
       "conflict": {
         "count": 5,
         "errors": 0,
-        "fact_recall": 0.683,
+        "fact_recall": 0.75,
         "source_recall": 1,
         "refusal_rate": 0,
         "forbidden_flagged": 0
@@ -679,7 +679,7 @@
       "category": "conflict",
       "status": 200,
       "error": null,
-      "fact_recall": 0.3333333333333333,
+      "fact_recall": 0.6666666666666666,
       "facts": [
         {
           "fact": "Omar",
@@ -691,7 +691,7 @@
         },
         {
           "fact": "30 days | T+30",
-          "matched": null
+          "matched": "30 days"
         }
       ],
       "source_recall": 1,

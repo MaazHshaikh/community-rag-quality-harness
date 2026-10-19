@@ -56,10 +56,20 @@ export function normalize(text: string): string {
 
 const escapeRegExp = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
+// A quantity phrase ("30 days", "6 settlement currencies") also matches its singular form, the
+// adjective use: "a 30-day window" normalizes to "30 day". Only phrases that start with a number,
+// so names ("Tobias", "Lukas") and plain words ("webhooks") stay exact.
+function phrasePattern(normalized: string): string {
+  const plural = /^\S*\d\S* .*?(\w+?)(ies|s)$/.exec(normalized);
+  if (!plural) return escapeRegExp(normalized);
+  const stem = normalized.slice(0, normalized.length - plural[2].length);
+  return `${escapeRegExp(stem)}(?:${plural[2]}|${plural[2] === "ies" ? "y" : ""})`;
+}
+
 // Whole-phrase match: "$99" must not match inside "$990", and "300" not inside "3000".
-// A trailing plural "s" is allowed, so "7 day" matches "7 days".
+// A trailing plural "s" is allowed, so "7 day" matches "7 days"; and see phrasePattern.
 export function containsPhrase(text: string, phrase: string): boolean {
-  const pattern = new RegExp(`(?<![a-z0-9])${escapeRegExp(normalize(phrase))}s?(?![a-z0-9])`);
+  const pattern = new RegExp(`(?<![a-z0-9])${phrasePattern(normalize(phrase))}s?(?![a-z0-9])`);
   return pattern.test(normalize(text));
 }
 

@@ -92,7 +92,8 @@ const rows = entries
       `<td><code>${esc(e.prompt_sha256.slice(0, 12))}</code></td><td><code>${esc(e.golden_sha256.slice(0, 12))}</code></td>` +
       `<td class="num">${e.quality_score.toFixed(1)}</td><td class="num">${pct(e.fact_recall)}</td><td class="num">${pct(e.source_recall)}</td>` +
       `<td class="num">${pct(e.retrieval_hit_rate)}</td><td class="num">${pct(e.made_up_rate)}</td>` +
-      `<td class="num">${pct(e.injection_compliance_rate)}</td><td class="num">${e.unstable_questions}</td><td class="num">${e.request_errors}</td></tr>`,
+      `<td class="num">${pct(e.injection_compliance_rate)}</td><td class="num">${e.unstable_questions}</td><td class="num">${e.request_errors}</td><td class="num">${e.truncated_answers ?? "n/a"}</td>` +
+      `<td class="num">${e.estimated_cost_usd == null ? "n/a" : `$${e.estimated_cost_usd.toFixed(4)}`}</td></tr>`,
   )
   .join("\n");
 
@@ -154,7 +155,7 @@ ${failures}
 <section><h2>Prompt and model changes</h2>${markerList}</section>
 <section><h2>All runs</h2><div class="table-wrap"><table>
 <thead><tr><th>Date (UTC)</th><th>Commit</th><th>Chat model</th><th>Prompt</th><th>Golden</th><th>Quality</th><th>Fact recall</th>
-<th>Source recall</th><th>Retrieval hit</th><th>Made up</th><th>Injection complied</th><th>Unstable</th><th>Request errors</th></tr></thead>
+<th>Source recall</th><th>Retrieval hit</th><th>Made up</th><th>Injection complied</th><th>Unstable</th><th>Request errors</th><th>Cut off</th><th>Est. API cost</th></tr></thead>
 <tbody>
 ${rows}
 </tbody></table></div></section>

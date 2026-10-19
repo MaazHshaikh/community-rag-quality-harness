@@ -1,6 +1,6 @@
-# Failure Modes Report
+# Failure Modes Report: llama3.2:3b
 
-Generated 2026-10-18T19:43:13.278Z from the latest run of each suite.
+Describes **llama3.2:3b**: its latest full `eval:all` pass in `eval/history.jsonl` (commit 13e29a4, started 2026-10-18T19:33:51.581Z). Generated 2026-10-19T12:32:52.268Z. For another model: `npm run eval:failure-report -- --model <chat model>`.
 
 ## Verdicts
 

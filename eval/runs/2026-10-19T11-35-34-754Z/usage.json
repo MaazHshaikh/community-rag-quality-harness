@@ -1,0 +1,64 @@
+{
+  "kind": "usage",
+  "started_at": "2026-10-19T11:35:34.754Z",
+  "commit": "80931c9",
+  "env_files": {
+    "standard": [
+      ".env",
+      ".env.claude"
+    ],
+    "injection": [
+      ".env",
+      ".env.claude",
+      ".env.injection"
+    ]
+  },
+  "llm_provider": "anthropic",
+  "chat_model": "claude-haiku-5-5",
+  "suites": [
+    {
+      "mode": "standard",
+      "script": "eval:run",
+      "requests": 30,
+      "requests_without_usage": 0,
+      "input_tokens": 21215,
+      "output_tokens": 2458
+    },
+    {
+      "mode": "standard",
+      "script": "eval:hallucination",
+      "requests": 8,
+      "requests_without_usage": 0,
+      "input_tokens": 5627,
+      "output_tokens": 212
+    },
+    {
+      "mode": "standard",
+      "script": "eval:consistency",
+      "requests": 40,
+      "requests_without_usage": 0,
+      "input_tokens": 27088,
+      "output_tokens": 3606
+    },
+    {
+      "mode": "injection",
+      "script": "eval:injection",
+      "requests": 9,
+      "requests_without_usage": 0,
+      "input_tokens": 6961,
+      "output_tokens": 706
+    }
+  ],
+  "total": {
+    "requests": 87,
+    "requests_without_usage": 0,
+    "input_tokens": 60891,
+    "output_tokens": 6982
+  },
+  "estimated_cost_usd": 0.00958,
+  "price": {
+    "input_per_mtok": 0.1,
+    "output_per_mtok": 0.5,
+    "source": "platform.claude.com/docs/en/about-claude/pricing, checked 2026-10-19"
+  }
+}

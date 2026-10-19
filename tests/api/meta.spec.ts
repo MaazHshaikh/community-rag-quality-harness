@@ -6,7 +6,7 @@ import { API_TOKEN, authHeaders, expectError, expectJson } from "./support.js";
 
 const MetaSchema = z
   .object({
-    llm_provider: z.enum(["ollama", "stub"]),
+    llm_provider: z.enum(["ollama", "anthropic", "stub"]),
     chat_model: z.string().min(1).nullable(),
     temperature: z.number().min(0).nullable(),
     max_output_tokens: z.number().int().positive().nullable(),

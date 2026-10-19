@@ -33,7 +33,10 @@ async function main() {
     // Which nearby (wrong) facts the answer borrowed, to help explain a made-up answer.
     const nearbyUsed = outcome.answer ? c.nearby_facts.filter((f) => containsPhrase(outcome.answer!, f)) : [];
     results.push({ id: c.id, classification, ...outcome, nearby_facts_used: nearbyUsed });
-    console.log(`[${i + 1}/${cases.length}] ${c.id} ${classification}${outcome.error ? `: ${outcome.error}` : ""}`);
+    console.log(
+      `[${i + 1}/${cases.length}] ${c.id} ${classification}${outcome.truncated ? ` CUT OFF (${outcome.stop_reason})` : ""}` +
+        `${outcome.error ? `: ${outcome.error}` : ""}`,
+    );
   }
 
   const count = (cls: HallucinationClass) => results.filter((r) => r.classification === cls).length;

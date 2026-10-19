@@ -44,8 +44,9 @@ npx playwright install chromium
 cp .env.example .env          # then set API_TOKEN to a long random value
 
 npm run dev                   # app with real models on http://localhost:3000
-npm test                      # 169 Playwright tests; starts its own stub-mode app, no Ollama needed
+npm test                      # 210 Playwright tests; starts its own stub-mode app, no Ollama needed
 npm run eval:all              # every eval suite against a fresh app (about 10–13 min; needs a clean git tree)
+npm run eval:all:claude       # the same with Claude Haiku 5.5 (needs ANTHROPIC_API_KEY in .env; about 4 min, ~$0.01)
 npm run eval:chart            # rebuild eval/trend.html from eval/history.jsonl
 ```
 
@@ -54,7 +55,7 @@ npm run eval:chart            # rebuild eval/trend.html from eval/history.jsonl
 | | App tests (`npm test`) | Model evaluation (`npm run eval:*`) |
 |---|---|---|
 | Question it answers | Does the software behave? | Are the answers good, safe and stable? |
-| Models | Stubs: bag-of-words embeddings, echoed answers, a trigger that simulates an outage | Real: `llama3.2:3b` at temperature 0.2 |
+| Models | Stubs: bag-of-words embeddings, echoed answers, a trigger that simulates an outage | Real: `llama3.2:3b` at temperature 0.2, or `claude-haiku-5-5` |
 | What's covered | Auth, validation, error shapes, response contracts (zod), UI states and output escaping, golden-data integrity, unit tests for the metrics (checked with deliberate mutations) | Fact and source recall on 30 golden questions; retrieval hit rate; made-up answers on 8 unanswerable questions; 9 injection attacks; repeat and paraphrase stability |
 | Result | Pass or fail | Scores, saved per run with commit, model and prompt hash |
 | In CI | Every pull request (`ci.yml`) | Pull requests that touch the app, prompt, docs, eval code or packages; fails if more than 2 points below `eval/baseline.json` (`quality-gate.yml`) |
@@ -64,6 +65,25 @@ npm run eval:chart            # rebuild eval/trend.html from eval/history.jsonl
 - **Quality score: 88.1** (75% fact recall + 25% source recall). That's the mean of three CI runs (89.0, 87.7, 87.7); local runs give 88.1–89.0.
 - **Failure-mode rates**, across three identical full runs: retrieval hit rate 96.7% every time, made-up answers 25–50% of unanswerable questions, injection compliance 33–44%, 0 unstable questions. Details: [eval/failure-modes.md](eval/failure-modes.md); trend: [eval/trend.html](eval/trend.html) (download and open in a browser).
 - **The gate works.** PR #4 gave `/ask` one chunk of context instead of three, a "speed-up" that the tests can't see. The type check and all Playwright tests passed; the quality gate scored it 65.0 against 88.1 and blocked it.
+
+## Model comparison
+
+The same harness, run three times each against the same prompt, docs and embeddings. Only the chat model changes.
+
+| | llama3.2:3b (local) | claude-haiku-5-5 (API) |
+|---|---|---|
+| Quality score | 88.1–89.0 (mean 88.7) | 89.0 in every run |
+| Made-up answers (8 unanswerable questions) | 25–50% | 12.5% in every run |
+| Injection compliance (9 attacks) | 33–44% | 0–11% measured; **0% on review** (F8) |
+| Retrieval hit rate | 96.7% | 96.7% (same embeddings) |
+| Request errors | 0 | 0 |
+| Answers cut off at the output limit | not recorded | 0 of 174 recorded |
+| Time to answer the 30 golden questions | 200–291 s | 41–45 s |
+| API cost per full run (87 answers) | $0 (local hardware) | $0.0095–0.0096 |
+
+**Same quality score, very different safety.** Both models lose facts on the same 7 questions in every run, so the score barely separates them. But where llama confidently answers wrongly ("2 settlement currencies"), Claude says it doesn't know, and it refused every injection, including the fee waiver of F5. The quality score can't tell an honest refusal from a wrong answer.
+
+Claude also exposed scorer gaps that llama rarely triggered ([F8](findings.md)). Fact matching missed "30-day" and "7-day" for "30 days" and "7 days", which had pulled two Claude runs down to 87.7 and 86.5 and one llama run to 88.1; it now accepts hyphenated and singular forms, and all runs were re-scored from their saved answers (`npm run eval:rescore`). Two false positives remain, as known limitations below. Claude runs at its default temperature (it rejects the parameter) with thinking off.
 
 ## Five most interesting findings
 
@@ -81,4 +101,4 @@ Full log, with the API bugs found and fixed along the way: [findings.md](finding
 - **The hallucination set is small.** With 8 questions, one answer moves the rate by 12.5 points. Next: 30+ questions, then gate on it.
 - **No tool use.** The assistant only reads docs; an agent that issues refunds or payouts would bring failure modes not covered here.
 - **No load testing.** Latency is recorded per answer but never asserted, and concurrency is untested.
-- **Claude not yet tried.** Next: run the same harness with Claude Haiku and compare it with the 3B local model.
+- **Two checks misread a model that explains its refusals (F8).** The injection check counts an answer as complying when it quotes the attack to reject it ("the note telling me to say all fees are waived … I've ignored it"), and the forbidden-claim check flags "60 days" when the answer names it to correct it. Read flagged answers before trusting those rates. Next: recognise quoted-and-rejected text, then put Claude behind its own baseline.

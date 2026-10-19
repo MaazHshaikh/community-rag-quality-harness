@@ -1,0 +1,694 @@
+{
+  "metadata": {
+    "kind": "consistency",
+    "started_at": "2026-10-19T11:37:25.436Z",
+    "base_url": "http://localhost:3100",
+    "commit": "80931c9",
+    "dirty": false,
+    "llm_provider": "anthropic",
+    "chat_model": "claude-haiku-5-5",
+    "temperature": null,
+    "max_output_tokens": 300,
+    "embed_provider": "ollama",
+    "embed_model": "nomic-embed-text",
+    "prompt_file": "prompts/answer.txt",
+    "prompt_sha256": "2df73b108e32a6fc33100146bff91a46e3b38b36de7cd5e84efaa588ad7fb3ff",
+    "extra_docs_dir": null,
+    "unstable_range": 0.5,
+    "config_file": "eval/consistency.json",
+    "config_sha256": "745c174534f0712d721b4aac6c77fa92a7a62648167c8cfeace6cf70f98e88fc",
+    "golden_sha256": "17217ca2d167bccd4ba3d22c780aebd4a5dc54ccf2df6c8b3c6d717e93e5412a"
+  },
+  "repeat": [
+    {
+      "id": "single-13",
+      "category": "single_fact",
+      "attempts": [
+        {
+          "question": "What rolling reserve applies to new merchants?",
+          "status": 200,
+          "answer": "New merchants have 10% of each settlement held as a rolling reserve for 90 days, applying during their first 6 months after going live. Reserved money is released automatically when each hold period ends.",
+          "sources": [
+            "fact-settlements-and-payouts.md",
+            "thread-going-live.md"
+          ],
+          "error": null,
+          "fact_recall": 1,
+          "refused": false
+        },
+        {
+          "question": "What rolling reserve applies to new merchants?",
+          "status": 200,
+          "answer": "New merchants have 10% of each settlement held for 90 days. This rolling reserve applies during the first 6 months after going live, and reserved money is released automatically when each hold period ends.",
+          "sources": [
+            "fact-settlements-and-payouts.md",
+            "thread-going-live.md"
+          ],
+          "error": null,
+          "fact_recall": 1,
+          "refused": false
+        },
+        {
+          "question": "What rolling reserve applies to new merchants?",
+          "status": 200,
+          "answer": "New merchants have 10% of each settlement held for 90 days, and this rolling reserve applies during the first 6 months after going live. Reserved money is released automatically on the day each hold period ends.",
+          "sources": [
+            "fact-settlements-and-payouts.md",
+            "thread-going-live.md"
+          ],
+          "error": null,
+          "fact_recall": 1,
+          "refused": false
+        },
+        {
+          "question": "What rolling reserve applies to new merchants?",
+          "status": 200,
+          "answer": "New merchants have 10% of each settlement held for 90 days, and this rolling reserve applies during the first 6 months after going live. Reserved money is released automatically on the day each hold period ends.",
+          "sources": [
+            "fact-settlements-and-payouts.md",
+            "thread-going-live.md"
+          ],
+          "error": null,
+          "fact_recall": 1,
+          "refused": false
+        },
+        {
+          "question": "What rolling reserve applies to new merchants?",
+          "status": 200,
+          "answer": "New merchants have 10% of each settlement held for 90 days, and this rolling reserve applies during the first 6 months after going live. Reserved money is released automatically when each hold period ends.",
+          "sources": [
+            "fact-settlements-and-payouts.md",
+            "thread-going-live.md"
+          ],
+          "error": null,
+          "fact_recall": 1,
+          "refused": false
+        }
+      ],
+      "stats": {
+        "attempts": 5,
+        "fact_recall_mean": 1,
+        "fact_recall_stdev": 0,
+        "fact_recall_range": 0,
+        "answered": 5,
+        "refused": 0,
+        "switches": 0,
+        "distinct_source_sets": 1,
+        "sources_changed": false,
+        "unstable": false
+      },
+      "errors": 0
+    },
+    {
+      "id": "single-07",
+      "category": "single_fact",
+      "attempts": [
+        {
+          "question": "How many settlement currencies does ZoisPay support?",
+          "status": 200,
+          "answer": "I don't know based on the community docs.",
+          "sources": [
+            "fact-pricing-and-fees.md",
+            "fact-settlements-and-payouts.md"
+          ],
+          "error": null,
+          "fact_recall": 0,
+          "refused": true
+        },
+        {
+          "question": "How many settlement currencies does ZoisPay support?",
+          "status": 200,
+          "answer": "I don't know based on the community docs.",
+          "sources": [
+            "fact-pricing-and-fees.md",
+            "fact-settlements-and-payouts.md"
+          ],
+          "error": null,
+          "fact_recall": 0,
+          "refused": true
+        },
+        {
+          "question": "How many settlement currencies does ZoisPay support?",
+          "status": 200,
+          "answer": "I don't know based on the community docs.",
+          "sources": [
+            "fact-pricing-and-fees.md",
+            "fact-settlements-and-payouts.md"
+          ],
+          "error": null,
+          "fact_recall": 0,
+          "refused": true
+        },
+        {
+          "question": "How many settlement currencies does ZoisPay support?",
+          "status": 200,
+          "answer": "I don't know based on the community docs.",
+          "sources": [
+            "fact-pricing-and-fees.md",
+            "fact-settlements-and-payouts.md"
+          ],
+          "error": null,
+          "fact_recall": 0,
+          "refused": true
+        },
+        {
+          "question": "How many settlement currencies does ZoisPay support?",
+          "status": 200,
+          "answer": "I don't know based on the community docs.",
+          "sources": [
+            "fact-pricing-and-fees.md",
+            "fact-settlements-and-payouts.md"
+          ],
+          "error": null,
+          "fact_recall": 0,
+          "refused": true
+        }
+      ],
+      "stats": {
+        "attempts": 5,
+        "fact_recall_mean": 0,
+        "fact_recall_stdev": 0,
+        "fact_recall_range": 0,
+        "answered": 0,
+        "refused": 5,
+        "switches": 0,
+        "distinct_source_sets": 1,
+        "sources_changed": false,
+        "unstable": false
+      },
+      "errors": 0
+    },
+    {
+      "id": "multi-02",
+      "category": "multi_doc",
+      "attempts": [
+        {
+          "question": "What is the fee for a direct carrier billing payment, and how long is its refund window?",
+          "status": 200,
+          "answer": "Direct carrier billing payments are charged a 12% fee, according to a merchant's comment in the community thread, though the official pricing doc I was given doesn't state the fee itself. The refund window for direct carrier billing is 7 days, and only full refunds are possible.",
+          "sources": [
+            "thread-carrier-billing-worth-it.md",
+            "fact-refunds-and-disputes.md",
+            "fact-pricing-and-fees.md"
+          ],
+          "error": null,
+          "fact_recall": 1,
+          "refused": false
+        },
+        {
+          "question": "What is the fee for a direct carrier billing payment, and how long is its refund window?",
+          "status": 200,
+          "answer": "The context gives the refund window for direct carrier billing as 7 days (full refunds only), but it does not state the fee in the fact sheets. The only fee figure appears in Rebecca Williams's forum post, where she mentions a 12% fee for carrier billing. Based on that community post, the fee is 12%, though that is one merchant's statement rather than official pricing.",
+          "sources": [
+            "thread-carrier-billing-worth-it.md",
+            "fact-refunds-and-disputes.md",
+            "fact-pricing-and-fees.md"
+          ],
+          "error": null,
+          "fact_recall": 1,
+          "refused": false
+        },
+        {
+          "question": "What is the fee for a direct carrier billing payment, and how long is its refund window?",
+          "status": 200,
+          "answer": "The context gives a refund window of 7 days for direct carrier billing, with full refunds only. The fee is mentioned only in the forum thread, where Rebecca Williams says the fee is 12%, and the docs do not state the fee independently, so I can't confirm it from the official fee documentation.",
+          "sources": [
+            "thread-carrier-billing-worth-it.md",
+            "fact-refunds-and-disputes.md",
+            "fact-pricing-and-fees.md"
+          ],
+          "error": null,
+          "fact_recall": 1,
+          "refused": false
+        },
+        {
+          "question": "What is the fee for a direct carrier billing payment, and how long is its refund window?",
+          "status": 200,
+          "answer": "The context gives a 7-day refund window for direct carrier billing, but the fee figure does not reliably come from the official docs: the 12% fee is mentioned only in a community forum post by Rebecca Williams, who describes it as a cost to be careful with. Based on the community docs, the fee is 12% according to that forum thread, and the refund window is 7 days (full refunds only, with no partial refunds).",
+          "sources": [
+            "thread-carrier-billing-worth-it.md",
+            "fact-refunds-and-disputes.md",
+            "fact-pricing-and-fees.md"
+          ],
+          "error": null,
+          "fact_recall": 1,
+          "refused": false
+        },
+        {
+          "question": "What is the fee for a direct carrier billing payment, and how long is its refund window?",
+          "status": 200,
+          "answer": "Direct carrier billing has a 7-day refund window, and refunds are full only (no partial refunds). The context does not state the fee for a direct carrier billing payment in the documentation itself; the 12% figure appears only in Rebecca Williams's forum comment, which she gave as the fee she was warning about, so I can't confirm it as the official rate.",
+          "sources": [
+            "thread-carrier-billing-worth-it.md",
+            "fact-refunds-and-disputes.md",
+            "fact-pricing-and-fees.md"
+          ],
+          "error": null,
+          "fact_recall": 1,
+          "refused": false
+        }
+      ],
+      "stats": {
+        "attempts": 5,
+        "fact_recall_mean": 1,
+        "fact_recall_stdev": 0,
+        "fact_recall_range": 0,
+        "answered": 5,
+        "refused": 0,
+        "switches": 0,
+        "distinct_source_sets": 1,
+        "sources_changed": false,
+        "unstable": false
+      },
+      "errors": 0
+    },
+    {
+      "id": "multi-03",
+      "category": "multi_doc",
+      "attempts": [
+        {
+          "question": "What does an instant payout cost, and how long must a new merchant process live payments before using one?",
+          "status": 200,
+          "answer": "Instant payouts require 60 days of processing live payments before they become available. The context does not state the fee amount, only that it is listed on the Pricing and Fees page, so I don't know based on the community docs the exact cost.",
+          "sources": [
+            "fact-settlements-and-payouts.md",
+            "thread-going-live.md"
+          ],
+          "error": null,
+          "fact_recall": 0.5,
+          "refused": false
+        },
+        {
+          "question": "What does an instant payout cost, and how long must a new merchant process live payments before using one?",
+          "status": 200,
+          "answer": "Instant payouts require 60 days of processed live payments before they are available. The context does not state the cost of an instant payout beyond saying the fee is listed on the Pricing and Fees page, so the exact amount isn't given here. For the fee itself, please check the Pricing and Fees page.",
+          "sources": [
+            "fact-settlements-and-payouts.md",
+            "thread-going-live.md"
+          ],
+          "error": null,
+          "fact_recall": 0.5,
+          "refused": false
+        },
+        {
+          "question": "What does an instant payout cost, and how long must a new merchant process live payments before using one?",
+          "status": 200,
+          "answer": "Instant payouts become available after processing live payments for 60 days, and they arrive within 30 minutes with a $10,000 daily limit. The context says the fee is listed on the Pricing and Fees page but does not state the amount, so I don't know the cost based on the community docs.",
+          "sources": [
+            "fact-settlements-and-payouts.md",
+            "thread-going-live.md"
+          ],
+          "error": null,
+          "fact_recall": 0.5,
+          "refused": false
+        },
+        {
+          "question": "What does an instant payout cost, and how long must a new merchant process live payments before using one?",
+          "status": 200,
+          "answer": "Instant payouts require 60 days of processing live payments before they become available. The fee is not stated in the provided context; it is only listed on the Pricing and Fees page, so I can't tell you the amount from these docs.",
+          "sources": [
+            "fact-settlements-and-payouts.md",
+            "thread-going-live.md"
+          ],
+          "error": null,
+          "fact_recall": 0.5,
+          "refused": false
+        },
+        {
+          "question": "What does an instant payout cost, and how long must a new merchant process live payments before using one?",
+          "status": 200,
+          "answer": "Instant payouts become available after 60 days of processing live payments, and they arrive within 30 minutes with a $10,000 daily limit. The context does not state the fee amount; it only says the fee is listed on the Pricing and Fees page.",
+          "sources": [
+            "fact-settlements-and-payouts.md",
+            "thread-going-live.md"
+          ],
+          "error": null,
+          "fact_recall": 0.5,
+          "refused": false
+        }
+      ],
+      "stats": {
+        "attempts": 5,
+        "fact_recall_mean": 0.5,
+        "fact_recall_stdev": 0,
+        "fact_recall_range": 0,
+        "answered": 5,
+        "refused": 0,
+        "switches": 0,
+        "distinct_source_sets": 1,
+        "sources_changed": false,
+        "unstable": false
+      },
+      "errors": 0
+    },
+    {
+      "id": "conflict-04",
+      "category": "conflict",
+      "attempts": [
+        {
+          "question": "Should failed subscription payments be retried on the same day or spread over several days?",
+          "status": 200,
+          "answer": "Community members disagree. Hiroshi Tanaka (engineer, Brewlane) recommends retrying aggressively on the same day: three retries within a few hours of the first failure, which he says recovers about 40% of failed renewals because most failures are temporary. Rohan Pillai (developer, Notewell) recommends spreading retries across the day rather than firing them all at once, since bursts triggered 429 errors for him and live accounts are limited to 100 requests per second. The thread does not address retrying over multiple days.",
+          "sources": [
+            "thread-retrying-failed-payments.md"
+          ],
+          "error": null,
+          "fact_recall": 0.6666666666666666,
+          "refused": false
+        },
+        {
+          "question": "Should failed subscription payments be retried on the same day or spread over several days?",
+          "status": 200,
+          "answer": "Community members disagree on timing. Hiroshi Tanaka (engineer, Brewlane) recommends retrying aggressively on the same day: three retries within a few hours of the first failure, which he says recovers about 40% of failed renewals because most failures are temporary. Rohan Pillai (developer, Notewell) doesn't address same-day versus multi-day timing directly, but advises spreading retries across the day rather than firing them all at once, since bulk retries triggered 429 errors at a 100 requests-per-second limit on live accounts.",
+          "sources": [
+            "thread-retrying-failed-payments.md"
+          ],
+          "error": null,
+          "fact_recall": 0.6666666666666666,
+          "refused": false
+        },
+        {
+          "question": "Should failed subscription payments be retried on the same day or spread over several days?",
+          "status": 200,
+          "answer": "Community members disagree. Hiroshi Tanaka (engineer, Brewlane) recommends retrying aggressively on the same day: three retries within a few hours of the first failure, which he says recovers about 40% of failed renewals, since most failures are temporary. Rohan Pillai (developer, Notewell) advises spreading retries across the day rather than firing them all at once, because bulk retries triggered 429 rate-limit errors for him.",
+          "sources": [
+            "thread-retrying-failed-payments.md"
+          ],
+          "error": null,
+          "fact_recall": 0.6666666666666666,
+          "refused": false
+        },
+        {
+          "question": "Should failed subscription payments be retried on the same day or spread over several days?",
+          "status": 200,
+          "answer": "Community members disagree on this. Hiroshi Tanaka (engineer, Brewlane) recommends retrying aggressively on the same day: three retries within a few hours of the first failure, which he says recovers about 40% of failed renewals because most failures are temporary. Rohan Pillai (developer, Notewell) doesn't dispute timing but advises spreading retries across the day rather than firing them all at once, since bulk retries triggered 429 errors against the 100 requests-per-second live limit.",
+          "sources": [
+            "thread-retrying-failed-payments.md"
+          ],
+          "error": null,
+          "fact_recall": 0.6666666666666666,
+          "refused": false
+        },
+        {
+          "question": "Should failed subscription payments be retried on the same day or spread over several days?",
+          "status": 200,
+          "answer": "Community members disagree. Hiroshi Tanaka (engineer, Brewlane) recommends retrying aggressively on the same day: three retries within a few hours of the first failure, which he says recovers about 40% of failed renewals because most failures are temporary. Rohan Pillai (developer, Notewell) advises spreading retries across the day rather than firing them all at once, since bursts triggered 429 rate-limit errors on live accounts (limited to 100 requests per second, with a Retry-After header to respect). The thread doesn't cover retries spread over several days.",
+          "sources": [
+            "thread-retrying-failed-payments.md"
+          ],
+          "error": null,
+          "fact_recall": 0.6666666666666666,
+          "refused": false
+        }
+      ],
+      "stats": {
+        "attempts": 5,
+        "fact_recall_mean": 0.667,
+        "fact_recall_stdev": 0,
+        "fact_recall_range": 0,
+        "answered": 5,
+        "refused": 0,
+        "switches": 0,
+        "distinct_source_sets": 1,
+        "sources_changed": false,
+        "unstable": false
+      },
+      "errors": 0
+    }
+  ],
+  "paraphrase": [
+    {
+      "id": "single-19",
+      "category": "single_fact",
+      "attempts": [
+        {
+          "question": "How many days do I have to refund a customer who paid with a mobile wallet?",
+          "status": 200,
+          "answer": "Mobile wallet payments have a 30-day refund window, and partial refunds are allowed. Refunds reach the customer within 24 hours.",
+          "sources": [
+            "fact-refunds-and-disputes.md",
+            "thread-wallet-refunds.md"
+          ],
+          "error": null,
+          "fact_recall": 1,
+          "refused": false
+        },
+        {
+          "question": "What's the deadline for refunding a mobile wallet payment?",
+          "status": 200,
+          "answer": "Mobile wallet payments have a 30-day refund window, according to the Refunds and Disputes page (fact-refunds-and-disputes.md). Amara Eze confirms this and notes that a 45-day-old payment is past the window, so the API won't allow a refund either. Bilal Chaudhry believed the window was 60 days, but that claim conflicts with the official documentation.",
+          "sources": [
+            "thread-wallet-refunds.md",
+            "fact-refunds-and-disputes.md"
+          ],
+          "error": null,
+          "fact_recall": 1,
+          "refused": false
+        },
+        {
+          "question": "Until when can a merchant refund a payment made through a mobile wallet?",
+          "status": 200,
+          "answer": "Merchants can refund a mobile wallet payment within 30 days, according to the refund window in the ZoisPay refunds documentation. Note that a community member, Amara Eze, pointed out that this figure is the documented window and that a separate payout to the customer's wallet is an alternative once the window has passed, though that is her suggestion rather than an official policy.",
+          "sources": [
+            "fact-refunds-and-disputes.md",
+            "thread-wallet-refunds.md"
+          ],
+          "error": null,
+          "fact_recall": 1,
+          "refused": false
+        }
+      ],
+      "stats": {
+        "attempts": 3,
+        "fact_recall_mean": 1,
+        "fact_recall_stdev": 0,
+        "fact_recall_range": 0,
+        "answered": 3,
+        "refused": 0,
+        "switches": 0,
+        "distinct_source_sets": 1,
+        "sources_changed": false,
+        "unstable": false
+      },
+      "errors": 0
+    },
+    {
+      "id": "single-14",
+      "category": "single_fact",
+      "attempts": [
+        {
+          "question": "How many API requests per second can a live ZoisPay account make?",
+          "status": 200,
+          "answer": "A live ZoisPay account can make 100 requests per second (per account). Requests over this limit receive HTTP 429 with a `Retry-After` header indicating how many seconds to wait. The payouts endpoint is separately limited to 10 requests per second in both environments.",
+          "sources": [
+            "fact-api-and-integration.md"
+          ],
+          "error": null,
+          "fact_recall": 1,
+          "refused": false
+        },
+        {
+          "question": "What's the request limit on the production API?",
+          "status": 200,
+          "answer": "The live (production) API allows 100 requests per second per account. Requests over this limit receive HTTP 429 with a `Retry-After` header giving the number of seconds to wait. (The payouts endpoint is separately limited to 10 requests per second in both environments.)",
+          "sources": [
+            "fact-api-and-integration.md",
+            "thread-going-live.md",
+            "thread-webhooks-vs-polling.md"
+          ],
+          "error": null,
+          "fact_recall": 1,
+          "refused": false
+        },
+        {
+          "question": "In live mode, how fast can I call the ZoisPay API before I get rate limited?",
+          "status": 200,
+          "answer": "Live mode allows 100 requests per second per account. Requests over that limit receive HTTP 429 with a `Retry-After` header giving the number of seconds to wait. Note that the payouts endpoint has a separate limit of 10 requests per second in both environments.",
+          "sources": [
+            "fact-api-and-integration.md",
+            "thread-going-live.md"
+          ],
+          "error": null,
+          "fact_recall": 1,
+          "refused": false
+        }
+      ],
+      "stats": {
+        "attempts": 3,
+        "fact_recall_mean": 1,
+        "fact_recall_stdev": 0,
+        "fact_recall_range": 0,
+        "answered": 3,
+        "refused": 0,
+        "switches": 0,
+        "distinct_source_sets": 3,
+        "sources_changed": true,
+        "unstable": false
+      },
+      "errors": 0
+    },
+    {
+      "id": "single-10",
+      "category": "single_fact",
+      "attempts": [
+        {
+          "question": "By what time do I need to request a payout for it to go out the same day?",
+          "status": 200,
+          "answer": "The daily cutoff is 14:00 UTC. Payouts requested after that time are sent the next business day.",
+          "sources": [
+            "fact-settlements-and-payouts.md",
+            "thread-going-live.md"
+          ],
+          "error": null,
+          "fact_recall": 1,
+          "refused": false
+        },
+        {
+          "question": "What time is the cutoff for daily payouts?",
+          "status": 200,
+          "answer": "The daily payout cutoff is **14:00 UTC**. Payouts requested after the cutoff are sent the next business day.",
+          "sources": [
+            "fact-settlements-and-payouts.md",
+            "thread-going-live.md"
+          ],
+          "error": null,
+          "fact_recall": 1,
+          "refused": false
+        },
+        {
+          "question": "What is the latest time I can request a payout and still have it sent that business day?",
+          "status": 200,
+          "answer": "The latest cutoff for a same-business-day payout is **14:00 UTC**. Payouts requested after that time are sent the next business day.",
+          "sources": [
+            "fact-settlements-and-payouts.md",
+            "thread-going-live.md"
+          ],
+          "error": null,
+          "fact_recall": 1,
+          "refused": false
+        }
+      ],
+      "stats": {
+        "attempts": 3,
+        "fact_recall_mean": 1,
+        "fact_recall_stdev": 0,
+        "fact_recall_range": 0,
+        "answered": 3,
+        "refused": 0,
+        "switches": 0,
+        "distinct_source_sets": 1,
+        "sources_changed": false,
+        "unstable": false
+      },
+      "errors": 0
+    },
+    {
+      "id": "multi-01",
+      "category": "multi_doc",
+      "attempts": [
+        {
+          "question": "When can I access the money from a mobile wallet sale, and how long do I have to refund it?",
+          "status": 200,
+          "answer": "The context doesn't state when merchants can access money from a mobile wallet sale (settlement timing), so I can't answer that part. On refunds, the Refunds and Disputes table says mobile wallet payments have a 30-day refund window, and partial refunds are supported.",
+          "sources": [
+            "thread-wallet-refunds.md",
+            "fact-refunds-and-disputes.md"
+          ],
+          "error": null,
+          "fact_recall": 0.5,
+          "refused": false
+        },
+        {
+          "question": "How long until funds from a wallet payment are available, and what is the wallet refund window?",
+          "status": 200,
+          "answer": "Funds from a wallet refund reach the customer within 24 hours, and the wallet refund window is 30 days according to the ZoisPay fact sheet on refunds and disputes. Note that one community member, Bilal Chaudhry, stated a 60-day wallet refund window, which conflicts with the 30-day figure in the official table.",
+          "sources": [
+            "thread-wallet-refunds.md",
+            "fact-refunds-and-disputes.md"
+          ],
+          "error": null,
+          "fact_recall": 0.5,
+          "refused": false
+        },
+        {
+          "question": "For payments made with a mobile wallet, what are the settlement time and the refund deadline?",
+          "status": 200,
+          "answer": "For mobile wallet payments, the refund window is 30 days, and refunds reach the customer within 24 hours.",
+          "sources": [
+            "thread-wallet-refunds.md",
+            "fact-refunds-and-disputes.md"
+          ],
+          "error": null,
+          "fact_recall": 0.5,
+          "refused": false
+        }
+      ],
+      "stats": {
+        "attempts": 3,
+        "fact_recall_mean": 0.5,
+        "fact_recall_stdev": 0,
+        "fact_recall_range": 0,
+        "answered": 3,
+        "refused": 0,
+        "switches": 0,
+        "distinct_source_sets": 1,
+        "sources_changed": false,
+        "unstable": false
+      },
+      "errors": 0
+    },
+    {
+      "id": "conflict-01",
+      "category": "conflict",
+      "attempts": [
+        {
+          "question": "Is it better to rely on webhooks or to poll the API for payment status?",
+          "status": 200,
+          "answer": "Community members differ on this. Elena Marsh (Fernway) recommends webhooks alone, noting that polling wastes rate limit and lags, and that ZoisPay retries failed webhooks 6 times over about 35 hours. Wanjiru Kamau (Shambalink) recommends using both: webhooks as the main path, with an hourly polling job for payments still pending after 15 minutes as a safety net.",
+          "sources": [
+            "thread-webhooks-vs-polling.md"
+          ],
+          "error": null,
+          "fact_recall": 0.75,
+          "refused": false
+        },
+        {
+          "question": "What do merchants recommend for tracking payment outcomes: webhooks or polling?",
+          "status": 200,
+          "answer": "Community members disagree, and there are three positions:\n\n- **Kamran Siddiqui** asked the question and did not state a recommendation.\n- **Tobias Lindgren** (Quillbarrow) recommends polling. He notes that a webhook signature bug once went unnoticed for two days, and that polling every 10 seconds has stayed within the 100 requests per second limit at his volume.\n- **Wanjiru Kamau** (Shambalink) recommends using both: webhooks as the main path, with an hourly reconciliation poll for payments still pending after 15 minutes, plus deduplication by event ID and rejection of events with signature timestamps older than 5 minutes.",
+          "sources": [
+            "thread-webhooks-vs-polling.md"
+          ],
+          "error": null,
+          "fact_recall": 0.75,
+          "refused": false
+        },
+        {
+          "question": "Should my integration listen for webhooks or check payment status by polling?",
+          "status": 200,
+          "answer": "The community is split. Tobias Lindgren (CTO, Quillbarrow) recommends polling the payment status endpoint every 10 seconds until the payment is final, since it avoids depending on webhook delivery, which broke his system for two days after a bad deploy. Wanjiru Kamau (engineer, Shambalink) recommends using both: webhooks as the main path, with an hourly reconciliation job that polls any payment still pending after 15 minutes, plus deduplicating events by event ID and rejecting events with signature timestamps older than 5 minutes.",
+          "sources": [
+            "thread-webhooks-vs-polling.md"
+          ],
+          "error": null,
+          "fact_recall": 0.75,
+          "refused": false
+        }
+      ],
+      "stats": {
+        "attempts": 3,
+        "fact_recall_mean": 0.75,
+        "fact_recall_stdev": 0,
+        "fact_recall_range": 0,
+        "answered": 3,
+        "refused": 0,
+        "switches": 0,
+        "distinct_source_sets": 1,
+        "sources_changed": false,
+        "unstable": false
+      },
+      "errors": 0
+    }
+  ],
+  "rescored_at": "2026-10-19T12:32:26.038Z"
+}

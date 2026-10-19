@@ -7,6 +7,7 @@
     "dev": "tsx watch --include \"prompts/**\" --env-file=.env src/server.ts",
     "dev:stub": "tsx watch --include \"prompts/**\" --env-file=.env.stub src/server.ts",
     "dev:injection": "tsx watch --include \"prompts/**\" --env-file=.env --env-file=.env.injection src/server.ts",
+    "dev:claude": "tsx watch --include \"prompts/**\" --env-file=.env --env-file=.env.claude src/server.ts",
     "test": "playwright test",
     "test:api": "playwright test --project=api",
     "test:ui": "playwright test --project=ui",
@@ -22,7 +23,9 @@
     "eval:consistency": "tsx --env-file=.env eval/consistencyRun.ts",
     "eval:failure-report": "tsx eval/failureReport.ts",
     "eval:all": "tsx eval/all.ts",
+    "eval:all:claude": "tsx eval/all.ts --layer .env.claude",
     "eval:history": "tsx eval/historyAppend.ts",
+    "eval:rescore": "tsx eval/rescore.ts",
     "eval:chart": "tsx eval/chart.ts",
     "eval:gate": "tsx eval/gate.ts"
   },
