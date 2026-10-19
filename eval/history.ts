@@ -71,6 +71,8 @@ export interface HistoryEntry {
   // Answered requests and their tokens across all suites. Missing in lines from before token
   // counting; null when the pass had no usage file.
   tokens?: { requests: number; input: number; output: number } | null;
+  // Answers cut off at the output limit across all suites; null (or missing) before it was counted.
+  truncated_answers?: number | null;
   // API cost at the list price; 0 for local models, null if unknown.
   estimated_cost_usd?: number | null;
   runs: RunDirs;
@@ -120,6 +122,7 @@ export function summarizeRun(files: RunFiles, runs: RunDirs, usage?: UsageFile):
     request_errors:
       overall.errors + files.hallucination.summary.counts.error + inj.error + consistency.reduce((n, q) => n + q.errors, 0),
     tokens: usage ? { requests: usage.total.requests, input: usage.total.input_tokens, output: usage.total.output_tokens } : null,
+    truncated_answers: usage?.total.truncated ?? null,
     estimated_cost_usd: usage ? usage.estimated_cost_usd : null,
     runs,
   };

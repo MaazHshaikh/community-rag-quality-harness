@@ -7,6 +7,8 @@ import { search } from "./vectorStore.js";
 export interface AskResult {
   answer: string;
   sources: string[];
+  stop_reason: string | null;
+  truncated: boolean;
 }
 
 export const PROMPT_FILE = "prompts/answer.txt";
@@ -24,8 +26,8 @@ function buildPrompt(question: string, context: string): string {
 export async function ask(question: string): Promise<AskResult> {
   const chunks = await search(question);
   const context = chunks.map((c) => `[source: ${c.source}]\n${c.text}`).join("\n\n---\n\n");
-  const { text: answer, usage } = await llm.generate({ prompt: buildPrompt(question, context), question });
-  recordUsage(usage);
+  const { text: answer, usage, stop_reason, truncated } = await llm.generate({ prompt: buildPrompt(question, context), question });
+  recordUsage(usage, truncated);
   const sources = [...new Set(chunks.map((c) => c.source))];
-  return { answer, sources };
+  return { answer, sources, stop_reason, truncated };
 }

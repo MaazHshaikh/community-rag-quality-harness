@@ -15,7 +15,14 @@ export interface TokenUsage {
 export interface Generation {
   text: string;
   usage: TokenUsage | null;
+  // The provider's own reason for stopping (null when it gives none), and whether that reason
+  // means the answer was cut off by the output limit.
+  stop_reason: string | null;
+  truncated: boolean;
 }
+
+// Stop reasons that mean the model ran out of room rather than finishing its answer.
+const CUT_OFF = new Set(["max_tokens", "model_context_window_exceeded"]);
 
 export interface AnthropicOptions {
   apiKey: string;
@@ -110,7 +117,8 @@ export function createAnthropicClient(options: AnthropicOptions) {
         const usage = data?.usage
           ? { input_tokens: data.usage.input_tokens ?? 0, output_tokens: data.usage.output_tokens ?? 0 }
           : null;
-        return { text: text.trim(), usage };
+        const stopReason = data?.stop_reason ?? null;
+        return { text: text.trim(), usage, stop_reason: stopReason, truncated: stopReason !== null && CUT_OFF.has(stopReason) };
       }
 
       const reason = await describeError(response);

@@ -29,7 +29,12 @@ function ollamaProvider(): LlmProvider {
   return {
     info: { provider: "ollama", chat_model: model, temperature, max_output_tokens: maxOutputTokens },
     async generate({ prompt }) {
-      const data = await postToOllama<{ message: { content: string }; prompt_eval_count?: number; eval_count?: number }>(ollamaUrl, "/api/chat", {
+      const data = await postToOllama<{
+        message: { content: string };
+        done_reason?: string;
+        prompt_eval_count?: number;
+        eval_count?: number;
+      }>(ollamaUrl, "/api/chat", {
         model,
         messages: [{ role: "user", content: prompt }],
         stream: false,
@@ -38,6 +43,9 @@ function ollamaProvider(): LlmProvider {
       return {
         text: data.message.content.trim(),
         usage: { input_tokens: data.prompt_eval_count ?? 0, output_tokens: data.eval_count ?? 0 },
+        // "length" means num_predict (the output limit) was reached.
+        stop_reason: data.done_reason ?? null,
+        truncated: data.done_reason === "length",
       };
     },
   };
@@ -72,7 +80,7 @@ function stubProvider(): LlmProvider {
         console.error("Stub LLM: simulated outage");
         throw llmUnavailable();
       }
-      return { text: `Stub answer for: ${question}`, usage: null };
+      return { text: `Stub answer for: ${question}`, usage: null, stop_reason: null, truncated: false };
     },
   };
 }

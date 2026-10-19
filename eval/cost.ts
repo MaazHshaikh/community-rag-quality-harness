@@ -19,6 +19,8 @@ export interface UsageCounts {
   requests_without_usage: number;
   input_tokens: number;
   output_tokens: number;
+  // Answers cut off by the output limit. Missing in usage files written before it was counted.
+  truncated?: number;
 }
 
 // Rounded to 6 decimals (a millionth of a dollar). null when the model has no known price, or when
@@ -30,7 +32,7 @@ export function estimateCostUsd(model: string | null, usage: UsageCounts): numbe
   return Math.round(cost * 1e6) / 1e6;
 }
 
-export const ZERO_USAGE: UsageCounts = { requests: 0, requests_without_usage: 0, input_tokens: 0, output_tokens: 0 };
+export const ZERO_USAGE: UsageCounts = { requests: 0, requests_without_usage: 0, input_tokens: 0, output_tokens: 0, truncated: 0 };
 
 export function addUsage(a: UsageCounts, b: UsageCounts): UsageCounts {
   return {
@@ -38,6 +40,7 @@ export function addUsage(a: UsageCounts, b: UsageCounts): UsageCounts {
     requests_without_usage: a.requests_without_usage + b.requests_without_usage,
     input_tokens: a.input_tokens + b.input_tokens,
     output_tokens: a.output_tokens + b.output_tokens,
+    truncated: (a.truncated ?? 0) + (b.truncated ?? 0),
   };
 }
 
@@ -47,5 +50,6 @@ export function subtractUsage(after: UsageCounts, before: UsageCounts): UsageCou
     requests_without_usage: after.requests_without_usage - before.requests_without_usage,
     input_tokens: after.input_tokens - before.input_tokens,
     output_tokens: after.output_tokens - before.output_tokens,
+    truncated: (after.truncated ?? 0) - (before.truncated ?? 0),
   };
 }

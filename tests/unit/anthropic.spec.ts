@@ -103,12 +103,28 @@ test.describe("Anthropic client", () => {
     expect(logs.join("\n")).toContain("stop_reason: max_tokens, blocks: thinking");
   });
 
-  test("returns the trimmed text and the token usage", async () => {
+  test("returns the trimmed text, the token usage, and the stop reason", async () => {
     const h = harness([answer("  Card payments settle in 2 business days.  ")]);
     expect(await h.generate("p")).toEqual({
       text: "Card payments settle in 2 business days.",
       usage: { input_tokens: 1200, output_tokens: 80 },
+      stop_reason: "end_turn",
+      truncated: false,
     });
+  });
+
+  test("flags an answer cut off at the output limit", async () => {
+    for (const stop_reason of ["max_tokens", "model_context_window_exceeded"]) {
+      const h = harness([ok({ content: [{ type: "text", text: "Card payments settle in" }], stop_reason })]);
+      expect(await h.generate("p"), stop_reason).toMatchObject({ text: "Card payments settle in", stop_reason, truncated: true });
+    }
+  });
+
+  test("does not flag other stop reasons, or a missing one", async () => {
+    for (const stop_reason of ["end_turn", "stop_sequence", "refusal", undefined]) {
+      const h = harness([ok({ content: [{ type: "text", text: "Answer" }], stop_reason })]);
+      expect(await h.generate("p"), String(stop_reason)).toMatchObject({ stop_reason: stop_reason ?? null, truncated: false });
+    }
   });
 
   test("joins text blocks and ignores other block types", async () => {

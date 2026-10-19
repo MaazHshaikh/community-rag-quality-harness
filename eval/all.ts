@@ -66,11 +66,12 @@ async function fetchUsage(token: string): Promise<AppUsage> {
   return (await res.json()) as AppUsage;
 }
 
-const counts = ({ requests, requests_without_usage, input_tokens, output_tokens }: UsageCounts): UsageCounts => ({
+const counts = ({ requests, requests_without_usage, input_tokens, output_tokens, truncated }: UsageCounts): UsageCounts => ({
   requests,
   requests_without_usage,
   input_tokens,
   output_tokens,
+  truncated,
 });
 
 let app: ChildProcess | null = null;
@@ -202,7 +203,8 @@ async function main() {
   writeFileSync(path.join(usageDir, "usage.json"), JSON.stringify(usageFile, null, 2) + "\n");
   console.log(
     `\nTokens: ${total.input_tokens} in, ${total.output_tokens} out over ${total.requests} answers; ` +
-      `estimated cost ${cost === null ? "unknown" : `$${cost.toFixed(4)}`}`,
+      `estimated cost ${cost === null ? "unknown" : `$${cost.toFixed(4)}`}; ` +
+      `${total.truncated ? `WARNING: ${total.truncated} answer(s) cut off at the output limit` : "no answers cut off"}`,
   );
 
   await runScript("eval:failure-report");

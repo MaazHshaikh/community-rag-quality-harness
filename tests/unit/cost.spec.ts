@@ -1,11 +1,12 @@
 import { expect, test } from "@playwright/test";
 import { addUsage, estimateCostUsd, subtractUsage, type UsageCounts } from "../../eval/cost.js";
 
-const usage = (input_tokens: number, output_tokens: number, requests = 1, requests_without_usage = 0): UsageCounts => ({
+const usage = (input_tokens: number, output_tokens: number, requests = 1, requests_without_usage = 0, truncated = 0): UsageCounts => ({
   requests,
   requests_without_usage,
   input_tokens,
   output_tokens,
+  truncated,
 });
 
 test.describe("estimateCostUsd", () => {
@@ -33,7 +34,12 @@ test.describe("estimateCostUsd", () => {
 
 test.describe("usage arithmetic", () => {
   test("adds and subtracts every counter", () => {
-    expect(addUsage(usage(10, 2, 1, 0), usage(5, 1, 2, 1))).toEqual(usage(15, 3, 3, 1));
-    expect(subtractUsage(usage(15, 3, 3, 1), usage(10, 2, 1, 0))).toEqual(usage(5, 1, 2, 1));
+    expect(addUsage(usage(10, 2, 1, 0, 1), usage(5, 1, 2, 1, 2))).toEqual(usage(15, 3, 3, 1, 3));
+    expect(subtractUsage(usage(15, 3, 3, 1, 3), usage(10, 2, 1, 0, 1))).toEqual(usage(5, 1, 2, 1, 2));
+  });
+
+  test("treats a missing truncated count (older usage files) as 0", () => {
+    const { truncated: _, ...old } = usage(10, 2);
+    expect(addUsage(old, usage(5, 1, 1, 0, 1)).truncated).toBe(1);
   });
 });

@@ -87,6 +87,9 @@ export interface AskOutcome {
   latency_ms: number;
   answer: string | null;
   sources: string[];
+  // Missing (undefined) in runs from before the app reported them.
+  stop_reason: string | null;
+  truncated: boolean;
   error: string | null;
 }
 
@@ -102,13 +105,28 @@ export async function askQuestion(question: string, token: string): Promise<AskO
       body: JSON.stringify({ question }),
       signal: AbortSignal.timeout(ASK_TIMEOUT_MS),
     });
-    const body = (await response.json().catch(() => ({}))) as { answer?: string; sources?: string[]; error?: string };
+    const body = (await response.json().catch(() => ({}))) as {
+      answer?: string;
+      sources?: string[];
+      stop_reason?: string | null;
+      truncated?: boolean;
+      error?: string;
+    };
     if (!response.ok) {
-      return { status: response.status, latency_ms: elapsed(), answer: null, sources: [], error: body.error ?? `HTTP ${response.status}` };
+      const error = body.error ?? `HTTP ${response.status}`;
+      return { status: response.status, latency_ms: elapsed(), answer: null, sources: [], stop_reason: null, truncated: false, error };
     }
-    return { status: response.status, latency_ms: elapsed(), answer: body.answer ?? null, sources: body.sources ?? [], error: null };
+    return {
+      status: response.status,
+      latency_ms: elapsed(),
+      answer: body.answer ?? null,
+      sources: body.sources ?? [],
+      stop_reason: body.stop_reason ?? null,
+      truncated: body.truncated ?? false,
+      error: null,
+    };
   } catch (err) {
-    return { status: null, latency_ms: elapsed(), answer: null, sources: [], error: String(err) };
+    return { status: null, latency_ms: elapsed(), answer: null, sources: [], stop_reason: null, truncated: false, error: String(err) };
   }
 }
 

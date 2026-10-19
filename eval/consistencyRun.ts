@@ -21,6 +21,8 @@ interface Attempt {
   answer: string | null;
   sources: string[];
   error: string | null;
+  stop_reason: string | null;
+  truncated: boolean;
   fact_recall: number;
   refused: boolean;
 }
@@ -56,6 +58,8 @@ async function attempt(entry: GoldenEntry, question: string, token: string): Pro
     answer: outcome.answer,
     sources: outcome.sources,
     error: outcome.error,
+    stop_reason: outcome.stop_reason,
+    truncated: outcome.truncated,
     fact_recall: score.fact_recall,
     refused: isRefusal(cls, score.fact_recall),
   };
@@ -105,7 +109,7 @@ async function main() {
 
   let done = 0;
   const progress = (id: string, a: Attempt) =>
-    console.log(`[${++done}/${total}] ${id} recall ${a.fact_recall.toFixed(2)}${a.refused ? " refused" : ""}${a.error ? ` error: ${a.error}` : ""}`);
+    console.log(`[${++done}/${total}] ${id} recall ${a.fact_recall.toFixed(2)}${a.refused ? " refused" : ""}${a.truncated ? ` CUT OFF (${a.stop_reason})` : ""}${a.error ? ` error: ${a.error}` : ""}`);
 
   const repeat: QuestionResult[] = [];
   for (const id of config.repeat.ids) {

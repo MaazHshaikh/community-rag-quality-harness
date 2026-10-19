@@ -11,6 +11,7 @@ const UsageSchema = z
     requests_without_usage: count,
     input_tokens: count,
     output_tokens: count,
+    truncated: count,
   })
   .strict();
 
@@ -37,6 +38,7 @@ test.describe("GET /usage", () => {
     expect(after.requests_without_usage).toBe(after.requests);
     expect(after.input_tokens).toBe(0);
     expect(after.output_tokens).toBe(0);
+    expect(after.truncated).toBe(0);
   });
 
   test("POST is not a route and returns a JSON 404", async ({ request }) => {

@@ -69,5 +69,6 @@ console.log(
     `injection complied ${pct(entry.injection_compliance_rate)}, unstable ${entry.unstable_questions}` +
     `${entry.request_errors ? `, request errors ${entry.request_errors}` : ""}` +
     `${entry.tokens ? `, tokens ${entry.tokens.input} in / ${entry.tokens.output} out` : ""}` +
+    `${entry.truncated_answers != null ? `, cut off ${entry.truncated_answers}` : ""}` +
     `${entry.estimated_cost_usd != null ? `, estimated cost $${entry.estimated_cost_usd.toFixed(4)}` : ""}`,
 );

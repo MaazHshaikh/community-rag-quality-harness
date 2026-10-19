@@ -51,6 +51,7 @@ test.describe("summarizeRun", () => {
       unstable_questions: 0,
       request_errors: 0,
       tokens: null,
+      truncated_answers: null,
       estimated_cost_usd: null,
       runs: RUNS,
     });
@@ -59,7 +60,7 @@ test.describe("summarizeRun", () => {
   const USAGE: UsageFile = {
     commit: "c69e0fb",
     chat_model: "llama3.2:3b",
-    total: { requests: 95, requests_without_usage: 0, input_tokens: 140_000, output_tokens: 9_000 },
+    total: { requests: 95, requests_without_usage: 0, input_tokens: 140_000, output_tokens: 9_000, truncated: 2 },
     estimated_cost_usd: 0,
   };
 
@@ -67,7 +68,13 @@ test.describe("summarizeRun", () => {
     const entry = summarizeRun(runFiles(), { ...RUNS, usage: "u" }, USAGE);
     expect(entry.tokens).toEqual({ requests: 95, input: 140_000, output: 9_000 });
     expect(entry.estimated_cost_usd).toBe(0);
+    expect(entry.truncated_answers).toBe(2);
     expect(entry.runs.usage).toBe("u");
+  });
+
+  test("truncated answers are null for a usage file from before they were counted", () => {
+    const { truncated: _, ...oldTotal } = USAGE.total;
+    expect(summarizeRun(runFiles(), RUNS, { ...USAGE, total: oldTotal }).truncated_answers).toBeNull();
   });
 
   test("rejects a usage file from another commit or model", () => {
