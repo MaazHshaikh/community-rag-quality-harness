@@ -214,7 +214,7 @@
           "error": null,
           "stop_reason": "end_turn",
           "truncated": false,
-          "fact_recall": 0.5,
+          "fact_recall": 1,
           "refused": false
         },
         {
@@ -229,7 +229,7 @@
           "error": null,
           "stop_reason": "end_turn",
           "truncated": false,
-          "fact_recall": 0.5,
+          "fact_recall": 1,
           "refused": false
         },
         {
@@ -259,7 +259,7 @@
           "error": null,
           "stop_reason": "end_turn",
           "truncated": false,
-          "fact_recall": 0.5,
+          "fact_recall": 1,
           "refused": false
         },
         {
@@ -280,9 +280,9 @@
       ],
       "stats": {
         "attempts": 5,
-        "fact_recall_mean": 0.7,
-        "fact_recall_stdev": 0.245,
-        "fact_recall_range": 0.5,
+        "fact_recall_mean": 1,
+        "fact_recall_stdev": 0,
+        "fact_recall_range": 0,
         "answered": 5,
         "refused": 0,
         "switches": 0,
@@ -482,7 +482,7 @@
           "error": null,
           "stop_reason": "end_turn",
           "truncated": false,
-          "fact_recall": 0,
+          "fact_recall": 1,
           "refused": false
         },
         {
@@ -516,15 +516,15 @@
       ],
       "stats": {
         "attempts": 3,
-        "fact_recall_mean": 0.667,
-        "fact_recall_stdev": 0.471,
-        "fact_recall_range": 1,
+        "fact_recall_mean": 1,
+        "fact_recall_stdev": 0,
+        "fact_recall_range": 0,
         "answered": 3,
         "refused": 0,
         "switches": 0,
         "distinct_source_sets": 1,
         "sources_changed": false,
-        "unstable": true
+        "unstable": false
       },
       "errors": 0
     },
@@ -665,7 +665,7 @@
           "error": null,
           "stop_reason": "end_turn",
           "truncated": false,
-          "fact_recall": 0,
+          "fact_recall": 0.5,
           "refused": false
         },
         {
@@ -699,9 +699,9 @@
       ],
       "stats": {
         "attempts": 3,
-        "fact_recall_mean": 0.333,
-        "fact_recall_stdev": 0.236,
-        "fact_recall_range": 0.5,
+        "fact_recall_mean": 0.5,
+        "fact_recall_stdev": 0,
+        "fact_recall_range": 0,
         "answered": 3,
         "refused": 0,
         "switches": 0,
@@ -769,5 +769,6 @@
       },
       "errors": 0
     }
-  ]
+  ],
+  "rescored_at": "2026-10-19T12:32:26.616Z"
 }

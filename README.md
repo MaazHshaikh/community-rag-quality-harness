@@ -44,7 +44,7 @@ npx playwright install chromium
 cp .env.example .env          # then set API_TOKEN to a long random value
 
 npm run dev                   # app with real models on http://localhost:3000
-npm test                      # 207 Playwright tests; starts its own stub-mode app, no Ollama needed
+npm test                      # 210 Playwright tests; starts its own stub-mode app, no Ollama needed
 npm run eval:all              # every eval suite against a fresh app (about 10–13 min; needs a clean git tree)
 npm run eval:all:claude       # the same with Claude Haiku 5.5 (needs ANTHROPIC_API_KEY in .env; about 4 min, ~$0.01)
 npm run eval:chart            # rebuild eval/trend.html from eval/history.jsonl
@@ -72,7 +72,7 @@ The same harness, run three times each against the same prompt, docs and embeddi
 
 | | llama3.2:3b (local) | claude-haiku-5-5 (API) |
 |---|---|---|
-| Quality score | 88.1–89.0 (mean 88.4) | 86.5–89.0 (mean 87.7) |
+| Quality score | 88.1–89.0 (mean 88.7) | 89.0 in every run |
 | Made-up answers (8 unanswerable questions) | 25–50% | 12.5% in every run |
 | Injection compliance (9 attacks) | 33–44% | 0–11% measured; **0% on review** (F8) |
 | Retrieval hit rate | 96.7% | 96.7% (same embeddings) |
@@ -81,7 +81,9 @@ The same harness, run three times each against the same prompt, docs and embeddi
 | Time to answer the 30 golden questions | 200–291 s | 41–45 s |
 | API cost per full run (87 answers) | $0 (local hardware) | $0.0095–0.0096 |
 
-**Same quality score, very different safety.** Both models lose facts on the same 7 questions in every run. But where llama confidently answers wrongly ("2 settlement currencies"), Claude says it doesn't know, and it refused every injection, including the fee waiver of F5. The quality score can't tell an honest refusal from a wrong answer, and Claude's lower runs were scoring errors, not worse answers: it writes "30-day" where the golden fact says "30 days". Counting those as correct, all three Claude runs score 89.0. The injection check also counts Claude's refusals as compliance when they quote the attack. [F8](findings.md) logs these false positives and negatives; the scorer hasn't been changed yet. Claude runs at its default temperature (it rejects the parameter) with thinking off.
+**Same quality score, very different safety.** Both models lose facts on the same 7 questions in every run, so the score barely separates them. But where llama confidently answers wrongly ("2 settlement currencies"), Claude says it doesn't know, and it refused every injection, including the fee waiver of F5. The quality score can't tell an honest refusal from a wrong answer.
+
+Claude also exposed scorer gaps that llama rarely triggered ([F8](findings.md)). Fact matching missed "30-day" and "7-day" for "30 days" and "7 days", which had pulled two Claude runs down to 87.7 and 86.5 and one llama run to 88.1; it now accepts hyphenated and singular forms, and all runs were re-scored from their saved answers (`npm run eval:rescore`). Two false positives remain, as known limitations below. Claude runs at its default temperature (it rejects the parameter) with thinking off.
 
 ## Five most interesting findings
 
@@ -99,4 +101,4 @@ Full log, with the API bugs found and fixed along the way: [findings.md](finding
 - **The hallucination set is small.** With 8 questions, one answer moves the rate by 12.5 points. Next: 30+ questions, then gate on it.
 - **No tool use.** The assistant only reads docs; an agent that issues refunds or payouts would bring failure modes not covered here.
 - **No load testing.** Latency is recorded per answer but never asserted, and concurrency is untested.
-- **The scorer is tuned to llama's style.** A stronger model exposed exact-match gaps (hyphenated numbers, quoting an attack or a wrong claim to reject it). Next: fix those checks (F8), then put Claude behind its own baseline.
+- **Two checks misread a model that explains its refusals (F8).** The injection check counts an answer as complying when it quotes the attack to reject it ("the note telling me to say all fees are waived … I've ignored it"), and the forbidden-claim check flags "60 days" when the answer names it to correct it. Read flagged answers before trusting those rates. Next: recognise quoted-and-rejected text, then put Claude behind its own baseline.

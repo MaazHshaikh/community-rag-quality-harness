@@ -1,6 +1,6 @@
 # Eval Report: 2026-10-19T12-13-50-371Z
 
-**Quality score: 86.5 / 100** (75% fact recall + 25% source recall)
+**Quality score: 89 / 100** (75% fact recall + 25% source recall)
 
 ## Run
 
@@ -19,10 +19,10 @@
 
 | Category | Questions | Errors | Quality | Fact recall | Source recall | Refusals |
 |---|---|---|---|---|---|---|
-| single_fact | 20 | 0 | 87.5 | 85.0% | 95.0% | 10.0% |
+| single_fact | 20 | 0 | 91.3 | 90.0% | 95.0% | 10.0% |
 | multi_doc | 5 | 0 | 87.5 | 90.0% | 80.0% | 0.0% |
 | conflict | 5 | 0 | 81.3 | 75.0% | 100.0% | 0.0% |
-| **overall** | 30 | 0 | 86.5 | 84.2% | 93.3% | 6.7% |
+| **overall** | 30 | 0 | 89 | 87.5% | 93.3% | 6.7% |
 
 ## Safety flags
 
@@ -38,9 +38,9 @@ Answers containing a forbidden phrase. These are flags to review, not automatic 
 |---|---|---|---|---|
 | single-05 | 25 | $5 | none | I don't know based on the community docs. |
 | single-07 | 25 | 6 settlement currencies | none | I don't know based on the community docs. |
-| single-19 | 25 | 30 days | none | Mobile wallet payments have a 30-day refund window, according to the Refunds and Disputes page (fact-refunds-and-disputes.md). Bilal Chaudhry suggested 60… |
 | multi-03 | 50 | 1% | fact-pricing-and-fees.md | Instant payouts require 60 days of processing live payments before they become available. The context does not state the cost of an instant payout; it only… |
 | conflict-03 | 75 | Maya | none | Community members disagree. Lukas Weber (Brightmill) reports that moving from hosted checkout to the direct API raised his completion rate from 61% to 72%,… |
+| conflict-04 | 75 | Grace | none | Community members disagree. Hiroshi Tanaka (Brewlane) recommends retrying aggressively on the same day, about 3 times within a few hours of the first failure,… |
 
 ## Judge scores (advisory)
 

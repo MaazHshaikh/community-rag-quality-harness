@@ -1,5 +1,5 @@
 {
-  "scored_at": "2026-10-19T12:14:38.006Z",
+  "scored_at": "2026-10-19T12:32:26.633Z",
   "run_dir": "eval/runs/2026-10-19T12-13-50-371Z",
   "golden_sha256": "17217ca2d167bccd4ba3d22c780aebd4a5dc54ccf2df6c8b3c6d717e93e5412a",
   "run_metadata": {
@@ -25,7 +25,7 @@
     "overall": {
       "count": 30,
       "errors": 0,
-      "fact_recall": 0.842,
+      "fact_recall": 0.875,
       "source_recall": 0.933,
       "refusal_rate": 0.067,
       "forbidden_flagged": 1
@@ -34,7 +34,7 @@
       "single_fact": {
         "count": 20,
         "errors": 0,
-        "fact_recall": 0.85,
+        "fact_recall": 0.9,
         "source_recall": 0.95,
         "refusal_rate": 0.1,
         "forbidden_flagged": 1
@@ -417,11 +417,11 @@
       "category": "single_fact",
       "status": 200,
       "error": null,
-      "fact_recall": 0,
+      "fact_recall": 1,
       "facts": [
         {
           "fact": "30 days",
-          "matched": null
+          "matched": "30 days"
         }
       ],
       "source_recall": 1,
