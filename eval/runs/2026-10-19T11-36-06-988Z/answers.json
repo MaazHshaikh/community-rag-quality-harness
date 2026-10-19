@@ -1,0 +1,352 @@
+{
+  "metadata": {
+    "started_at": "2026-10-19T11:36:06.988Z",
+    "base_url": "http://localhost:3100",
+    "commit": "80931c9",
+    "dirty": false,
+    "llm_provider": "anthropic",
+    "chat_model": "claude-haiku-5-5",
+    "temperature": null,
+    "max_output_tokens": 300,
+    "embed_provider": "ollama",
+    "embed_model": "nomic-embed-text",
+    "prompt_file": "prompts/answer.txt",
+    "prompt_sha256": "2df73b108e32a6fc33100146bff91a46e3b38b36de7cd5e84efaa588ad7fb3ff",
+    "extra_docs_dir": null,
+    "question_count": 30,
+    "finished_at": "2026-10-19T11:36:48.314Z",
+    "duration_ms": 41326,
+    "config_changed_during_run": false
+  },
+  "results": [
+    {
+      "id": "single-01",
+      "status": 200,
+      "latency_ms": 1582,
+      "answer": "A domestic card payment is charged 2.9% + $0.30 per successful payment, and it is available in all 6 countries. Failed and declined payments are not charged.",
+      "sources": [
+        "fact-pricing-and-fees.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-02",
+      "status": 200,
+      "latency_ms": 1225,
+      "answer": "ZoisPay charges international cards the domestic rate plus a 1.5% surcharge. A card counts as international when it was issued in a different country from the merchant's registered country.",
+      "sources": [
+        "fact-pricing-and-fees.md",
+        "fact-refunds-and-disputes.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-03",
+      "status": 200,
+      "latency_ms": 1650,
+      "answer": "The context gives a fee of 12% for direct carrier billing, as stated by Zara Sheikh in the thread (compared with 2.9% plus 30 cents for domestic cards). The official pricing doc does not list a carrier billing fee, and it only confirms that failed and declined payments are free and ZoisPay charges only for successful payments.",
+      "sources": [
+        "fact-pricing-and-fees.md",
+        "thread-carrier-billing-worth-it.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-04",
+      "status": 200,
+      "latency_ms": 1249,
+      "answer": "Direct carrier billing is available in Pakistan, Kenya, and the UAE, according to the ZoisPay fee table.",
+      "sources": [
+        "thread-carrier-billing-worth-it.md",
+        "fact-pricing-and-fees.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-05",
+      "status": 200,
+      "latency_ms": 1090,
+      "answer": "I don't know based on the community docs.",
+      "sources": [
+        "fact-pricing-and-fees.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-06",
+      "status": 200,
+      "latency_ms": 1850,
+      "answer": "ZoisPay adds a markup of 1.75% on top of the mid-market rate when it converts a payment from the presentment currency to the merchant's settlement currency. There is no conversion fee when the two currencies match.",
+      "sources": [
+        "fact-pricing-and-fees.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-07",
+      "status": 200,
+      "latency_ms": 1053,
+      "answer": "I don't know based on the community docs.",
+      "sources": [
+        "fact-pricing-and-fees.md",
+        "fact-settlements-and-payouts.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-08",
+      "status": 200,
+      "latency_ms": 1043,
+      "answer": "Card payments are available after 2 business days (T+2), according to the settlements and payouts table.",
+      "sources": [
+        "thread-carrier-billing-worth-it.md",
+        "fact-refunds-and-disputes.md",
+        "fact-settlements-and-payouts.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-09",
+      "status": 200,
+      "latency_ms": 1144,
+      "answer": "Direct carrier billing payments take 30 calendar days (T+30) to become available, because carriers first collect the money through the customer's phone bill.",
+      "sources": [
+        "thread-carrier-billing-worth-it.md",
+        "fact-settlements-and-payouts.md",
+        "fact-refunds-and-disputes.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-10",
+      "status": 200,
+      "latency_ms": 1063,
+      "answer": "The daily payout cutoff is **14:00 UTC**. Payouts requested after this time are sent the next business day.",
+      "sources": [
+        "fact-settlements-and-payouts.md",
+        "thread-going-live.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-11",
+      "status": 200,
+      "latency_ms": 1276,
+      "answer": "The minimum for a scheduled payout is $25 (or the equivalent in the settlement currency). Smaller balances roll over to the next scheduled payout, and manual, instant, and third-party payouts have no minimum.",
+      "sources": [
+        "fact-settlements-and-payouts.md",
+        "thread-going-live.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-12",
+      "status": 200,
+      "latency_ms": 1123,
+      "answer": "Instant payouts become available after a merchant has processed live payments for **60 days**.",
+      "sources": [
+        "thread-going-live.md",
+        "fact-settlements-and-payouts.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-13",
+      "status": 200,
+      "latency_ms": 1060,
+      "answer": "New merchants have a rolling reserve of 10% of each settlement, held for 90 days, during the first 6 months after going live.",
+      "sources": [
+        "fact-settlements-and-payouts.md",
+        "thread-going-live.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-14",
+      "status": 200,
+      "latency_ms": 1448,
+      "answer": "Live accounts are limited to 100 requests per second per account, according to the ZoisPay API documentation. Requests over this limit receive HTTP 429 with a `Retry-After` header giving the number of seconds to wait. (The payouts endpoint has a separate limit of 10 requests per second in both environments.)",
+      "sources": [
+        "fact-api-and-integration.md",
+        "thread-going-live.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-15",
+      "status": 200,
+      "latency_ms": 1138,
+      "answer": "ZoisPay stores each idempotency key for **24 hours**.",
+      "sources": [
+        "thread-retrying-failed-payments.md",
+        "fact-api-and-integration.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-16",
+      "status": 200,
+      "latency_ms": 1084,
+      "answer": "No. A retry of a declined payment is a new attempt and needs a new idempotency key. Reusing the old key within 24 hours returns the original decline instead of processing the retry.",
+      "sources": [
+        "thread-retrying-failed-payments.md",
+        "fact-api-and-integration.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-17",
+      "status": 200,
+      "latency_ms": 1273,
+      "answer": "ZoisPay retries a failed webhook delivery 6 times over about 35 hours (retries at 1 minute, 5 minutes, 30 minutes, 2 hours, 8 hours, and 24 hours after the failure). Your endpoint must return a 2xx status within 10 seconds to avoid a retry.",
+      "sources": [
+        "thread-webhooks-vs-polling.md",
+        "fact-api-and-integration.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-18",
+      "status": 200,
+      "latency_ms": 1255,
+      "answer": "A webhook endpoint must return a 2xx response within 10 seconds, according to Elena Marsh (backend lead, Fernway). Her suggested approach is to queue the event, return 200 immediately, and process the event afterward.",
+      "sources": [
+        "thread-webhooks-vs-polling.md",
+        "thread-going-live.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-19",
+      "status": 200,
+      "latency_ms": 1275,
+      "answer": "The refund window for mobile wallet payments is 30 days, according to the Refunds and Disputes page (fact-refunds-and-disputes.md). A developer in the community thread believed it was 60 days, but that is out of date per Amara Eze, the support lead, who cites the same 30-day figure.",
+      "sources": [
+        "thread-wallet-refunds.md",
+        "fact-refunds-and-disputes.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "single-20",
+      "status": 200,
+      "latency_ms": 1327,
+      "answer": "The fee for a card chargeback is $15 per chargeback, and it is not returned even if the merchant wins. (Source: fact-refunds-and-disputes.md)",
+      "sources": [
+        "fact-refunds-and-disputes.md",
+        "thread-carrier-billing-worth-it.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "multi-01",
+      "status": 200,
+      "latency_ms": 1728,
+      "answer": "Funds from a mobile wallet payment are available to the merchant after 1 business day (T+1). The refund window for mobile wallet payments is 30 days, and the refund reaches the customer within 24 hours, per the Refunds and Disputes documentation. (A community thread claims the wallet window is shorter than the docs state, but Amara Eze, citing the Refunds and Disputes page, confirms it is 30 days.)",
+      "sources": [
+        "fact-refunds-and-disputes.md",
+        "thread-wallet-refunds.md",
+        "fact-settlements-and-payouts.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "multi-02",
+      "status": 200,
+      "latency_ms": 1816,
+      "answer": "Direct carrier billing payments carry a 12% fee, according to a merchant's comment in the community thread, though the official fee table in the pricing documentation was not included in the context, so I can only cite that figure from the forum. The refund window for direct carrier billing is 7 days, and only full refunds are possible.",
+      "sources": [
+        "thread-carrier-billing-worth-it.md",
+        "fact-refunds-and-disputes.md",
+        "fact-pricing-and-fees.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "multi-03",
+      "status": 200,
+      "latency_ms": 1300,
+      "answer": "Instant payouts become available after a merchant has processed live payments for 60 days, and they arrive within 30 minutes with a daily limit of $10,000. The context states the fee is listed on the Pricing and Fees page, but it does not give the amount, so I can't tell you the cost from these docs.",
+      "sources": [
+        "fact-settlements-and-payouts.md",
+        "thread-going-live.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "multi-04",
+      "status": 200,
+      "latency_ms": 1484,
+      "answer": "Card payments settle in 2 business days, according to Rebecca Williams and Aisha Rahman in the community threads. For card chargebacks, merchants have 7 calendar days from the dispute notification to submit evidence, per the ZoisPay refunds and disputes documentation.",
+      "sources": [
+        "thread-carrier-billing-worth-it.md",
+        "fact-refunds-and-disputes.md",
+        "thread-going-live.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "multi-05",
+      "status": 200,
+      "latency_ms": 1342,
+      "answer": "A new merchant has 10% of each settlement held for 90 days during the first 6 months after going live. A monthly dispute rate above 0.9% (disputes divided by successful payments in that month) places the merchant in the dispute monitoring program, which raises its reserve to 15% until it leaves the program.",
+      "sources": [
+        "fact-settlements-and-payouts.md",
+        "fact-refunds-and-disputes.md",
+        "thread-going-live.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "conflict-01",
+      "status": 200,
+      "latency_ms": 1646,
+      "answer": "Community members disagree. Elena Marsh (backend lead, Fernway) recommends webhooks, noting that ZoisPay retries failed deliveries 6 times over about 35 hours and that your endpoint must return a 2xx within 10 seconds, so queue the event and return 200 immediately. Tobias Lindgren (CTO, Quillbarrow) recommends polling, every 10 seconds until the payment is final, because it doesn't depend on webhook delivery, which failed for him when a bad deploy broke his signature check for two days.",
+      "sources": [
+        "thread-webhooks-vs-polling.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "conflict-02",
+      "status": 200,
+      "latency_ms": 1583,
+      "answer": "Community members Maya Oduya and Ahmed Raza both favor hosted checkout for a small team. Maya says it provides all four payment methods on day one with nothing to build, and that it only requires PCI SAQ A, while the direct API puts you on SAQ D, which is far more work. Ahmed plans to launch on hosted checkout and revisit the direct API later if the numbers warrant it.",
+      "sources": [
+        "thread-hosted-checkout-vs-direct-api.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "conflict-03",
+      "status": 200,
+      "latency_ms": 1556,
+      "answer": "Community members disagree. Lukas Weber (Brightmill) reports that moving from hosted checkout to the direct API raised his completion rate from 61% to 72%, citing redirects losing people, especially on mobile. Fatima Al-Mansoori (Dunecraft) doesn't claim a completion drop from redirects but notes that hosted sessions expire after 30 minutes, so customers who leave the tab open return to an expired page.",
+      "sources": [
+        "thread-hosted-checkout-vs-direct-api.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "conflict-04",
+      "status": 200,
+      "latency_ms": 1648,
+      "answer": "The community is split. Hiroshi Tanaka (engineer, Brewlane) recommends retrying aggressively on the same day: three retries within a few hours of the first failure, which he says recovers about 40% of failed renewals because most failures are temporary. Rohan Pillai (developer, Notewell) doesn't pick a schedule but advises spreading retries across the day rather than firing them all at once, since live accounts are limited to 100 requests per second and responses include a Retry-After header to respect.",
+      "sources": [
+        "thread-retrying-failed-payments.md"
+      ],
+      "error": null
+    },
+    {
+      "id": "conflict-05",
+      "status": 200,
+      "latency_ms": 1712,
+      "answer": "Community members disagree. Zara Sheikh asked whether the 12% fee is worth it for players without cards in Pakistan, but the thread doesn't give a verdict on that. Rebecca Williams, a finance lead, cautions against it: she says the 12% is only part of the cost, since carrier billing settles after 30 days (versus 2 business days for cards), refunds are only possible in full within 7 days, and digital goods sellers face a 15% reserve held for 120 days. Her team switched it off after one quarter because of cash flow.",
+      "sources": [
+        "thread-carrier-billing-worth-it.md",
+        "fact-pricing-and-fees.md"
+      ],
+      "error": null
+    }
+  ]
+}

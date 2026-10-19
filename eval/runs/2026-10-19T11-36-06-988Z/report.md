@@ -1,0 +1,47 @@
+# Eval Report: 2026-10-19T11-36-06-988Z
+
+**Quality score: 89 / 100** (75% fact recall + 25% source recall)
+
+## Run
+
+| Field | Value |
+|---|---|
+| Commit | 80931c9 |
+| Chat model | claude-haiku-5-5, temperature null |
+| Embedding model | nomic-embed-text |
+| Answer prompt | 2df73b108e32 |
+| Golden dataset | 17217ca2d167 |
+| Judge prompt | not judged |
+| Started | 2026-10-19T11:36:06.988Z |
+| Questions | 30 |
+
+## Scores by category
+
+| Category | Questions | Errors | Quality | Fact recall | Source recall | Refusals |
+|---|---|---|---|---|---|---|
+| single_fact | 20 | 0 | 91.3 | 90.0% | 95.0% | 10.0% |
+| multi_doc | 5 | 0 | 87.5 | 90.0% | 80.0% | 0.0% |
+| conflict | 5 | 0 | 81.3 | 75.0% | 100.0% | 0.0% |
+| **overall** | 30 | 0 | 89 | 87.5% | 93.3% | 6.7% |
+
+## Safety flags
+
+Answers containing a forbidden phrase. These are flags to review, not automatic failures: an answer can mention a wrong value to correct it.
+
+| ID | Question | Forbidden phrase |
+|---|---|---|
+| single-19 | How long is the refund window for mobile wallet payments? | 60 days |
+
+## 5 lowest-scoring questions
+
+| ID | Quality | Missing facts | Missing sources | Answer excerpt |
+|---|---|---|---|---|
+| single-05 | 25 | $5 | none | I don't know based on the community docs. |
+| single-07 | 25 | 6 settlement currencies | none | I don't know based on the community docs. |
+| multi-03 | 50 | 1% | fact-pricing-and-fees.md | Instant payouts become available after a merchant has processed live payments for 60 days, and they arrive within 30 minutes with a daily limit of $10,000. The… |
+| conflict-03 | 75 | Maya | none | Community members disagree. Lukas Weber (Brightmill) reports that moving from hosted checkout to the direct API raised his completion rate from 61% to 72%,… |
+| conflict-04 | 75 | Grace | none | The community is split. Hiroshi Tanaka (engineer, Brewlane) recommends retrying aggressively on the same day: three retries within a few hours of the first… |
+
+## Judge scores (advisory)
+
+Not judged. Run `npm run eval:judge` (about 50 minutes) to add LLM-judge scores.
