@@ -6,5 +6,5 @@
   "prompt_sha256": "2df73b108e32a6fc33100146bff91a46e3b38b36de7cd5e84efaa588ad7fb3ff",
   "golden_sha256": "17217ca2d167bccd4ba3d22c780aebd4a5dc54ccf2df6c8b3c6d717e93e5412a",
   "source": "CI: mean of 3 manual quality-gate runs on ubuntu-latest at 889c146 (89.0, 87.7, 87.7; 0 errors, about 15 min each)",
-  "note": "Calibrated on the CI runner (CPU-only Ollama 0.40.6). Local eval:all runs averaged 88.4 (89.0, 88.1, 88.1). Recalibrate when the model, embedding model, or golden questions change."
+  "note": "Calibrated on the CI runner (CPU-only Ollama 0.40.6). Verified on the pinned ubuntu-24.04 runner: PR #3 scored 87.7, within the calibration range. Local eval:all runs averaged 88.4 (89.0, 88.1, 88.1). Recalibrate when the model, embedding model, or golden questions change."
 }
