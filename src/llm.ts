@@ -44,9 +44,10 @@ function ollamaProvider(): LlmProvider {
 }
 
 // Claude via the Anthropic Messages API. Embeddings stay on EMBED_PROVIDER (Ollama).
+// LLM_TEMPERATURE=model-default sends no temperature, for models that reject the parameter.
 function anthropicProvider(): LlmProvider {
   const model = requireEnv("CHAT_MODEL");
-  const temperature = requireNumberEnv("LLM_TEMPERATURE");
+  const temperature = requireEnv("LLM_TEMPERATURE") === "model-default" ? null : requireNumberEnv("LLM_TEMPERATURE");
   const maxOutputTokens = requireNumberEnv("LLM_MAX_OUTPUT_TOKENS");
   const generate = createAnthropicClient({ apiKey: requireEnv("ANTHROPIC_API_KEY"), model, temperature, maxOutputTokens });
 

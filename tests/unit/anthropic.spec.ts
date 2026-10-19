@@ -81,6 +81,12 @@ test.describe("Anthropic client", () => {
     });
   });
 
+  test("leaves temperature out when it is null", async () => {
+    const h = harness([answer("Answer")], { temperature: null });
+    await h.generate("p");
+    expect(JSON.parse(h.calls[0].init.body as string)).not.toHaveProperty("temperature");
+  });
+
   test("returns the trimmed text and the token usage", async () => {
     const h = harness([answer("  Card payments settle in 2 business days.  ")]);
     expect(await h.generate("p")).toEqual({

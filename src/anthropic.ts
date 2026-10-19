@@ -20,7 +20,8 @@ export interface Generation {
 export interface AnthropicOptions {
   apiKey: string;
   model: string;
-  temperature: number;
+  // null leaves the field out: newer models (e.g. claude-haiku-5-5) reject `temperature`.
+  temperature: number | null;
   maxOutputTokens: number;
   url?: string;
   fetch?: typeof fetch;
@@ -71,7 +72,7 @@ export function createAnthropicClient(options: AnthropicOptions) {
     const body = JSON.stringify({
       model,
       max_tokens: maxOutputTokens,
-      temperature,
+      ...(temperature === null ? {} : { temperature }),
       messages: [{ role: "user", content: prompt }],
     });
 
