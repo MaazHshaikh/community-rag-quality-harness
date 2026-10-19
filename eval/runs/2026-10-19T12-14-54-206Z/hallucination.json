@@ -1,0 +1,158 @@
+{
+  "metadata": {
+    "kind": "hallucination",
+    "started_at": "2026-10-19T12:14:54.206Z",
+    "base_url": "http://localhost:3100",
+    "commit": "090e5ab",
+    "dirty": false,
+    "llm_provider": "anthropic",
+    "chat_model": "claude-haiku-5-5",
+    "temperature": null,
+    "max_output_tokens": 300,
+    "embed_provider": "ollama",
+    "embed_model": "nomic-embed-text",
+    "prompt_file": "prompts/answer.txt",
+    "prompt_sha256": "2df73b108e32a6fc33100146bff91a46e3b38b36de7cd5e84efaa588ad7fb3ff",
+    "extra_docs_dir": null,
+    "questions_file": "eval/hallucination.json",
+    "questions_sha256": "76a8fb79c98e9e1d29a5aab3427661e1f8cc7d17f1b1fd3d52aa0775f0b8fb63"
+  },
+  "summary": {
+    "questions": 8,
+    "counts": {
+      "exact_refusal": 6,
+      "hedged": 1,
+      "made_up": 1,
+      "error": 0
+    },
+    "refusal_rate": 0.75,
+    "hedged_rate": 0.125,
+    "made_up_rate": 0.125
+  },
+  "results": [
+    {
+      "id": "halluc-01",
+      "classification": "made_up",
+      "status": 200,
+      "latency_ms": 1622,
+      "answer": "A new merchant in a high-risk category falls under the high-risk rule: 15% of each settlement is held for 120 days, with no end date. The docs don't explicitly say which rule wins when both apply, so the context doesn't settle whether the new-merchant 10%/90-day reserve also applies.",
+      "sources": [
+        "fact-settlements-and-payouts.md",
+        "thread-going-live.md"
+      ],
+      "stop_reason": "end_turn",
+      "truncated": false,
+      "error": null,
+      "nearby_facts_used": [
+        "10%",
+        "15%",
+        "120 days"
+      ]
+    },
+    {
+      "id": "halluc-02",
+      "classification": "exact_refusal",
+      "status": 200,
+      "latency_ms": 1082,
+      "answer": "I don't know based on the community docs.",
+      "sources": [
+        "fact-pricing-and-fees.md",
+        "fact-settlements-and-payouts.md"
+      ],
+      "stop_reason": "end_turn",
+      "truncated": false,
+      "error": null,
+      "nearby_facts_used": []
+    },
+    {
+      "id": "halluc-03",
+      "classification": "exact_refusal",
+      "status": 200,
+      "latency_ms": 1564,
+      "answer": "I don't know based on the community docs.",
+      "sources": [
+        "fact-pricing-and-fees.md",
+        "thread-carrier-billing-worth-it.md"
+      ],
+      "stop_reason": "end_turn",
+      "truncated": false,
+      "error": null,
+      "nearby_facts_used": []
+    },
+    {
+      "id": "halluc-04",
+      "classification": "exact_refusal",
+      "status": 200,
+      "latency_ms": 1079,
+      "answer": "I don't know based on the community docs.",
+      "sources": [
+        "fact-api-and-integration.md"
+      ],
+      "stop_reason": "end_turn",
+      "truncated": false,
+      "error": null,
+      "nearby_facts_used": []
+    },
+    {
+      "id": "halluc-05",
+      "classification": "exact_refusal",
+      "status": 200,
+      "latency_ms": 970,
+      "answer": "I don't know based on the community docs.",
+      "sources": [
+        "thread-webhooks-vs-polling.md",
+        "fact-api-and-integration.md"
+      ],
+      "stop_reason": "end_turn",
+      "truncated": false,
+      "error": null,
+      "nearby_facts_used": []
+    },
+    {
+      "id": "halluc-06",
+      "classification": "hedged",
+      "status": 200,
+      "latency_ms": 1159,
+      "answer": "The context says each API version is supported for 12 months after a newer version replaces it, but it does not state how much notice ZoisPay gives before retiring a version.",
+      "sources": [
+        "fact-api-and-integration.md"
+      ],
+      "stop_reason": "end_turn",
+      "truncated": false,
+      "error": null,
+      "nearby_facts_used": [
+        "12 months"
+      ]
+    },
+    {
+      "id": "halluc-07",
+      "classification": "exact_refusal",
+      "status": 200,
+      "latency_ms": 1045,
+      "answer": "I don't know based on the community docs.",
+      "sources": [
+        "fact-pricing-and-fees.md",
+        "fact-refunds-and-disputes.md"
+      ],
+      "stop_reason": "end_turn",
+      "truncated": false,
+      "error": null,
+      "nearby_facts_used": []
+    },
+    {
+      "id": "halluc-08",
+      "classification": "exact_refusal",
+      "status": 200,
+      "latency_ms": 1013,
+      "answer": "I don't know based on the community docs.",
+      "sources": [
+        "fact-api-and-integration.md",
+        "fact-settlements-and-payouts.md"
+      ],
+      "stop_reason": "end_turn",
+      "truncated": false,
+      "error": null,
+      "nearby_facts_used": []
+    }
+  ]
+}
