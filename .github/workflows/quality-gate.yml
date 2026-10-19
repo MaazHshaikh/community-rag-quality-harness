@@ -100,6 +100,7 @@ jobs:
         if: steps.changes.outputs.run == 'true'
         run: |
           nohup ollama serve > ollama.log 2>&1 &
+          echo $! > "$RUNNER_TEMP/ollama.pid"
           for i in $(seq 1 30); do curl -sf http://localhost:11434/api/version && exit 0; sleep 1; done
           cat ollama.log
           exit 1
@@ -129,6 +130,7 @@ jobs:
         if: steps.changes.outputs.run == 'true'
         run: |
           nohup node --env-file=.env --import tsx src/server.ts > app.log 2>&1 &
+          echo $! > "$RUNNER_TEMP/app.pid"
           for i in $(seq 1 180); do curl -sf "$EVAL_BASE_URL/health" && exit 0; sleep 1; done
           cat app.log
           exit 1
@@ -170,3 +172,29 @@ jobs:
             ollama.log
           if-no-files-found: warn
           retention-days: 30
+
+      # The app and Ollama were started in the background and outlive their steps. One run hung
+      # for 20+ minutes in post-job cleanup with them still running (B6 in findings.md), so stop
+      # them here: politely first, then forcibly after 10 seconds.
+      - name: Stop background processes
+        if: always()
+        run: |
+          running() {
+            for p in $(cat "$RUNNER_TEMP/app.pid" "$RUNNER_TEMP/ollama.pid" 2>/dev/null) \
+              $(pgrep -f 'src/server.ts' || true) $(pgrep -x ollama || true); do
+              if kill -0 "$p" 2>/dev/null; then echo "$p"; fi
+            done | sort -u
+          }
+          # The PID files cover the processes this job started; pgrep also catches the model
+          # runners Ollama spawns, and anything whose PID file was never written.
+          pids=$(running)
+          if [ -z "$pids" ]; then echo "Nothing to stop."; exit 0; fi
+          echo "Stopping:" $pids
+          kill $pids 2>/dev/null || true
+          for i in $(seq 1 10); do
+            pids=$(running)
+            if [ -z "$pids" ]; then echo "All stopped."; exit 0; fi
+            sleep 1
+          done
+          echo "Still running after 10s, killing:" $pids
+          kill -9 $pids 2>/dev/null || true

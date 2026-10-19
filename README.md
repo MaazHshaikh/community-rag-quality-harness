@@ -62,7 +62,7 @@ npm run eval:chart            # rebuild eval/trend.html from eval/history.jsonl
 
 ## Current results
 
-- **Quality score: 88.1** (75% fact recall + 25% source recall). That's the mean of three CI runs (89.0, 87.7, 87.7); local runs give 88.1–89.0.
+- **Quality score: 87.1** (75% fact recall + 25% source recall). That's the CI baseline: the mean of three CI runs after the fact-matching fix (86.9, 88.1, 86.3; previously 88.1 with the old matcher). Local runs give 88.1–89.0.
 - **Failure-mode rates**, across three identical full runs: retrieval hit rate 96.7% every time, made-up answers 25–50% of unanswerable questions, injection compliance 33–44%, 0 unstable questions. Details: [eval/failure-modes.md](eval/failure-modes.md); trend: [eval/trend.html](eval/trend.html) (download and open in a browser).
 - **The gate works.** PR #4 gave `/ask` one chunk of context instead of three, a "speed-up" that the tests can't see. The type check and all Playwright tests passed; the quality gate scored it 65.0 against 88.1 and blocked it.
 

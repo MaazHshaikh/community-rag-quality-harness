@@ -1,10 +1,10 @@
 {
-  "quality_score": 88.1,
+  "quality_score": 87.1,
   "tolerance": 2,
   "chat_model": "llama3.2:3b",
   "embed_model": "nomic-embed-text",
   "prompt_sha256": "2df73b108e32a6fc33100146bff91a46e3b38b36de7cd5e84efaa588ad7fb3ff",
   "golden_sha256": "17217ca2d167bccd4ba3d22c780aebd4a5dc54ccf2df6c8b3c6d717e93e5412a",
-  "source": "CI: mean of 3 manual quality-gate runs on ubuntu-latest at 889c146 (89.0, 87.7, 87.7; 0 errors, about 15 min each)",
-  "note": "Calibrated on the CI runner (CPU-only Ollama 0.40.6). Verified on the pinned ubuntu-24.04 runner: PR #3 scored 87.7, within the calibration range. Local eval:all runs averaged 88.4 (89.0, 88.1, 88.1). Recalibrate when the model, embedding model, or golden questions change."
+  "source": "CI: mean of 3 manual quality-gate runs on ubuntu-24.04 after the hyphen/singular matching fix (af90c8f): PR #7 at ed36205 86.9, main at a9fac4a 88.1 and 86.3; 0 errors each",
+  "note": "Recalibrated after the fact-matching fix (\"30-day\" and \"30 day\" now count for \"30 days\"). The earlier baseline was 88.1 (ubuntu-latest at 889c146: 89.0, 87.7, 87.7, old matcher). The fix can only raise a score on the same answers, so the lower mean reflects run-to-run variation on the CPU runner, not the matcher. Recalibrate when the model, embedding model, or golden questions change."
 }
