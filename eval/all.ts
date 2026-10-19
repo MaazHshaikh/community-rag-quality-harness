@@ -207,10 +207,10 @@ async function main() {
       `${total.truncated ? `WARNING: ${total.truncated} answer(s) cut off at the output limit` : "no answers cut off"}`,
   );
 
-  await runScript("eval:failure-report");
-
   const created = [...listRuns()].filter((d) => !before.has(d)).sort();
   await runScript("eval:history", created);
+  // After the history line, so the report can find this pass. It describes the gated model only.
+  await runScript("eval:failure-report");
   console.log(`\neval:all finished in ${elapsed(started)} at commit ${commit}.`);
   console.log("New run folders:");
   for (const d of created) {

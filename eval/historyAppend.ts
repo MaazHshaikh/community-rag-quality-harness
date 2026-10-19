@@ -3,17 +3,19 @@
 // Each suite's file must appear in exactly one of the given folders.
 import { appendFileSync, existsSync, readFileSync } from "node:fs";
 import path from "node:path";
-import { HISTORY_FILE, type HistoryEntry, type RunDirs, type RunFiles, summarizeRun, type UsageFile } from "./history.js";
+import {
+  HISTORY_FILE,
+  type HistoryEntry,
+  RUN_FILE_NAMES,
+  type RunDirs,
+  type RunFiles,
+  summarizeRun,
+  USAGE_FILE_NAME,
+  type UsageFile,
+} from "./history.js";
 import { RUNS_DIR } from "./runDir.js";
 
-const FILES: Record<keyof RunFiles, string> = {
-  answers: "answers.json",
-  scores: "scores.json",
-  retrieval: "retrieval.json",
-  hallucination: "hallucination.json",
-  injection: "injection.json",
-  consistency: "consistency.json",
-};
+const FILES: Record<keyof RunFiles, string> = RUN_FILE_NAMES;
 
 const dirs = process.argv.slice(2).map((d) => path.basename(d));
 if (!dirs.length) {
@@ -34,7 +36,7 @@ for (const [suite, file] of Object.entries(FILES) as [keyof RunFiles, string][])
 }
 
 // Optional: eval:all writes usage.json since token counting was added; older passes have none.
-const USAGE_FILE = "usage.json";
+const USAGE_FILE = USAGE_FILE_NAME;
 const usageDirs = dirs.filter((d) => existsSync(path.join(RUNS_DIR, d, USAGE_FILE)));
 if (usageDirs.length > 1) {
   console.error(`Expected ${USAGE_FILE} in at most one of the given folders, found ${usageDirs.join(", ")}`);

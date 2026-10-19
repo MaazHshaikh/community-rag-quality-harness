@@ -25,6 +25,7 @@
     "eval:all": "tsx eval/all.ts",
     "eval:all:claude": "tsx eval/all.ts --layer .env.claude",
     "eval:history": "tsx eval/historyAppend.ts",
+    "eval:rescore": "tsx eval/rescore.ts",
     "eval:chart": "tsx eval/chart.ts",
     "eval:gate": "tsx eval/gate.ts"
   },

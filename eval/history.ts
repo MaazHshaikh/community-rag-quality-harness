@@ -5,6 +5,17 @@ import { headlineScore } from "./reporting.js";
 
 export const HISTORY_FILE = "eval/history.jsonl";
 
+// The file each suite writes into its run folder.
+export const RUN_FILE_NAMES = {
+  answers: "answers.json",
+  scores: "scores.json",
+  retrieval: "retrieval.json",
+  hallucination: "hallucination.json",
+  injection: "injection.json",
+  consistency: "consistency.json",
+} as const;
+export const USAGE_FILE_NAME = "usage.json";
+
 // The run files of one eval:all pass, as written by each suite.
 export interface RunFiles {
   answers: {

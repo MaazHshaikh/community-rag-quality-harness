@@ -4,9 +4,9 @@ import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { askQuestion, BASE_URL, connectToOllamaApp, git, isDirty, requireEnv, runIdFor } from "./appClient.js";
-import { consistencyStats, type ConsistencyStats, isRefusal, UNSTABLE_RANGE } from "./consistencyMetrics.js";
-import { classifyAnswer } from "./hallucinationClassifier.js";
-import { type GoldenEntry, normalize, scoreAnswer } from "./scoring.js";
+import { UNSTABLE_RANGE } from "./consistencyMetrics.js";
+import { type QuestionResult as ScoredQuestion, scoreAttempt, summarizeQuestion } from "./consistencyScoring.js";
+import { type GoldenEntry, normalize } from "./scoring.js";
 
 const CONFIG_FILE = "eval/consistency.json";
 
@@ -27,13 +27,7 @@ interface Attempt {
   refused: boolean;
 }
 
-interface QuestionResult {
-  id: string;
-  category: string;
-  attempts: Attempt[];
-  stats: ConsistencyStats | null;
-  errors: number;
-}
+type QuestionResult = ScoredQuestion<Attempt>;
 
 function loadConfig(goldenById: Map<string, GoldenEntry>): { config: Config; text: string } {
   const text = readFileSync(CONFIG_FILE, "utf8");
@@ -50,8 +44,7 @@ function loadConfig(goldenById: Map<string, GoldenEntry>): { config: Config; tex
 
 async function attempt(entry: GoldenEntry, question: string, token: string): Promise<Attempt> {
   const outcome = await askQuestion(question, token);
-  const score = scoreAnswer(entry, { id: entry.id, ...outcome });
-  const cls = classifyAnswer(outcome.error ? null : outcome.answer);
+  const score = scoreAttempt(entry, outcome);
   return {
     question,
     status: outcome.status,
@@ -60,20 +53,7 @@ async function attempt(entry: GoldenEntry, question: string, token: string): Pro
     error: outcome.error,
     stop_reason: outcome.stop_reason,
     truncated: outcome.truncated,
-    fact_recall: score.fact_recall,
-    refused: isRefusal(cls, score.fact_recall),
-  };
-}
-
-function summarize(entry: GoldenEntry, attempts: Attempt[]): QuestionResult {
-  // Failed requests are counted but left out of the statistics; they measure uptime, not consistency.
-  const ok = attempts.filter((a) => a.error === null);
-  return {
-    id: entry.id,
-    category: entry.category,
-    attempts,
-    stats: ok.length ? consistencyStats(ok) : null,
-    errors: attempts.length - ok.length,
+    ...score,
   };
 }
 
@@ -120,7 +100,7 @@ async function main() {
       attempts.push(a);
       progress(id, a);
     }
-    repeat.push(summarize(entry, attempts));
+    repeat.push(summarizeQuestion(entry, attempts));
   }
 
   const paraphrase: QuestionResult[] = [];
@@ -132,7 +112,7 @@ async function main() {
       attempts.push(a);
       progress(p.id, a);
     }
-    paraphrase.push(summarize(entry, attempts));
+    paraphrase.push(summarizeQuestion(entry, attempts));
   }
 
   const runDir = path.join("eval", "runs", runIdFor(startedAt));

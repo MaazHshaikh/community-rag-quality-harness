@@ -62,6 +62,30 @@ test.describe("containsPhrase", () => {
     expect(containsPhrase("a 7-day grace period", "7 day")).toBe(true);
   });
 
+  test("matches the hyphenated and singular forms of a quantity", () => {
+    expect(containsPhrase("Mobile wallets have a 30-day refund window.", "30 days")).toBe(true);
+    expect(containsPhrase("a 30 day refund window", "30 days")).toBe(true);
+    expect(containsPhrase("a 7-day refund window", "7 days")).toBe(true);
+    expect(containsPhrase("a 30-calendar-day window", "30 calendar days")).toBe(true);
+    expect(containsPhrase("a 24-hour payout", "24 hours")).toBe(true);
+    expect(containsPhrase("in one settlement currency", "1 settlement currencies")).toBe(true);
+    expect(containsPhrase("6 settlement currencies", "6 settlement currencies")).toBe(true);
+  });
+
+  test("the singular form still needs the same number and unit", () => {
+    expect(containsPhrase("a 3-day window", "30 days")).toBe(false);
+    expect(containsPhrase("a 300-day window", "30 days")).toBe(false);
+    expect(containsPhrase("a 30-week window", "30 days")).toBe(false);
+    expect(containsPhrase("a 30-dayx window", "30 days")).toBe(false);
+  });
+
+  test("only quantity phrases lose their plural; names and plain words stay exact", () => {
+    expect(containsPhrase("Toby said so", "Tobias")).toBe(false);
+    expect(containsPhrase("Tobia said so", "Tobias")).toBe(false);
+    expect(containsPhrase("Set up a webhook", "webhooks")).toBe(false);
+    expect(containsPhrase("the United State", "United States")).toBe(false);
+  });
+
   test("matches number words against digit facts", () => {
     expect(containsPhrase("Scale includes three seats.", "3 seats")).toBe(true);
   });
