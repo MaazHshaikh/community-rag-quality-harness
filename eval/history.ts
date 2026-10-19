@@ -1,5 +1,6 @@
 // Pure helpers for eval/history.jsonl: one summary line per full eval:all run, and the change
 // markers the trend chart draws. Kept free of file I/O so they can be unit-tested.
+import type { UsageCounts } from "./cost.js";
 import { headlineScore } from "./reporting.js";
 
 export const HISTORY_FILE = "eval/history.jsonl";
@@ -40,7 +41,16 @@ interface ConsistencyQuestion {
   errors: number;
 }
 
-export type RunDirs = Record<keyof RunFiles, string>;
+// Written by eval:all itself: tokens the app reported for each suite, and the estimated cost.
+export interface UsageFile {
+  commit: string;
+  chat_model: string | null;
+  total: UsageCounts;
+  estimated_cost_usd: number | null;
+}
+
+// `usage` is optional: runs from before token counting have no usage.json.
+export type RunDirs = Record<keyof RunFiles, string> & { usage?: string };
 
 export interface HistoryEntry {
   date: string;
@@ -58,6 +68,11 @@ export interface HistoryEntry {
   unstable_questions: number;
   // Failed requests across all suites; a non-zero count means the rates above are less reliable.
   request_errors: number;
+  // Answered requests and their tokens across all suites. Missing in lines from before token
+  // counting; null when the pass had no usage file.
+  tokens?: { requests: number; input: number; output: number } | null;
+  // API cost at the list price; 0 for local models, null if unknown.
+  estimated_cost_usd?: number | null;
   runs: RunDirs;
 }
 
@@ -65,7 +80,7 @@ const round3 = (v: number) => Math.round(v * 1000) / 1000;
 
 // One history line from one eval:all pass. Throws if the runs can't be compared as a set:
 // different commits, uncommitted changes, or a different model, prompt, or golden dataset.
-export function summarizeRun(files: RunFiles, runs: RunDirs): HistoryEntry {
+export function summarizeRun(files: RunFiles, runs: RunDirs, usage?: UsageFile): HistoryEntry {
   const a = files.answers.metadata;
   const suites = { retrieval: files.retrieval, hallucination: files.hallucination, injection: files.injection, consistency: files.consistency };
 
@@ -80,6 +95,8 @@ export function summarizeRun(files: RunFiles, runs: RunDirs): HistoryEntry {
     if (m.prompt_sha256 !== undefined && m.prompt_sha256 !== a.prompt_sha256) problems.push(`${name} used a different prompt`);
     if (m.golden_sha256 !== undefined && m.golden_sha256 !== files.scores.golden_sha256) problems.push(`${name} used a different golden dataset`);
   }
+  if (usage && usage.commit !== a.commit) problems.push(`usage is at commit ${usage.commit}, answers at ${a.commit}`);
+  if (usage && usage.chat_model !== a.chat_model) problems.push(`usage is for model ${usage.chat_model}, answers ${a.chat_model}`);
   if (problems.length) throw new Error(`Runs can't be summarized together:\n  ${problems.join("\n  ")}`);
 
   const overall = files.scores.summary.overall;
@@ -102,6 +119,8 @@ export function summarizeRun(files: RunFiles, runs: RunDirs): HistoryEntry {
     unstable_questions: consistency.filter((q) => q.stats?.unstable).length,
     request_errors:
       overall.errors + files.hallucination.summary.counts.error + inj.error + consistency.reduce((n, q) => n + q.errors, 0),
+    tokens: usage ? { requests: usage.total.requests, input: usage.total.input_tokens, output: usage.total.output_tokens } : null,
+    estimated_cost_usd: usage ? usage.estimated_cost_usd : null,
     runs,
   };
 }

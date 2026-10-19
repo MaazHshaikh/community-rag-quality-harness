@@ -1,3 +1,4 @@
+import { createAnthropicClient, type Generation } from "./anthropic.js";
 import { requireEnv, requireNumberEnv } from "./env.js";
 import { llmUnavailable } from "./errors.js";
 import { postToOllama } from "./ollama.js";
@@ -16,7 +17,7 @@ export interface LlmInfo {
 
 export interface LlmProvider {
   info: LlmInfo;
-  generate(request: GenerateRequest): Promise<string>;
+  generate(request: GenerateRequest): Promise<Generation>;
 }
 
 function ollamaProvider(): LlmProvider {
@@ -28,14 +29,30 @@ function ollamaProvider(): LlmProvider {
   return {
     info: { provider: "ollama", chat_model: model, temperature, max_output_tokens: maxOutputTokens },
     async generate({ prompt }) {
-      const data = await postToOllama<{ message: { content: string } }>(ollamaUrl, "/api/chat", {
+      const data = await postToOllama<{ message: { content: string }; prompt_eval_count?: number; eval_count?: number }>(ollamaUrl, "/api/chat", {
         model,
         messages: [{ role: "user", content: prompt }],
         stream: false,
         options: { temperature, num_predict: maxOutputTokens },
       });
-      return data.message.content.trim();
+      return {
+        text: data.message.content.trim(),
+        usage: { input_tokens: data.prompt_eval_count ?? 0, output_tokens: data.eval_count ?? 0 },
+      };
     },
+  };
+}
+
+// Claude via the Anthropic Messages API. Embeddings stay on EMBED_PROVIDER (Ollama).
+function anthropicProvider(): LlmProvider {
+  const model = requireEnv("CHAT_MODEL");
+  const temperature = requireNumberEnv("LLM_TEMPERATURE");
+  const maxOutputTokens = requireNumberEnv("LLM_MAX_OUTPUT_TOKENS");
+  const generate = createAnthropicClient({ apiKey: requireEnv("ANTHROPIC_API_KEY"), model, temperature, maxOutputTokens });
+
+  return {
+    info: { provider: "anthropic", chat_model: model, temperature, max_output_tokens: maxOutputTokens },
+    generate: ({ prompt }) => generate(prompt),
   };
 }
 
@@ -50,7 +67,7 @@ function stubProvider(): LlmProvider {
         console.error("Stub LLM: simulated outage");
         throw llmUnavailable();
       }
-      return `Stub answer for: ${question}`;
+      return { text: `Stub answer for: ${question}`, usage: null };
     },
   };
 }
@@ -60,10 +77,12 @@ function createProvider(): LlmProvider {
   switch (provider) {
     case "ollama":
       return ollamaProvider();
+    case "anthropic":
+      return anthropicProvider();
     case "stub":
       return stubProvider();
     default:
-      throw new Error(`Unsupported LLM_PROVIDER "${provider}". Supported: ollama, stub.`);
+      throw new Error(`Unsupported LLM_PROVIDER "${provider}". Supported: ollama, anthropic, stub.`);
   }
 }
 

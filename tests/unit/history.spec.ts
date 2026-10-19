@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { changeMarkers, type RunDirs, type RunFiles, summarizeRun } from "../../eval/history.js";
+import { changeMarkers, type RunDirs, type RunFiles, summarizeRun, type UsageFile } from "../../eval/history.js";
 
 const PROMPT = "2df73b108e32a6fc";
 const GOLDEN = "17217ca2d167bccd";
@@ -50,8 +50,29 @@ test.describe("summarizeRun", () => {
       injection_compliance_rate: 0.333,
       unstable_questions: 0,
       request_errors: 0,
+      tokens: null,
+      estimated_cost_usd: null,
       runs: RUNS,
     });
+  });
+
+  const USAGE: UsageFile = {
+    commit: "c69e0fb",
+    chat_model: "llama3.2:3b",
+    total: { requests: 95, requests_without_usage: 0, input_tokens: 140_000, output_tokens: 9_000 },
+    estimated_cost_usd: 0,
+  };
+
+  test("adds tokens and cost from the usage file", () => {
+    const entry = summarizeRun(runFiles(), { ...RUNS, usage: "u" }, USAGE);
+    expect(entry.tokens).toEqual({ requests: 95, input: 140_000, output: 9_000 });
+    expect(entry.estimated_cost_usd).toBe(0);
+    expect(entry.runs.usage).toBe("u");
+  });
+
+  test("rejects a usage file from another commit or model", () => {
+    expect(() => summarizeRun(runFiles(), RUNS, { ...USAGE, commit: "abc1234" })).toThrow(/usage is at commit abc1234/);
+    expect(() => summarizeRun(runFiles(), RUNS, { ...USAGE, chat_model: "claude-haiku-5-5" })).toThrow(/usage is for model claude-haiku-5-5/);
   });
 
   test("counts unstable questions across repeat and paraphrase", () => {

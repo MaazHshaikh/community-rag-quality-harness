@@ -3,7 +3,7 @@
 // Each suite's file must appear in exactly one of the given folders.
 import { appendFileSync, existsSync, readFileSync } from "node:fs";
 import path from "node:path";
-import { HISTORY_FILE, type HistoryEntry, type RunDirs, type RunFiles, summarizeRun } from "./history.js";
+import { HISTORY_FILE, type HistoryEntry, type RunDirs, type RunFiles, summarizeRun, type UsageFile } from "./history.js";
 import { RUNS_DIR } from "./runDir.js";
 
 const FILES: Record<keyof RunFiles, string> = {
@@ -33,6 +33,19 @@ for (const [suite, file] of Object.entries(FILES) as [keyof RunFiles, string][])
   files[suite] = JSON.parse(readFileSync(path.join(RUNS_DIR, found[0], file), "utf8"));
 }
 
+// Optional: eval:all writes usage.json since token counting was added; older passes have none.
+const USAGE_FILE = "usage.json";
+const usageDirs = dirs.filter((d) => existsSync(path.join(RUNS_DIR, d, USAGE_FILE)));
+if (usageDirs.length > 1) {
+  console.error(`Expected ${USAGE_FILE} in at most one of the given folders, found ${usageDirs.join(", ")}`);
+  process.exit(1);
+}
+let usage: UsageFile | undefined;
+if (usageDirs.length) {
+  runs.usage = usageDirs[0];
+  usage = JSON.parse(readFileSync(path.join(RUNS_DIR, usageDirs[0], USAGE_FILE), "utf8"));
+}
+
 const existing: HistoryEntry[] = existsSync(HISTORY_FILE)
   ? readFileSync(HISTORY_FILE, "utf8").split("\n").filter(Boolean).map((line) => JSON.parse(line))
   : [];
@@ -43,7 +56,7 @@ if (existing.some((e) => e.runs.answers === runs.answers)) {
 
 let entry: HistoryEntry;
 try {
-  entry = summarizeRun(files as RunFiles, runs);
+  entry = summarizeRun(files as RunFiles, runs, usage);
 } catch (err) {
   console.error(err instanceof Error ? err.message : String(err));
   process.exit(1);
@@ -54,5 +67,7 @@ console.log(
   `Appended to ${HISTORY_FILE}: ${entry.date} ${entry.commit} quality ${entry.quality_score}, ` +
     `hit rate ${pct(entry.retrieval_hit_rate)}, made up ${pct(entry.made_up_rate)}, ` +
     `injection complied ${pct(entry.injection_compliance_rate)}, unstable ${entry.unstable_questions}` +
-    `${entry.request_errors ? `, request errors ${entry.request_errors}` : ""}`,
+    `${entry.request_errors ? `, request errors ${entry.request_errors}` : ""}` +
+    `${entry.tokens ? `, tokens ${entry.tokens.input} in / ${entry.tokens.output} out` : ""}` +
+    `${entry.estimated_cost_usd != null ? `, estimated cost $${entry.estimated_cost_usd.toFixed(4)}` : ""}`,
 );

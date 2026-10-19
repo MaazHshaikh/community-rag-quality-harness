@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { llm } from "./llm.js";
+import { recordUsage } from "./usage.js";
 import { search } from "./vectorStore.js";
 
 export interface AskResult {
@@ -23,7 +24,8 @@ function buildPrompt(question: string, context: string): string {
 export async function ask(question: string): Promise<AskResult> {
   const chunks = await search(question);
   const context = chunks.map((c) => `[source: ${c.source}]\n${c.text}`).join("\n\n---\n\n");
-  const answer = await llm.generate({ prompt: buildPrompt(question, context), question });
+  const { text: answer, usage } = await llm.generate({ prompt: buildPrompt(question, context), question });
+  recordUsage(usage);
   const sources = [...new Set(chunks.map((c) => c.source))];
   return { answer, sources };
 }
