@@ -49,7 +49,11 @@ function anthropicProvider(): LlmProvider {
   const model = requireEnv("CHAT_MODEL");
   const temperature = requireEnv("LLM_TEMPERATURE") === "model-default" ? null : requireNumberEnv("LLM_TEMPERATURE");
   const maxOutputTokens = requireNumberEnv("LLM_MAX_OUTPUT_TOKENS");
-  const generate = createAnthropicClient({ apiKey: requireEnv("ANTHROPIC_API_KEY"), model, temperature, maxOutputTokens });
+  const thinking = process.env.ANTHROPIC_THINKING || null;
+  if (thinking !== null && thinking !== "disabled" && thinking !== "adaptive") {
+    throw new Error(`ANTHROPIC_THINKING must be "disabled" or "adaptive", or unset for the model's default.`);
+  }
+  const generate = createAnthropicClient({ apiKey: requireEnv("ANTHROPIC_API_KEY"), model, temperature, maxOutputTokens, thinking });
 
   return {
     info: { provider: "anthropic", chat_model: model, temperature, max_output_tokens: maxOutputTokens },

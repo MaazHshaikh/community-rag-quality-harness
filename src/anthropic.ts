@@ -23,6 +23,9 @@ export interface AnthropicOptions {
   // null leaves the field out: newer models (e.g. claude-haiku-5-5) reject `temperature`.
   temperature: number | null;
   maxOutputTokens: number;
+  // "disabled" turns thinking off; null leaves the model's default (adaptive thinking on newer
+  // models, whose thinking tokens count against maxOutputTokens and can leave no answer).
+  thinking?: "disabled" | "adaptive" | null;
   url?: string;
   fetch?: typeof fetch;
   sleep?: (ms: number) => Promise<void>;
@@ -59,6 +62,7 @@ export function createAnthropicClient(options: AnthropicOptions) {
     model,
     temperature,
     maxOutputTokens,
+    thinking = null,
     url = ANTHROPIC_URL,
     fetch: doFetch = fetch,
     sleep = realSleep,
@@ -73,6 +77,7 @@ export function createAnthropicClient(options: AnthropicOptions) {
       model,
       max_tokens: maxOutputTokens,
       ...(temperature === null ? {} : { temperature }),
+      ...(thinking === null ? {} : { thinking: { type: thinking } }),
       messages: [{ role: "user", content: prompt }],
     });
 
@@ -93,11 +98,13 @@ export function createAnthropicClient(options: AnthropicOptions) {
       if (response.ok) {
         const data = (await response.json().catch(() => null)) as {
           content?: { type: string; text?: string }[];
+          stop_reason?: string | null;
           usage?: { input_tokens?: number; output_tokens?: number };
         } | null;
         const text = data?.content?.filter((block) => block.type === "text").map((block) => block.text ?? "").join("");
         if (!text) {
-          console.error("Anthropic API returned no text content");
+          const blocks = data?.content?.map((block) => block.type).join(", ") || "none";
+          console.error(`Anthropic API returned no text content (stop_reason: ${data?.stop_reason ?? "none"}, blocks: ${blocks})`);
           throw llmUnavailable();
         }
         const usage = data?.usage

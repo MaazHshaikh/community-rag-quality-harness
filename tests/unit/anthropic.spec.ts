@@ -87,6 +87,22 @@ test.describe("Anthropic client", () => {
     expect(JSON.parse(h.calls[0].init.body as string)).not.toHaveProperty("temperature");
   });
 
+  test("sends the thinking setting only when one is given", async () => {
+    const off = harness([answer("Answer")], { thinking: "disabled" });
+    await off.generate("p");
+    expect(JSON.parse(off.calls[0].init.body as string).thinking).toEqual({ type: "disabled" });
+
+    const unset = harness([answer("Answer")]);
+    await unset.generate("p");
+    expect(JSON.parse(unset.calls[0].init.body as string)).not.toHaveProperty("thinking");
+  });
+
+  test("an answer that is all thinking (cut off by max_tokens) is a 503 that says why", async () => {
+    const h = harness([ok({ content: [{ type: "thinking", thinking: "..." }], stop_reason: "max_tokens", usage: { input_tokens: 900, output_tokens: 300 } })]);
+    await expect503(h.generate("p"));
+    expect(logs.join("\n")).toContain("stop_reason: max_tokens, blocks: thinking");
+  });
+
   test("returns the trimmed text and the token usage", async () => {
     const h = harness([answer("  Card payments settle in 2 business days.  ")]);
     expect(await h.generate("p")).toEqual({
