@@ -24,7 +24,7 @@ function buildPrompt(question: string, context: string): string {
 }
 
 export async function ask(question: string): Promise<AskResult> {
-  const chunks = await search(question);
+  const chunks = await search(question, 1);
   const context = chunks.map((c) => `[source: ${c.source}]\n${c.text}`).join("\n\n---\n\n");
   const { text: answer, usage, stop_reason, truncated } = await llm.generate({ prompt: buildPrompt(question, context), question });
   recordUsage(usage, truncated);
